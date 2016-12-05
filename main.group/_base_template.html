@@ -1,0 +1,35 @@
+{!--- Base Template
+	This is the required base for creating a template. Fill in content for the new template's purpose!
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+	<title>
+	{!-- Enter title here --} | RJI
+	</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li class="active">{!-- Page name here --}</li>
+</ol>
+
+<div id="main-section" class="container">
+<div class="row">
+    
+	<div class="col-md-8 col-sm-12">
+     
+		{!-- Custom page content goes here --}
+    
+    </div>
+    
+    <div id="sidebar" class="col-md-4 hidden-sm hidden-xs"> 
+  		{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="YES" tags="YES"}
+    </div>
+	
+</div>
+</div>
+
+{page_end}

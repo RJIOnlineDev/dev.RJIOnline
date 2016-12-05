@@ -1,0 +1,71 @@
+{exp:channel:entries
+	channel="projects|research"
+	limit="1"
+	require_entry="yes"
+	disable="member_data|category_fields|pagination"
+	show_expired="yes"
+	cache="no"
+	refresh="700"
+	status="closed|open|draft|submitted|preview"}
+	{exp:stash:set_list name="related_stories" parse_tags="yes"}
+		{proj_related_stories}
+			{stash:stories_title}{proj_related_stories:title}{/stash:stories_title}
+			{if proj_related_stories:page_url != ''}{stash:stories_page_url}{proj_related_stories:page_url}{/stash:stories_page_url}{if:else}{stash:stories_page_url}{proj_related_stories:comment_url_title_auto_path}{/stash:stories_page_url}{/if}
+			{if proj_related_stories:news_image}{stash:stories_news_image}{proj_related_stories:news_image}{/stash:stories_news_image}{if:else}{stash:stories_news_image}{default_img_src}{/stash:stories_news_image}{/if}
+			{stash:stories_post_series}{proj_related_stories:post_series}{/stash:stories_post_series}
+			{stash:stories_entry_date}{proj_related_stories:entry_date format="%F %j, %Y"}{/stash:stories_entry_date}
+			{stash:stories_teaser}{proj_related_stories:teaser}{/stash:stories_teaser}
+		{/proj_related_stories}
+	{/exp:stash:set_list}
+    {exp:stash:parse}
+        {exp:stash:get_list 
+        	name="related_stories" 
+            prefix="related_stories" 
+            parse_conditionals="yes" 
+            parse_tags="yes" 
+            paginate="bottom" 
+            paginate_base = "projects/related_stories"
+            limit="10"}
+            {if related_stories:count == 1}
+                <h3 class="secondary">Stories about {title}</h3>
+                <div class="card-bg">
+                  <ul class="media-list" id="recent-posts">
+                    {/if}
+                    <li class="media card">
+
+                      <a href="{related_stories:stories_page_url}" class="pull-left">
+                        <img src="{related_stories:stories_news_image}" alt="{related_stories:stories_title}" title="{related_stories:stories_title}" class="img-responsive"/>
+                      </a>
+
+                      <div class="media-body">
+                        <h4 class="media-heading">{if related_stories:stories_post_series != ""}<span class="small capitalize">{related_stories:stories_post_series}</span><br>{/if}<a class="media-heading" href="{related_stories:stories_page_url}">{related_stories:stories_title}</a>
+                          {!-- If statement below checks if there is a start time (it is an event) and gives the event start/finish but if not (it is a post) and displays author and publish date --}
+                          <br /><span class="small capitalize">
+                          {related_stories:stories_entry_date}
+                          </span></h4>
+                        <span>{related_stories:stories_teaser}</span> {!-- Only appears if it is from Event channel --}
+                      </div> {!-- ends .media-body --}
+
+                    </li> {!-- ends .media entry --}
+
+                    {if related_stories:count == related_stories:total_results}
+                  </ul>
+                </div>
+            {!--/if--}
+                {related_stories:paginate}
+                    {pagination_links}
+                    <ul class="pager">
+                        {previous_page}
+                                <li class="previous"><a href="{pagination_url}">&larr; Previous Stories</a></li>
+                        {/previous_page}
+
+                        {next_page}
+                                <li class="next"><a href="{pagination_url}">Next Stories &rarr;</a></li>
+                        {/next_page}
+                    </ul>
+                    {/pagination_links}
+                {/related_stories:paginate}
+            {/if}
+        {/exp:stash:get_list}
+    {/exp:stash:parse}
+{/exp:channel:entries}

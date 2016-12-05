@@ -1,0 +1,22 @@
+{exp:calendar:events event_id="{embed:entry_id}"}
+
+<script type="application/ld+json">
+		  {
+			"@context": "http://schema.org",
+			"@type": "Event",
+			"name": "{title}",
+			"startDate" : "{event_start_date format="%Y-%m-%dT%H:%i"}",
+			"endDate" : "{event_end_date format="%Y-%m-%dT%H:%i"}",
+			"organizer" : {rji_org_json},
+			"url" : "{comment_url_title_auto_path}",
+			"description": "{event_teaser}",
+			"location" : {
+			  "@type" : "Place",
+			  "sameAs" : "https://www.rjionline.org",
+			  "name" : "Reynolds Journalism Institute",
+			  "address" : "401 S 9th St, Columbia, MO 65201"
+			}
+		  }
+</script>
+
+{/exp:calendar:events}

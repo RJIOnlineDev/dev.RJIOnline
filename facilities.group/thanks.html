@@ -1,0 +1,37 @@
+{!--- Base Template
+	This is the required base for creating a template. Fill in content for the new template's purpose!
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+	<title>
+	Thanks | RJI
+	</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path='facilities/index'}">Facilities</a></li>
+	<li class="active">Thank you</li>
+</ol>
+
+<div id="main-section" class="container">
+<div class="row">
+    
+	<div class="col-md-8 col-sm-12">
+     
+		<div class="page-header"><h2>Thank you</h2></div>
+		<p class="alert alert-info">Please allow up to <strong>3 business days</strong> for a reply to your request.</p>
+    
+    </div>
+    
+    <div id="sidebar" class="col-md-4 hidden-sm hidden-xs nocontent"> 
+  		{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="NO" tags="NO" section="stories"}
+    </div>
+	
+</div>
+</div>
+
+{page_end}

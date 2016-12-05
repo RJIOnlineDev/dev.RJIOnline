@@ -1,0 +1,59 @@
+{!--- Base Template
+	This is the required base for creating a template. Fill in content for the new template's purpose!
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+	<title>
+	Thank you | RJI
+	</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path="downloads/index"}">Downloads</a></li>
+	<li>Confirm</li>
+	<li class="active">Download</li>
+</ol>
+<div id="main-section" class="container">
+<div class="row">
+    
+	<div class="col-md-8 col-sm-12">
+	
+		<div class="page-header"><h2>Thank you</h2></div>
+		
+		{exp:store:orders order_hash="{segment_3}"}
+		
+		{items}
+		<p>
+			Thank you for downloading <em>{title}</em>. Your download should start automatically, if it doesn't, please click
+			{exp:channel:entries entry_id="{entry_id}" dynamic="no"}
+			{exp:store:download order_id="{order_id}" url="{doc_file}" id="download-link"}here{/exp:store:download}{/exp:channel:entries}.
+		</p>
+		
+		{if logged_in}
+		<p>You can always view your download history and even redownload past downloads from <a href="{path='user/profile'}">your profile</a>.</p>
+		{/if}
+		
+		{embed="downloads/_related_entries" entry_id="{entry_id}"}
+		{/items}
+		
+		<script>
+        	setTimeout(function() {
+  				window.location = $('#download-link').attr('href');
+			}, 2000);
+        </script>
+		
+		{/exp:store:orders}
+    
+    </div>
+    
+    <div id="sidebar" class="col-md-4 hidden-sm hidden-xs"> 
+  		{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="NO" tags="NO"}
+    </div>
+	
+</div>
+</div>
+
+{page_end}

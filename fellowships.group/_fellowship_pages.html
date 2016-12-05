@@ -1,0 +1,68 @@
+{!-- Fellowship pages
+	Used to display entries in the Pages channel for custom static pages with custom URLs.
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+	{exp:channel:entries channel="pages" dynamic="on" limit="1" require_entry="yes" disable="categories|member_data|pagination"}
+	<title>RJI Fellowships: {title} | RJI</title>
+	{exp:tracker:track entry_id="{entry_id}"}
+	{if segment_1 == "live"}
+		{exp:member_page_tracker:log entry_id="{entry_id}"}
+	{/if}
+	{head_content}
+{html_head_end}	
+
+<body>
+
+{embed="main/_navbar"}
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="/fellowships">Fellowships</a></li>
+	<li class="active">{title}</li>
+</ol>
+{if page_header}
+{page_header}
+{if {ress} > 970}
+{!--<img class="img-responsive" style="width: 100%; margin-bottom: 2em;" src={url} />--}
+<div 	style=" background-image: url({url}); margin-top: -15px" id="page-header-img" class="hidden-xs hidden-sm">
+</div>
+{/if}
+{/page_header}
+{/if}
+
+<div id="main-section" class="container">
+
+{!-- If there is to be no sidebar, we want to ensure that the page body takes up the entire width of #main-section --}
+{if "{sidebar_options}" == "None" }
+{if:else}
+<div class="row">
+    	<div class="col-md-8 col-sm-12">
+{/if}
+
+		<div class="page-header"><h2>RJI Fellowships: {title}</h2></div>
+    		{!--social_share_buttons--}
+			{page_body}
+    	</div>
+    
+		{if "{sidebar_options}" != "None" }
+		  {if "{sidebar_options}" == "Default"}
+			  <div id="sidebar" class="col-md-4 hidden-sm hidden-xs">
+				  {if "{page_series}" != ""}
+				  	  {exp:stash:set name="series_title" type="snippet"}{page_series}{/exp:stash:set}
+				  {/if}
+					  {embed="main/_sidebar" recent="YES" events="YES" topics="NO"}
+		  {if:elseif "{sidebar_options}" == "Custom"}
+			  {!-- If custom sidebar, we want it at bottom of page on mobile, usually useful info --}
+			  <div id="sidebar" class="col-md-4 col-xs-12"> 
+				  {custom_sidebar}
+		  {/if}
+			  </div>
+
+	</div>
+		{/if}
+
+    {/exp:channel:entries}
+	
+</div>
+
+{page_end}

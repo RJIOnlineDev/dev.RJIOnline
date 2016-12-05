@@ -1,0 +1,68 @@
+{!--- projects/recent
+	Shows recent projects posts. Used for pagination
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+
+	<title>
+		Recent Projects | RJI
+	</title>
+
+	{head_content}
+
+{html_head_end}	
+
+<body>
+
+{embed="main/_navbar"}
+
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="/projects">Projects</a></li>
+	<li class="active">Recent</li>
+</ol>
+
+
+<div id="main-section" class="container">
+
+	<div class="row">
+
+		<div id="primary-section" class="col-md-8 col-sm-12">
+		
+			<div class="page-header">
+			
+				<h2>Recent Projects</h2>
+			
+			</div>
+		
+			<div class="card-bg">
+
+				<ul id="recent-posts" class="media-list">
+
+					{exp:channel:entries channel="projects|research" sticky="no" status="open" limit="10" disable="categories|member_data|category_fields" cache="no" refresh="100"}
+
+						{if no_results}<p>No Results</p>{/if}
+
+						{rji_media_list}
+
+						{pagination_snippet}
+
+					{/exp:channel:entries}
+
+				</ul>
+			
+			</div>
+		
+  		</div> {!-- ends primary section --}
+		
+        <div id="sidebar" class="col-md-4 hidden-sm hidden-xs"> 
+
+				{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="YES" tags="YES" section="projects"}
+
+ 		</div>
+
+	</div> {!-- ends .row --}
+
+</div> {!-- ends #main-section --}
+	
+{page_end}

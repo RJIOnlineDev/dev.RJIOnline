@@ -1,0 +1,215 @@
+{exp:channel:entries
+	channel="projects|research"
+	limit="1"
+	require_entry="yes"
+	disable="member_data|category_fields|pagination"
+	show_expired="yes"
+	cache="no"
+	refresh="700"
+	status="closed|open|draft|submitted|preview"}
+{if embed:ajax != "yes"}
+{html_head}
+
+	{!-- Display story title in the browser tab --}
+	<title>{title} | RJI</title>
+
+	{!-- Create meta tags for SEO and social media sharing. There are to keywords meta tag; that tag is no longer used. --}
+	<meta name="description" content="{proj_teaser}" /> {!-- Used when displaying text about this link --}
+	<link rel="publisher" href="https://plus.google.com/111709737662107424167" /> {!-- No surprise Google uses its own social network to identify publishers --}
+	{!-- Facebook/OpenGraph tags. Validated here: https://developers.facebook.com/tools/debug/ --}
+	<meta property="og:title" content="{title} | RJI" />
+	<meta property="og:image" content="{if proj_banner}{news_banner}{if:elseif proj_preview_image}{proj_preview_image:rect}{if:else}{default_img_src}{/if}" /> {!-- Use preview image or the default one --}
+	<meta property="og:url" content="{comment_url_title_auto_path}" /> {!-- Use default URL path from EE to consolidate URLs --}
+	<meta property="og:description" content="{proj_teaser}" /> {!-- Use the same value as our regular meta description --}
+	{!--<meta property="fb:admins" content="USER_ID" /> [[Need to find info]] https://developers.facebook.com/docs/platforminsights/domains--}
+	{!-- Twitter tags. Validated here: https://cards-dev.twitter.com/validator --}
+	<meta name="twitter:card" content="summary{if proj_banner}_large_image{/if}" /> {!-- Use the same value as our regular meta description --}
+	<meta name="twitter:url"  content="{comment_url_title_auto_path}" /> {!-- Use default URL path from EE to consolidate URLs --}
+	<meta name="twitter:site" content="@RJI" />
+	<meta name="twitter:title" content="{title} | RJI" />
+	<meta name="twitter:image" content="{if proj_banner}{news_banner}{if:elseif proj_preview_image}{proj_preview_image:rect}{if:else}{default_img_src}{/if}" /> {!-- Use preview image or the default one. Twitter wants a smaller, square image < 1mb --}
+	<meta name="twitter:description" content="{proj_teaser}" /> {!-- Use the same value as our regular meta description --}
+	{head_content}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".pager li a").click(function(e){
+				console.log("It was clicked");
+				e.preventDefault();
+				var href = $(this).attr("href");
+				$.get(href, {}, function(data){
+					$("#articles").empty();
+					$("#articles").append(data);
+				});
+			});
+		});
+	</script>
+
+{html_head_end}
+
+<body>
+
+<div id="main-section" class="container">
+	<div class="row">
+		<div id="primary-section" class="col-md-8 col-sm-12">
+			{!--  This used to give warnings during previews, but I removed it to simplify previews. This may come back
+			if status == "open" OR (status == "draft" AND (member_group == "1" OR member_group == "6" OR member_group == "7" OR member_group == "8"))--}
+			{!--if status == "open" OR (member_group == "1" OR member_group == "6" OR member_group == "7" OR member_group == "8")}
+			{if status != "open"}<div class="alert alert-warning">This entry is currently unpublished and is not visible to the public! ({status})</div>{/if} --}
+
+			{!-- Banner --}
+			{if proj_banner}
+				<div class="banner-wrapper">
+					<img src="{proj_banner}" class="img-responsive banner"/>
+				</div>
+			{/if}
+
+			{!-- Begin story presentation --}
+
+			{!-- Begin title section --}
+			<div class="page-header">
+
+				{exp:gwcode_categories entry_id="{entry_id}" style="linear"}
+
+				{if results_total > 0 AND cat_count == 1}
+
+					<div class="row story-desc">
+
+						<div class="col-xs-12">
+
+				{/if}
+
+							<a href="/projects/categories/{cat_url_title}" class="label label-default">{cat_name}</a>&nbsp;
+				{if cat_count == results_total }
+						</div>
+
+					</div>
+
+				{/if}
+
+				{/exp:gwcode_categories}
+				<h1>{title}</h1>
+
+				<div class="row story-desc">
+					<div class="col-xs-12">{embed="stories/_author_list" entry_author="{author}" entry_id="{entry_id}"} | {entry_date format="%F %j, %Y"}</div>
+				</div>
+
+			</div>
+			{!-- End title section --}
+
+			{!--proj_info_pages}
+			{if {proj_info_pages:count} == 1}
+			<div class="well well-sm">
+
+			  <dl class="dl-horizontal">
+				<dt>Pages</dt>
+				<dd>
+				  <ul class="list-unstyled">
+					{/if}
+					<li>
+					  <a href="{if proj_info_pages:page_url != ''}{proj_info_pages:page_url}{if:else}{proj_info_pages:comment_url_title_auto_path}{/if}">
+						{proj_info_pages:title}
+					  </a>
+					</li>
+					{if {proj_info_pages:count} == {proj_info_pages:total_results}}
+				  </ul>
+				</dd>
+			  </dl>
+			</div>
+			{/if}
+			{/proj_info_pages}
+
+
+			{proj_description--}
+
+			{!-- Author signature. Dependent on custom entry field that if checked places the author's signature --}
+			
+			<section id="articles">
+			{/if}
+			{if embed:ajax == "yes"}
+				{!--embed="projects/related_stories"--}
+				{exp:stash:set_list name="related_stories" parse_tags="yes"}
+					{proj_related_stories}
+						{stash:stories_title}{proj_related_stories:title}{/stash:stories_title}
+						{if proj_related_stories:page_url != ''}{stash:stories_page_url}{proj_related_stories:page_url}{/stash:stories_page_url}{if:else}{stash:stories_page_url}{proj_related_stories:comment_url_title_auto_path}{/stash:stories_page_url}{/if}
+						{if proj_related_stories:news_image}{stash:stories_news_image}{proj_related_stories:news_image}{/stash:stories_news_image}{if:else}{stash:stories_news_image}{default_img_src}{/stash:stories_news_image}{/if}
+						{stash:stories_post_series}{proj_related_stories:post_series}{/stash:stories_post_series}
+						{stash:stories_entry_date}{proj_related_stories:entry_date format="%F %j, %Y"}{/stash:stories_entry_date}
+						{stash:stories_teaser}{proj_related_stories:teaser}{/stash:stories_teaser}
+					{/proj_related_stories}
+				{/exp:stash:set_list}
+				{exp:stash:parse}
+					{exp:stash:get_list 
+						name="related_stories" 
+						prefix="related_stories" 
+						parse_conditionals="yes" 
+						parse_tags="yes" 
+						paginate="bottom" 
+						limit="10"}
+						{if related_stories:count == 1}
+							<h3 class="secondary">Stories about {title}</h3>
+							<div class="card-bg">
+							  <ul class="media-list" id="recent-posts">
+								{/if}
+								<li class="media card">
+
+								  <a href="{related_stories:stories_page_url}" class="pull-left">
+									<img src="{related_stories:stories_news_image}" alt="{related_stories:stories_title}" title="{related_stories:stories_title}" class="img-responsive"/>
+								  </a>
+
+								  <div class="media-body">
+									<h4 class="media-heading">{if related_stories:stories_post_series != ""}<span class="small capitalize">{related_stories:stories_post_series}</span><br>{/if}<a class="media-heading" href="{related_stories:stories_page_url}">{related_stories:stories_title}</a>
+									  {!-- If statement below checks if there is a start time (it is an event) and gives the event start/finish but if not (it is a post) and displays author and publish date --}
+									  <br /><span class="small capitalize">
+									  {related_stories:stories_entry_date}
+									  </span></h4>
+									<span>{related_stories:stories_teaser}</span> {!-- Only appears if it is from Event channel --}
+								  </div> {!-- ends .media-body --}
+
+								</li> {!-- ends .media entry --}
+
+								{if related_stories:count == related_stories:total_results}
+							  </ul>
+							</div>
+						{!--/if--}
+							{related_stories:paginate}
+								{pagination_links}
+								<ul class="pager">
+									{previous_page}
+											<li class="previous"><a href="{pagination_url}">&larr; Previous Stories</a></li>
+									{/previous_page}
+
+									{next_page}
+											<li class="next"><a href="{pagination_url}">Next Stories &rarr;</a></li>
+									{/next_page}
+								</ul>
+								{/pagination_links}
+							{/related_stories:paginate}
+						{/if}
+					{/exp:stash:get_list}
+				{/exp:stash:parse}
+			{if embed:ajax != "yes"}
+				{!--related_stories--}
+			</section>
+		<br>
+		<div class="row story-desc visible-xs">
+				<div class="col-xs-12">
+					<strong>Share</strong><br>
+				</div>
+		</div>
+		<div class="visible-xs">
+			{social_share_buttons}
+		</div>
+
+		{if !is_bwf_preview}
+		{disqus_comments} {!-- Snippet that calls all comments for this post and has comment form --}
+		{/if}
+		{!--</div>
+	</div>
+</div>--}
+
+{/exp:channel:entries}
+{!--/stash:nocache--}
+
+{page_end}
+{/if}

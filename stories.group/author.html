@@ -1,0 +1,93 @@
+{!--- stories/author
+	Show stories by a certain author, uses author id
+	*See template main/index for more template details; only details on this specific template will be documented --}
+{if segment_3 == "" AND !logged_in}{redirect="stories/recent"}{/if}
+
+
+{exp:user:stats member_id="{segment_3}"}
+{html_head}
+	<title>
+	Stories by {first_name} {last_name} | RJI
+	</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "item": {
+      "@id": "{site_url}stories",
+      "name": "Stories"
+    }
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "item": {
+      "@id": "{site_url}author",
+      "name": "Author"
+    }
+  },{
+    "@type": "ListItem",
+    "position": 3,
+    "item": {
+      "@id": "{site_url}author/{segment_3}",
+      "name": "{first_name} {last_name}"
+    }
+  }]
+}
+</script>
+  <ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="/stories">Stories</a></li>
+	<li>Author</li>
+	<li class="active visible-xs-inline-block">{exp:trunchtml chars="15" exact="yes" ending="..."}{first_name} {last_name}{/exp:trunchtml}</li>
+	<li class="active visible-sm-inline-block">{exp:trunchtml chars="90" exact="yes" ending="..."}{first_name} {last_name}{/exp:trunchtml}</li>
+	<li class="active visible-md-inline-block visible-lg-inline-block">{first_name} {last_name}</li>
+  </ol>
+<div id="main-section" class="container">
+	<div class="row">
+		<div id="primary-section" class="col-md-8 col-sm-12">
+		
+		
+		
+		{!-- STORIES BY AUTHOR ----------------------------------
+			an author ID is given in segment 3 --}
+		{if segment_2 == "author"}
+			<h2>Stories by {first_name} {last_name}</h2>
+			{signature_snippet}
+			<hr>
+			
+			<div class="card-bg">
+				<ul id="recent-posts" class="media-list">
+				{exp:user:entries user_author_id="{segment_3}" dynamic="no" channel="stories" sticky="no" status="open|featured" limit="10" disable="categories|category_fields" show_future_entries="yes" paginate="bottom"}
+				
+				  {rji_media_list}
+
+				  {pagination_snippet}
+
+				{/exp:user:entries}
+
+			  </ul> {!-- ends .media-list --} 
+			  </div>
+		{/if}
+		
+		
+		
+		
+		
+  		</div> {!-- ends primary section --}
+		
+        <div id="sidebar" class="col-md-4 hidden-sm hidden-xs"> 
+			{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="YES" tags="YES" section="stories"}
+ 		</div>
+	</div> {!-- ends .row --}
+	</div> {!-- ends #main-section --}
+	
+{page_end}
+{/exp:user:stats}

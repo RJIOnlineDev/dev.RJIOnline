@@ -1,0 +1,90 @@
+{!--- account/login
+	The user can use this form to login if they don't have Javascript enabled or doesn't work with their browser.
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+	<title>
+	Login | RJI
+	</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "item": {
+      "@id": "{site_url}account",
+      "name": "Account"
+    }
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "item": {
+      "@id": "{site_url}account/login",
+      "name": "Login"
+    }
+  }]
+}
+</script>
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+    <li><a href="{path='account/index'}">Account</a></li>
+	<li class="active">Login</li>
+</ol>
+<div id="main-section" class="container">
+
+    	<div class="page-header">
+			<h2>Log In</h2>
+		</div>
+	
+		{if logged_in}
+			<p class="alert alert-info">You are already logged in! <a href="{exp:freemember:logout_url}" class="alert-link">Log in with a different account</a></p>
+		{if:else}
+		{exp:freemember:login error_handling="inline" error_delimiters='<span class="has-error"><p class="help-block">|</p></span>' return=" "}
+                
+                <form>
+               {!-- the form uses Bootstrap styling and components to make it look nice. Forms take the general form:
+                    =====================
+                    form.horizontal-form
+                            fieldset.horizontal-form
+                                    div.form-group row
+                                             label.col-'minScreen'-'colSize'.control-label
+                                             div.col-...-....
+                                                        input.form-control
+                   ====================== --}
+                <fieldset id="login_fields">
+                    <div class="form-group">
+                        <label for="email" class="control-label">Email</label>
+                        <input class="form-control" type="text" id="email" name="email" value="{email}" required>{error:email}
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="control-label">Password</label>	
+                        <input class="form-control" type="password" id="password" name="password" value="{password}" required>{error:password}
+                        
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                        <label for="auto_login"><input type="checkbox" id="auto_login" name="auto_login" {auto_login_checked} />Remember me</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input class="btn btn-success" type="submit" name="submit" value="Login" id="submit_login">
+                    </div>
+                </fieldset>
+            </form>
+            <p><a href="{path='account/identify'}">Forgot your password?</a></p>
+			<p><a href="{path='account/register'}">Don't have an account?</a></p>
+            
+            {/exp:freemember:login}
+    		{/if}
+
+</div>
+
+{page_end}

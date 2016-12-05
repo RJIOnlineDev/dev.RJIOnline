@@ -1,0 +1,14 @@
+{exp:user:authors
+    entry_id="{embed:entry_id}"
+    orderby="primary"
+    sort="desc"
+    dynamic="off"
+}
+
+<a href="{site_url}account/profile/{member_id}" title="{first_name}'s profile">
+  {if primary == "y"}<strong>{/if}
+      {first_name} {last_name}{if primary == "y"}</strong>{/if}</a>{if count != total_results},&nbsp;{/if}
+
+  {if no_results}{embed:entry_author}{/if}
+
+{/exp:user:authors}

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+	  	http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+{!-- Topics pages --}
+{exp:channel:entries channel="pages" disable="categories|category_fields|custom_fields|member_data|pagination"}
+<url>
+	<loc>{post_path}</loc>
+	<lastmod>{edit_date format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+{/exp:channel:entries}
+{exp:channel:entries channel="calendar_events" disable="categories|category_fields|custom_fields|member_data|pagination"}
+<url>
+	<loc>{post_path}</loc>
+	<lastmod>{edit_date format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>weekly</changefreq>
+</url>
+{/exp:channel:entries}
+{exp:channel:entries channel="stories" limit="500" orderby="date" sort="desc" disable="categories|category_fields|custom_fields|member_data|pagination"}
+<url>
+	<loc>{post_path}</loc>
+	<lastmod>{edit_date format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>weekly</changefreq>
+</url>
+{/exp:channel:entries}
+{exp:channel:entries channel="research|projects" disable="categories|category_fields|custom_fields|member_data|pagination"}
+<url>
+	<loc>{post_path}</loc>
+	<lastmod>{edit_date format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>weekly</changefreq>
+</url>
+{/exp:channel:entries}
+{!-- Staff, Fellows, Scholars --}
+{exp:user:users group_id="1|6|7|8"}
+<url>
+	<loc>{site_url}account/profile/{member_id}</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>weekly</changefreq>
+</url>
+{/exp:user:users}
+{!-- Important pages --}
+<url>
+	<loc>{site_url}about</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}about/staff</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}about/resources</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}about/associates</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}fellowships</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}fellowships/faq</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}fellowships/resources</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}fellowships/fellows</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+{!-- Templates --}
+<url>
+	<loc>{site_url}</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}stories</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>weekly</changefreq>
+</url>
+<url>
+	<loc>{site_url}galleries</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>weekly</changefreq>
+</url>
+<url>
+	<loc>{site_url}stories/series</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}stories/recent</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}stories/topics</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}stories/tag</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}events</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}events/recent</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}events/upcoming</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}events/industry</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}events/calendar</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}events/topics</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}facilities</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}research</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}research/topics</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}projects</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}projects/topics</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}documents</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}documents/tipsheets</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+<url>
+	<loc>{site_url}documents/newsbooks</loc>
+	<lastmod>{current_time format="%Y-%m-%dT06:00:00+00:00"}</lastmod>
+	<changefreq>monthly</changefreq>
+</url>
+</urlset>

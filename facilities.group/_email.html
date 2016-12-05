@@ -1,0 +1,182 @@
+{!-- Contact form --}
+<hr>
+{!--exp:email:contact_form user_recipients="no" recipients="rooms@rjionline.org" charset="utf-8"--}
+{exp:email:contact_form user_recipients="no" recipients="kjmb84@mail.missouri.edu" charset="utf-8" redirect="0" replyto="yes" return="{site_url}facilities/thanks"}
+  <div class="form-group">
+	<label for="subject">Subject:</label>
+	<input type="text" class="form-control" id="subject" name="subject" value="Room Request - {embed:room} {embed:room_number} - {embed:month}/{embed:day}/{embed:year}" readonly/>
+  </div>
+  <input type="hidden" name="from" value="no-reply@rjionline.org" hidden/>
+  
+  <input type="hidden" name="message[]" value="Name:" hidden/>
+  
+  <div class="form-group">
+	<label for="name"><em class="required">&ast;</em>Contact name:</label>
+    <p class="help-block">First and last name.</p>
+	<input type="text" id="name" name="message[]" class="form-control" required/>
+  </div>
+  
+  <input type="hidden" name="message[]" value=" " hidden/>
+  <input type="hidden" name="message[]" value="Email:" hidden/>
+    
+  <div class="form-group">
+	<label for="from"><em class="required">&ast;</em>Contact email:</label>
+	<input type="email" id="from" name="message[]" class="form-control" value="{member_email}" required/>
+  </div>
+  
+  <input type="hidden" name="message[]" value=" " hidden/>
+  <input type="hidden" name="message[]" value="Other Rooms Needed:" hidden/>
+    
+  <div class="form-group">
+	<label for="from">Other rooms needed:</label>
+	{!--<select id="from" name="message[]" class="form-control" value="{member_email}" multiple>
+    	{exp:channel:entries channel="rooms" dynamic="no" disable="categories|category_fields|member_data|pagination" entry_id="not {segment_3}"}
+        <option value="{title}">{title} {room_number}</option>
+        {/exp:channel:entries}
+    </select>--}
+    {exp:channel:entries channel="rooms" dynamic="no" disable="categories|category_fields|member_data|pagination" entry_id="not {segment_3}"}
+      <div class="checkbox">
+      	<label>
+          <input type="checkbox" name="message[]" id="room-{room_number}" value="{title} {room_number}">
+          {title} {room_number}
+        </label>
+      </div>
+    {/exp:channel:entries}
+  </div>
+  
+  <input type="hidden" name="message[]" value=" " hidden/>
+  <input type="hidden" name="message[]" value="Meeting Start Time:" hidden/>
+  
+  <div class="row">
+  <div class="form-group col-sm-6">
+	<label class="control-label" for="subject">Meeting start time:</label>
+    <p class="help-block"><a href="/facilities">Click here</a> to pick another time.</p>
+    <div class="input-group">
+    	<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+		<input type="text" class="form-control" id="startTime" name="message[]" value="{if {exp:math formula="[1]/100" params="{segment_7}" round="down" decimals="0"} > 12}{exp:math formula="[1]/100-12" params="{segment_7}" round="down" decimals="0"}{if:else}{exp:math formula="[1]/100" params="{segment_7}" round="down" decimals="0"}{/if}{if {segment_7} % 100 == 0}:00{if:else}:30{/if}{if {exp:math formula="[1]/100" params="{segment_7}" round="down" decimals="0"} > 11} p.m.{if:else} a.m.{/if}" readonly/>
+  	</div>
+  </div>
+  
+  <input type="hidden" name="message[]" value=" " hidden>
+  <input type="hidden" name="message[]" value="Meeting End Time:" hidden>
+  
+  <div class="form-group col-sm-6">
+	<label for="subject"><em class="required">&ast;</em>Meeting end time:</label>
+    <p class="help-block">Please change the date and time.</p>
+    <div class="input-group">
+		<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+    	<input type="text" class="form-control" id="endTime" name="message[]" value="{embed:month}/{embed:day}/{embed:year} {if {exp:math formula="[1]/100+1" params="{segment_7}" round="down" decimals="0"} > 12}{exp:math formula="[1]/100-12+1" params="{segment_7}" round="down" decimals="0"}{if:else}{exp:math formula="[1]/100+1" params="{segment_7}" round="down" decimals="0"}{/if}{if {segment_7} % 100 == 0}:00{if:else}:30{/if}{if {exp:math formula="[1]/100+1" params="{segment_7}" round="down" decimals="0"} > 11} p.m.{if:else} a.m.{/if}" required/>
+  	</div>
+  </div>
+  </div>
+  
+  <input type="hidden" name="message[]" value=" " hidden/>
+  <input type="hidden" name="message[]" value="Setup Time:" hidden/>
+    
+  <div class="row">
+  <div class="form-group col-sm-6">
+	<label class="control-label" for="subject">Setup time:</label>
+    <p class="help-block">15 min., 1 hour, etc.</p>
+    <div class="input-group">
+    	<span class="input-group-addon"><i class="fa fa-cubes"></i></span>
+		<input type="text" class="form-control" id="setupTime" name="message[]" value="" />
+  	</div>
+  </div>
+  
+  <input type="hidden" name="message[]" value=" " hidden/>
+  <input type="hidden" name="message[]" value="Cleanup Time:" hidden/>
+    
+  <div class="form-group col-sm-6">
+	<label for="subject">Cleanup time:</label>
+    <p class="help-block">15 min., 1 hour, etc.</p>
+    <div class="input-group">
+		<span class="input-group-addon"><i class="fa fa-trash-o"></i></span>
+    	<input type="text" class="form-control" id="cleanupTime" name="message[]" value="" />
+  	</div>
+  </div>
+  </div>
+  
+  <input type="hidden" name="message[]" value=" " hidden/>
+  <input type="hidden" name="message[]" value="Phone Number:" hidden/>
+  
+  <div class="row">
+  <div class="form-group col-sm-6">
+	<label for="subject"><em class="required">&ast;</em>Telephone:</label>
+    <div class="input-group">
+    	<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+		<input type="text" class="form-control" id="phoneNumber" name="message[]" value="" required/>
+    </div>
+  </div>
+  
+  <input type="hidden" name="message[]" value=" " hidden/>
+  <input type="hidden" name="message[]" value="Organization:" hidden/>
+    
+  <div class="form-group col-sm-6">
+	<label for="subject"><em class="required">&ast;</em>Organization:</label>
+    <div class="input-group">
+    	<span class="input-group-addon"><i class="fa fa-building-o"></i></span>
+		<input type="text" class="form-control" id="organization" name="message[]" value="" required/>
+    </div>
+  </div>
+  </div>
+  
+  <input type="hidden" name="message[]" value=" " hidden/>
+  <input type="hidden" name="message[]" value="Event Name:" hidden/>
+ 
+  <div class="row">
+  <div class="form-group col-sm-6">
+	<label for="subject"><em class="required">&ast;</em>Name of event:</label>
+    <div class="input-group">
+    	<span class="input-group-addon"><i class="fa fa-newspaper-o"></i></span>
+		<input type="text" class="form-control" id="eventName" name="message[]" value="" required/>
+    </div>
+  </div>
+  
+  <input type="hidden" name="message[]" value=" " hidden/>
+  <input type="hidden" name="message[]" value="People:" hidden/>
+    
+  <div class="form-group col-sm-6">
+	<label for="subject"><em class="required">&ast;</em>Number of people attending:</label>
+    <div class="input-group">
+    	<span class="input-group-addon"><i class="fa fa-users"></i></span>
+		<input type="number" class="form-control" id="people" name="message[]" value="" required/>
+    </div>
+  </div>
+  </div>
+  
+  <input type="hidden" name="message[]" value=" " hidden/>
+  <input type="hidden" name="message[]" value="Description:" hidden/>
+  
+  <div class="form-group">
+	<label for="message"><em class="required">&ast;</em>Summary:</label>
+    <p class="help-block">Please give us a short description of the event you would like to hold at this time.</p>
+	<textarea id="message" name="message[]" class="form-control" rows="7" required></textarea>
+  </div>
+  
+  <input type="hidden" name="message[]" value=" " hidden/>
+  <input type="hidden" name="message[]" value="Note:" hidden/>
+    
+  <div class="well well-lg">
+  <div class="checkbox">
+  	<label>
+    	<input type="checkbox" name="message[]" id="foodYes" value="I will be serving food at this event and will obtain a temporary food permit."/>
+        I will be serving food at this event and will obtain a <a href="http://ehs.missouri.edu/food/permits.html" target="_blank" name="Temporary food permit">temporary food permit</a>.
+    </label>
+  </div>
+  <div class="checkbox">
+  	<label>
+    	<input type="checkbox" name="message[]" id="alcYes" value="I will be serving alcohol at this event and will obtain a temporary use of alcoholic beverages permit."/>
+        I will be serving alcohol at this event and will obtain a temporary use of <a href="http://businessservices.missouri.edu/services/alcohol-use.html" target="_blank" name="Alcoholic beverages permit">alcoholic beverages permit</a>.
+    </label>
+  </div>
+  <div class="checkbox">
+  	<label>
+    	<input type="checkbox" name="message[]" id="readYes" value="I have read and understand the RJI Room Reservations Policies." required/>
+        <em class="required">&ast;</em>I have read and understand the <a href="{site_url}uploads/room_policies.pdf" target="_blank">RJI room reservations policies</a>.
+    </label>
+  </div>
+  </div>
+ 
+    <button id="submit" name="submit" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-send"></span> Send request</button>
+
+{/exp:email:contact_form}

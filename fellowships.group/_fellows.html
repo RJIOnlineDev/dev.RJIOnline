@@ -1,0 +1,36 @@
+{!-- _fellows
+		this template is a complementary template to fellowship/fellows
+		--}
+{if segment_2 == "_staff"}{redirect="about/staff"}{/if}
+<h3 class="secondary">{embed:department}</h3>
+
+  {exp:user:users category="{embed:group}"}
+  {!--if ({count} % 2) == 1}
+  <div class="row">
+  {/if--}
+  {if ({count} % 2) == 1}<ul id="recent-posts" class="card-bg media-list row">{/if}
+  <li class="media card col-sm-6">
+	<a href="{site_url}user/profile/{member_id}" class="pull-left">
+	  {!-- If there is a news image, use that, else maybe it's an event so if there is an event image use that, else there is no given image, use default image --}
+	  {if avatar_filename}
+	  <img src="{avatar_url}{avatar_filename}" alt="{first_name} {last_name}" class="img-responsive"/>
+	  {!--if:else}
+	  <img src="{site_url}/images/posts/rji-post.jpg" alt="{title}" class="img-responsive"/>--}
+	  {/if}
+	</a>
+	<div class="media-body">
+	  <h4><a class="media-heading" href="{site_url}user/profile/{member_id}">{first_name} {last_name}</a></h4>
+	  <p class="user-info">
+	  	{exp:low_replace find="," replace="<br>"}
+		{occupation}
+		{/exp:low_replace}
+		<br>{location}
+		<br><a href="tel:{phone}">{phone}</a>
+		<br><a href="mailto:{username}">{username}</a>
+	  </p>
+	</div> {!-- ends .media-body --}
+  </li> {!-- ends .media entry --}
+  {if ({count} % 2) == 0 OR ({count} == {total_results} AND {count} % 2 == 1)}
+  </ul>
+  {/if}
+  {/exp:user:users}

@@ -1,0 +1,120 @@
+{!--- Facilities/index
+	This template shows the list of available rooms and also the view for more detailed infor about the room (including a photo gallery of it)
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+	<title>
+	Facilities | RJI
+	</title>
+	{head_content}
+{html_head_end}
+<body>
+{embed="main/_navbar"}
+
+{!--if segment_2 != "" OR segment_1 != "facilities"}
+		{exp:channel:entries channel="rooms" dynamic="yes" required_entry="yes"}
+		<ol class="breadcrumb">
+			<li><a href="{site_url}">Home</a></li>
+			<li><a href="{site_url}facilities">Facilities</a></li>
+			<li class="active visible-xs-inline-block">{exp:trunchtml chars="20" exact="yes" ending="..."}{title}{/exp:trunchtml}</li>
+			<li class="active hidden-xs">{exp:trunchtml chars="70" exact="yes" ending="..."}{title}{/exp:trunchtml}</li>
+		</ol>
+		{/exp:channel:entries}
+{/if--}
+{!--if segment_1 == "facilities" AND segment_2 == ""--}
+	<ol class="breadcrumb">
+	  <li><a href="{site_url}">Home</a></li>
+	  <li class="active">Facilities</li>
+	</ol>
+{!--/if--}
+
+<div id="main-section" class="container">
+
+<div class="row">
+
+	<div class="col-md-8 col-sm-12">
+
+	{!--if segment_2 == "" AND segment_1 == "facilities"--}
+		<div class="page-header"><h1>RJI facilities</h1></div>
+
+		{!-- Something here about physical resources? --}
+
+		<h3>Reservations</h3>
+		<p>RJI facilities include fully integrated meeting rooms. These spaces aid in the work of visiting scholars, RJI experts and student groups alike. They also provide a space for the citizen-journalist interaction that is crucial to RJI’s mission. Please contact <a href="mailto:rooms@rjionline.org">rooms@rjionline.org</a> with questions.</p>
+		<p><a class="btn btn-info" href="{site_url}uploads/room_policies.pdf" target="_blank"><i class="fa fa-file-pdf-o"></i> Room policies</a>&nbsp;&nbsp;&nbsp;<a class="btn btn-info" href="{site_url}uploads/room_fees.pdf" target="_blank"><i class="fa fa-file-pdf-o"></i> Room fees</a></p>
+		<form id="selectForm" {!--onsubmit="return go();"--} onsubmit="return check_event_date();">
+		<div class="row">
+			<div class="form-group col-sm-6">
+				<label for="room">Room</label>
+				<select id="room" name="room" class="form-control">
+				{exp:channel:entries channel="rooms" dynamic="no" sortby="title" sort="asc"}
+					<option value="{entry_id}">{title} {room_number}</option>
+				{/exp:channel:entries}
+				</select>
+			</div>
+			<div class="form-group col-sm-3">
+				<label for="year">Year</label>
+				<select id="year" name="year" class="form-control">
+				{!--{exp:calendar:cal date_range_start="year-01-01" show_years="2"}
+					{display_each_year}
+					<option value="{date format='%Y'}">{date format="%Y"}</option>
+					{/display_each_year}
+				{/exp:calendar:cal}--}
+					{!--<option value="2015">2015</option>--}
+					<option value="2016">2016</option>
+					<option value="2017">2017</option>
+				</select>
+			</div>
+			<div class="form-group col-sm-3">
+				<label for="month">Month</label>
+				<select id="month" name="month" class="form-control">
+				{exp:calendar:cal date_range_start="year-01-01" date_range_end="year-12-31"}
+					{display_each_month}
+					<option value="{date format='%m'}">{date format="%F"}</option>
+					{/display_each_month}
+				{/exp:calendar:cal}
+				</select>
+			</div>
+			</div>
+			<button {!--type="submit"--} class="btn btn-success btn-block" {!--name="submit"--}>Check availability <i class="fa fa-arrow-right"></i></button>
+		</form>
+		<br class="visible-xs">
+		{!--<p><a href="{site_url}facilities/reserve" class="btn btn-default">Reserve a room</a></p>--}
+		<hr class="hidden-xs">
+		<div class="card-bg">
+		<ul id="recent-posts" class="media-list">
+		{exp:channel:entries channel="rooms" disable="categories|category_fields|member_data|pagination"}
+			<li class="media card">
+				<a class="pull-left">
+					{room_gallery limit="1"}
+						<img src="{room_gallery:gallery_image}" class="img-responsive"/>
+					{/room_gallery}
+				</a>
+				<div class="media-body">
+					<h4 class="media-heading">{title} {room_number}</h4>
+					<dl class="dl-horizontal col-s">
+						<dt>Capacity</dt> <dd>{room_capacity}</dd>
+						<dt>Capabilities</dt> <dd><ul class="list-unstyled">{room_capabilities}<li>{room_capabilities:capability}</li>{/room_capabilities}</ul></dd>
+						<dt></dt><dd><button type="button" class="btn btn-default btn-gallery" data-toggle="modal" data-target="#gallery" data-fetch="{post_path}" data-cache="{url_title}"><i class="fa fa-picture-o"></i> View gallery</button></dd>
+					</dl>
+
+				</div>
+			</li>
+		{/exp:channel:entries}
+		</ul>
+		</div>
+
+
+		{empty_gallery_modal}
+	{!--/if--}
+
+    </div>
+
+    <div id="sidebar" class="col-md-4 hidden-sm hidden-xs nocontent">
+  		{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="NO" tags="NO" section="stories"}
+    </div>
+
+</div>
+</div>
+
+{page_end}

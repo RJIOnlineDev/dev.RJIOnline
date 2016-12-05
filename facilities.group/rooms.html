@@ -1,0 +1,39 @@
+{!-- facilities/rooms
+		This template returns a carousel of images to be used in the image galleries for each room. This is dynamic so it looks for the room title in the URL.
+		This template is NOT hidden because AJAX still needs to be able to access it! 
+		--}
+{exp:channel:entries channel="rooms" dynamic="yes" required_entry="yes" disable="categories|category_fields|member_data|pagination"}
+
+<div id="image-gallery" class="carousel slide" data-ride="carousel" data-interval="false" data-cache="{url_title}">
+
+  <ul class="carousel-indicators gallery-footer">
+	{room_gallery}
+	<li data-target="#image-gallery" data-slide-to="{exp:index}{room_gallery:count}{/exp:index}" class="gallery-thumbnail{if room_gallery:count == 1} active{/if}">
+	  <img src="{room_gallery:gallery_image}"></li>
+	{/room_gallery}
+  </ul>
+
+  <div class="carousel-inner">
+	{room_gallery}
+	<div class="item{if room_gallery:count == 1} active{/if}">
+	  <img src="{room_gallery:gallery_image}" alt="{room_gallery:gallery_title}">
+	  {if room_gallery:gallery_title}
+	  <div class="carousel-caption gallery-caption">
+		<h4>{room_gallery:gallery_title}</h4>
+		<p>{room_gallery:gallery_description}</p>
+	  </div>
+	  {/if}
+	</div>
+	{/room_gallery}
+  </div>
+
+  <a class="left carousel-control" href="#image-gallery" role="button" data-slide="prev">
+	<span class="fa fa-chevron-left fa-2x"></span>
+  </a>
+  <a class="right carousel-control" href="#image-gallery" role="button" data-slide="next">
+	<span class="fa fa-chevron-right fa-2x"></span>
+  </a>
+
+</div>
+
+{/exp:channel:entries}

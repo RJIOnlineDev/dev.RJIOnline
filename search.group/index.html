@@ -1,0 +1,41 @@
+{!--- Search
+	Search bar for searching the site. Uses Google Custom Search Engine.
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{if segment_2 != ''}
+  {redirect="404"}
+{/if}
+
+{html_head}
+	<title>
+	Search | RJI
+	</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li class="active">Search</li>
+</ol>
+
+<div id="main-section" class="container">
+	<div class="row">
+		
+		<div id="primary-section" class="col-md-8 col-sm-12">
+			<div class="page-header">
+				<h2>Search</h2>
+			</div>
+			
+			{google_search_form}
+        	
+		</div>
+                
+		<div id="sidebar" class="col-md-4 hidden-sm hidden-xs nocontent"> 
+			{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="YES" tags="YES"}
+ 		</div>
+		
+	</div>
+</div>
+
+{page_end}

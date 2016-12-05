@@ -1,0 +1,41 @@
+{!--- Search/Results
+	Results page. Searching from header or /search will redirect here.
+	*See template main/index for more template details; only details on this specific template will be documented--}
+
+{html_head}
+	<title>
+	Search results | RJI
+	</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="/search">Search</a></li>
+	<li class="active">Results</li>
+</ol>
+<div id="main-section" class="container">
+	<div class="row">
+	
+		<div id="primary-section" class="col-md-8 col-sm-12">
+		<div class="page-header">
+		  	<h2>Search results</h2>
+		</div>
+		  
+		{google_search_form}
+
+		{google_search_results}
+
+
+  		</div>
+		
+        <div id="sidebar" class="col-md-4 hidden-sm hidden-xs nocontent"> 
+			{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="YES" tags="YES"}
+ 		</div>
+		
+	</div>
+</div>
+	
+{page_end}

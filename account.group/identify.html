@@ -1,0 +1,64 @@
+{!--- account/indentify
+	Used to identify a user by the user giving an email address and the reset password URL is sent to that address by 'User'.
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+	<title>
+	Forgot Password
+	</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path='account/index'}">Account</a></li>
+	<li class="active">Forgot password</li>
+</ol>
+<div id="main-section" class="container">
+<div class="row">
+    
+	<div class="col-md-12 col-sm-12">
+	
+	{!-- based mostly on user docs at http://www.solspace.com/docs/user/forgot_password/#password_reset_template --}
+	  <div class="page-header"><h3>Forgot Password?</h3></div>
+	  <p class="help-block">If you've forgotten your password, just enter your email address you registered with and you will receive an email with instructions for resetting your password.</p>
+	  
+	  {!-- exp:user:forgot_password
+		  password_reset_template="user/reset/%id%"
+		  password_reset_email_subject="Password Reset Request"
+		  password_reset_email_template="user/reset_email_content"
+		  return="user/success"
+	  }
+			
+		  <form role='form'>
+			  <div class="form-group">
+				<label for="email">Email Address</label>
+				<input type="email" class="form-control" name="email" id="email" required/>
+			  </div>
+			  <input class="btn btn-success" type="submit" name="submit" value="Submit" />
+		  </form>
+
+	  {/exp:user:forgot_password --}
+	  
+	  {exp:freemember:forgot_password return="account/success" reset="account/reset" error_handling="inline" error_delimiters='<span class="has-error"><p class="help-block">|</p></span>'}
+		  
+			  <div class="form-group">
+				<label for="email">Email Address</label>
+				<input type="email" class="form-control" name="email" id="email" required/>
+				{error:email}
+			  </div>
+			  <input class="btn btn-success" type="submit" name="submit" value="Submit" />
+		  
+	  {/exp:freemember:forgot_password}
+	  
+	{exp:stash:set scope="user" name="success" save="yes"}
+		Your password recovery email has been successfully sent. Check your email for instructions on how to set a new password for your account.
+	{/exp:stash:set}
+    
+    </div>
+	
+</div>
+</div>
+
+{page_end}

@@ -1,0 +1,8 @@
+{exp:user:authors
+    entry_id="{embed:entry_id}"
+    orderby="primary"
+    sort="desc"
+    dynamic="off"
+}
+<author>{first_name} {last_name}</author>
+{/exp:user:authors}

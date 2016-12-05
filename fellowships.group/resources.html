@@ -1,0 +1,108 @@
+{!--- Fellowship
+	Placeholder for fellowships/index template.
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+	<title>RJI Fellowships</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "item": {
+      "@id": "{site_url}fellowships",
+      "name": "Fellowships"
+    }
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "item": {
+      "@id": "{site_url}fellowships/resources",
+      "name": "Resources and Links"
+    }
+  }]
+}
+</script>
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="/fellowships">Fellowships</a></li>
+	<li class="active">Resources and links</li>
+</ol>
+<div id="main-section" class="container">
+	<div class="row">
+		<div id="primary-section" class="col-md-8 col-sm-12">
+		
+			<div class="page-header">
+				<h2>Fellowships: Resources and links</h2>
+			</div>
+		
+			{!--<p><a href="/fellowships">Go to RJI Fellowships</a></p>		--}
+			<div class="about-block about-block-text">
+			   <dl>
+				  <dt id="r01">Reynolds Fellows network</dt>
+				  <dd>An opportunity to collaborate with previous Reynolds Fellows, this network allows you to connect with other leaders in the industry who have taken their ideas and continue to implement them in their communities.</dd>
+				  <br />
+				  <dt id="r02">RJI facilities</dt>
+				  <dd>RJI is a 30,000-square-foot facility that offers a lab and testing center, a high-definition television studio, technology-rich meeting rooms including an 80-seat forum, a journalism library with the largest academic collection of journalism-related materials in the world, and several other resources to explore the future of journalism and all of its diverse specialties.</dd>
+				  <br />
+				  <dt id="r03">Futures Lab and Microsoft Application Development Lab</dt>
+				  <dd>RJI&rsquo;s Futures Lab develops and tests news and advertising prototypes and delivery systems to audiences. The Technology Testing Center experiments with the use of emerging technologies in journalism and advertising.</dd>
+				  <br />
+				  <dt id="r04">Frank Lee Martin Journalism Library</dt>
+				  <dd>Housing the largest academic collection of journalism-related materials in the world, the library provides the most technologically advanced tools, experiential and collaborative space (physical and virtual) of any academic library operating today.</dd>
+				  <br />
+				  <!--<dt id="r05">Applied research <a href="#"><span class="glyphicon glyphicon-new-window"></span></a></dt>
+
+					 <dd>Using a broad array of rigorous social science methods, RJI researchers test innovations in journalism and advertising content, design, delivery and business models to find the best solutions for use in the real world.</dd>
+					 <br>
+					 <dt id="r06">RJI Insight and Survey Center <a href="#"><span class="glyphicon glyphicon-new-window"></span></a></dt>
+
+					 <dd>RJI Insight and Survey Center provides quality survey research services to news media organizations, government agencies, academic institutions, national foundations, and community organizations. It is best known for its expertise and experience in designing survey questionnaires, complex sampling methods, quality data collection, cell phone sampling and meaningful statistical analyses.</dd>
+					 <br>-->
+					<dt id="r07">Reynolds Journalism Institute staff</dt>
+					<dd>More than 20 professional staff members including experts in the areas of communication and marketing, event planning, video production, media and emerging technologies and advanced research.</dd>
+					<br />
+					<dt id="r08">Missouri School of Journalism</dt>
+					<dd>The world&rsquo;s first school of journalism, it is home to the largest faculty of any journalism school in the nation. The 86 professors including 5 Pulitzer Prize recipients span convergence journalism, print and digital news, radio-television journalism, magazine journalism, photojournalism and strategic communication.</dd>
+					<br />
+					<dt id="r09">Real-world media outlets</dt>
+					<dd>The Missouri School of Journalism operates the nation&rsquo;s only university-owned network-affiliated television newsroom, a local community newspaper, an NPR station, an entertainment magazine and additional digital and international media outlets available to test and apply innovation (KOMU-TV 8 NBC affiliate, Columbia Missourian, Vox Magazine, KBIA-FM, Global Journalist, Newsy.com).</dd>
+					<br />
+					<dt id="r10">Columbia, Mo.</dt>
+					<dd>
+					<p>Columbia is home to three institutions of higher education including the University of Missouri, Stephens College and Columbia College. Often ranked high for its business atmosphere, it is known for focusing on economic development.</p>
+
+					<p>Columbia offers the best of all worlds. Located midway between St. Louis and Kansas City (about a two-hour drive from each metropolis), Columbia is a fun-filled oasis in the heart of the Show-Me State. Our beloved city of 100,000 people combines small-town comforts, community spirit and low cost of living with big-city culture, activities and resources.</p>
+
+					<p>Columbia, Mo., is consistently ranked as one of the best cities in America to live and work in by publications such as Money, Fortune, US News, Editor &amp; Publisher and Men&#39;s Journal. For more information, visit the Columbia Convention and Visitors Bureau.</p>
+
+					<p>Columbia (pop. 100,000) offers a variety of amenities seldom found in a town of its size. In the city and surrounding area, you&#39;ll find a vibrant community full of art, green spaces, entertainment and educational opportunities.</p>
+
+					<ul>
+						<li>Collegetown, USA. Columbia is home to three colleges with more than 30,000 students. Recognized by Money and Forbes magazines, our &ldquo;small metro&rdquo; is progressive, safe, fun and brimming with Midwestern friendliness.</li>
+						<li>300+ restaurants. Columbia has it all&mdash;from sushi to steaks, from pizza to French cuisine. Coffee houses, juice bars, bistros and trattorias make Columbia stand out.</li>
+						<li>Retail therapy galore. Two short blocks north and you&rsquo;re in downtown Columbia, packed with unique specialty shops, art galleries and more. Dozens of shopping centers and a mall are nearby, plus St. Louis and Kansas City are within a two-hour drive.</li>
+						<li>Lots to do. Live music and theatre, parks and hiking/biking trails, the internationally recognized True/False Film Festival, nationally known We Always Swing Jazz Series, art exhibits and more make Columbia a vibrant community.</li>
+						<li>Big time sports. Saturday football games at Mizzou! Columbia College and Stephens students compete in NAIA sports and join the crowds at the University of Missouri&rsquo;s SEC sporting events.</li>
+					</ul>
+					</dd>
+				 </dl>
+				 </div>
+		
+  		</div> {!-- ends primary section --}
+		
+        <div id="sidebar" class="col-sm-12 col-md-4"> 
+			{!--countdown_timer--}
+			{fellowships_sidebar}
+ 		</div>
+	</div> {!-- ends .row --}
+	</div> {!-- ends #main-section --}
+	
+{page_end}

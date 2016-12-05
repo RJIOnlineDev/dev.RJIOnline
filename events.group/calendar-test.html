@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>Add an Event to the Calendar</title>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+        <script type="text/javascript"
+            src="/themes/third_party/calendar/js/jquery-ui.custom.min.js"></script>
+        {exp:calendar:datepicker_js}
+        {exp:calendar:datepicker_css}
+    </head>
+    <body>
+        <div id="calendar_saef">
+            {exp:channel:form channel="calendar_events"}
+                <p>
+                    <label>Title:</label><br />
+                    <input type="text" name="title" />
+                </p>
+                {exp:calendar:date_widget}
+                <p>
+                    <label>Summary:</label><br />
+                    <textarea name="event_summary"></textarea>
+                </p>
+                <p>
+                    <label>Location:</label><br />
+                    <input type="text" name="event_location" />
+                </p>
+                <p>
+                    <input type="submit" name="submit" value="Submit" />
+                </p>
+            {/exp:channel:form}
+        </div>
+    </body>
+</html>
+

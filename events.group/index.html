@@ -1,0 +1,584 @@
+{!--- Events
+	Displays either a single event or a list of events based on URL segments.
+	Also used as a template for custom page URIs to display an event.
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{!-- Event home page: display upcoming, industry, and past events --}
+{if segment_1 == "events" AND segment_2 == ""}
+{html_head}
+
+	<title>Events | RJI</title>
+
+	{head_content}
+{html_head_end}
+<body>
+{embed="main/_navbar"}
+
+<ol class="breadcrumb" vocab="http://schema.org" typeof="BreadcrumbList">
+	<li><a href="{site_url}">Home</a></li>
+	<li class="active" property="itemListElement" typeof="WebPage"><span property="name">Events</span><meta property="position" content="1"></li>
+</ol>
+
+<div id="main-section" class="container">
+<div class="row">
+
+	<div id="primary-section" class="col-md-8 col-sm-12">
+
+		{!--<div class="page-header"><h2>RJI events</h2></div>--}
+
+		{!--<div class="embed-responsive embed-responsive-16by9">
+			<iframe class="embed-responsive-item" width="1280" height="720" src="//www.youtube.com/embed/-I_uIdGCTzA?rel=0" frameborder="0" allowfullscreen></iframe>
+		</div>--}
+
+				<div class="page-header"><h3>Upcoming RJI events</h3></div>
+
+				<div class="card-bg">
+				<ul id="recent-posts" class="media-list">
+				{exp:calendar:events
+						calendar_id="100"
+						event_limit="5"
+						date_range_start="today"
+						show_months="12"
+						pad_short_weeks="n"
+						dynamic="off"
+						cache="yes"
+						refresh="100"
+						enable="custom_fields"}
+
+				  {if esc_cache:no_results}
+				  <div class="card"><p class="alert alert-warning">There are currently no upcoming events</p></div>
+				  {/if}
+
+				  {rji_media_list_events}
+
+				  {if count == total_results}
+					<ul class="pager">
+		  				<li class="next"><a href="{site_url}events/upcoming">View all upcoming events</a></li>
+	  				</ul>
+				  {/if}
+
+			  	{/exp:calendar:events}
+
+				</ul>
+
+				</div>
+
+				<div class="page-header"><h3>Past RJI events</h3></div>
+
+				<div class="card-bg">
+				<ul id="recent-posts" class="media-list">
+
+				{exp:calendar:events
+						calendar_id="100"
+						event_limit="5"
+						date_range_end="today"
+						show_months="6"
+						pad_short_weeks="n"
+						dynamic="off"
+						cache="yes"
+						refresh="100"
+						enable="custom_fields"
+						sort="desc"}
+
+					{if esc_cache:no_results}
+				  	<div class="card"><p class="alert alert-warning">There are currently no upcoming events</p></div>
+				  	{/if}
+
+				  	{rji_media_list_events}
+
+				  	{if count == total_results}
+					<ul class="pager">
+		  				<li class="next"><a href="{site_url}events/past">View all past events</a></li>
+	  				</ul>
+				  	{/if}
+
+				{/exp:calendar:events}
+				</ul>
+			   </div>
+
+			   <div class="page-header"><h3>Upcoming industry events</h3></div>
+
+				<div class="card-bg">
+				<ul id="recent-posts" class="media-list">
+				{exp:calendar:events
+						calendar_id="101"
+						event_limit="5"
+						date_range_start="today"
+						show_months="12"
+						pad_short_weeks="n"
+						dynamic="off"
+						cache="yes"
+						refresh="100"
+						enable="custom_fields"}
+
+				  {if esc_cache:no_results}
+				  <div class="card"><p class="alert alert-warning">There are currently no upcoming events</p></div>
+				  {/if}
+
+				  {rji_media_list_events}
+
+				  {if count == total_results}
+					<ul class="pager">
+		  				<li class="next"><a href="{site_url}events/industry">View all upcoming industry events</a></li>
+	  				</ul>
+				  {/if}
+
+			  	{/exp:calendar:events}
+
+				</ul>
+
+				</div>
+
+
+  	</div> {!-- end primary section --}
+
+    <div id="sidebar" class="col-md-4 hidden-sm hidden-xs nocontent">
+
+		{embed="main/_sidebar" recent="YES" events="YES" topics="NO" tags="NO" section="calendar_events"}
+
+ 	</div>
+
+</div> {!-- end row --}
+</div> {!-- end main section --}
+
+{page_end}
+
+
+
+
+
+
+
+
+
+
+
+{!-- =============================================Individual Story=============================================
+	if there is something in segment 2 then we know that we are looking at an event, however, BWF puts index in the URL
+	so we have to check for that, too.
+	=========================================================================================================== --}
+{if:else}
+
+
+{exp:channel:entries channel="calendar_events" status="open|draft|closed|preview" dynamic="yes" disable="category_fields|pagination|member_data" limit="1"}
+{if no_results} {redirect="404"} {/if}
+
+{!-- Redirects user to the 404 page if the event is not open and they are not part of a member group able to see it --}
+{if searchable == "No" && (status != "open" && (logged_in_group_id != "1" && logged_in_group_id != "6" && logged_in_group_id != "7" && logged_in_group_id != "8" && logged_in_group_id != "9"))}
+	{redirect="404"}
+{/if}
+
+{exp:tracker:track entry_id="{entry_id}"}
+
+{!-- Begin view --}
+{html_head}
+
+	<title>{title} | RJI Events</title>
+
+	{if event_time == "100"}
+
+	{embed="events/_event_json" entry_id="{entry_id}"}
+	<meta name="description" content="{event_teaser}" /> {!-- Used when displaying text about this link --}
+	<link rel="publisher" href="https://plus.google.com/111709737662107424167" /> {!-- No surprise Google uses its own social network to identify publishers --}
+	{!-- Facebook/OpenGraph tags. Validated here: https://developers.facebook.com/tools/debug/ --}
+	<script src="{path='global_embeds/youneeq'}" type="text/javascript" async></script>
+	<script type="text/javascript" defer>
+		function youneeq_observe() {
+			var story_obj = JSON.parse($('script[type="application/ld+json"]').text());
+			var story_id_parts = story_obj.mainEntityOfPage["@id"].split('/');
+			var story_id = story_id_parts.length ? story_id_parts[story_id_parts.length - 1] : '';
+
+			return {
+				name: story_id,
+				title: jQuery('meta[property="og:title"]').attr('content').replace(' | RJI', ''),
+				create_date: story_obj.datePublished,
+				categories: $('#categories > a').map(function(i,e) { return $(e).text(); }).get()
+			};
+		}
+
+		function youneeq_display(response, tags) {
+			if (response && response.suggest && response.suggest.node) {
+				var stories = response.suggest.node, story_num = stories.length,
+					$box = jQuery(this.box), $row = jQuery('.row', this.box);
+
+				for (var i = 0; i < story_num; i++) {
+					if (i && !(i % 3)) {
+						var new_row = jQuery('<div class="row"></div>');
+						$row.after(new_row);
+						$row = new_row;
+					}
+					var s = {
+						'id': stories[i].id ? stories[i].id : '',
+						'title': stories[i].title ? stories[i].title.replace(/"/g, '&quot;') : '',
+						'url': stories[i].url ? stories[i].url : '',
+						'img': stories[i].image ? stories[i].image : '',
+						'date': stories[i].date ? youneeq_date_format(stories[i].date) : '',
+						'cat': stories[i].categories && stories[i].categories.length ? stories[i].categories[0] : '',
+					};
+
+					$row.append(
+						'<div id="yq-article-' + s.id + '" class="yq-article col-sm-4 col-xs-12" data-yq-id="' + s.id +
+						'" data-yq-title="' + s.title + '" data-yq-url="' + s.url + '"><div class="thumbnail card"><a href="' +
+						s.url + '"><img class="img-responsive" src="' + s.img + '" title="' + s.title + '" alt="' + s.title +
+						'" /></a><div class="caption"><h4>' + (s.cat ? '<span class="small capitalize">' + s.cat +
+						'</span><br />' : '') + '<a class="media-heading" href="' + s.url + '">' + s.title + '</a>' + (s.date ?
+						'<br /><span class="small capitalize">' + s.date + '</span>' : '') + '</h4></div></div></div>'
+					);
+				}
+			}
+		}
+
+		function youneeq_date_format(iso_string) {
+			var months = ['January', 'February', 'March', 'April', 'May', 'June',
+						  'July', 'August', 'September', 'October', 'November', 'December'],
+				d = new Date(iso_string);
+
+			return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+		}
+	</script>
+	<meta property="og:title" content="{title} | RJI" />
+	<meta property="og:image" content="{if event_banner}{event_banner}{if:elseif event_thumbnail}{event_thumbnail:rect}{if:else}{site_url}/images/posts/rji-post.jpg{/if}" /> {!-- Use preview image or the default one --}
+	<meta property="og:url" content="{comment_url_title_auto_path}" /> {!-- Use default URL path from EE to consolidate URLs --}
+	<meta property="og:description" content="{event_teaser}" /> {!-- Use the same value as our regular meta description --}
+	{!--<meta property="fb:admins" content="USER_ID" /> [[Need to find info]] https://developers.facebook.com/docs/platforminsights/domains--}
+	{!-- Twitter tags. Validated here: https://cards-dev.twitter.com/validator --}
+	<meta name="twitter:card" content="summary{if event_banner}_large_image{/if}" /> {!-- Use the same value as our regular meta description --}
+	<meta name="twitter:url"  content="{comment_url_title_auto_path}" /> {!-- Use default URL path from EE to consolidate URLs --}
+	<meta name="twitter:site" content="@RJI" />
+	<meta name="twitter:title" content="{title} | RJI" />
+	<meta name="twitter:image" content="{if event_banner}{event_banner}{if:elseif event_thumbnail}{event_thumbnail:rect}{if:else}{site_url}/images/posts/rji-post.jpg{/if}" /> {!-- Use preview image or the default one. Twitter wants a smaller, square image < 1mb --}
+	<meta name="twitter:description" content="{event_teaser}" /> {!-- Use the same value as our regular meta description --}
+
+	{/if}
+
+	{head_content}
+{html_head_end}
+<body>
+{embed="main/_navbar"}
+
+	<ol class="breadcrumb" vocab="http://schema.org" typeof="BreadcrumbList">
+		<li><a href="{site_url}">Home</a></li>
+		<li><a href="{path="events/index"}" property="itemListElement" typeof="WebPage"><span property="name">Events</span><meta property="position" content="1"></a></li>
+		<li class="active visible-xs-inline-block">{exp:trunchtml chars="22" exact="yes" ending="..."}{title}{/exp:trunchtml}</li>
+		<li class="active visible-sm-inline-block">{exp:trunchtml chars="100" exact="yes" ending="..."}{title}{/exp:trunchtml}</li>
+		<li class="active visible-md-inline-block visible-lg-inline-block" property="itemListElement" typeof="WebPage"><span property="name">{title}</span><meta property="position" content="2"></li>
+	</ol>
+
+	<div id="main-section" class="container">
+	<div class="row">
+
+	<div id="primary-section" class="col-md-8 col-sm-12">
+
+	{if event_banner}<div class="banner-wrapper"><img class="img-responsive" src="{event_banner}" alt="{event_name}" width="100%" style="margin-bottom: 2em;"/></div>{/if}
+
+
+
+			<div class="page-header">
+
+				<div class="row story-desc">
+					<div class="col-xs-12" id="categories">
+
+						{if event_time == "100"}<a href="/events/upcoming" class="label label-success">RJI Event</a>&nbsp;
+						{if:elseif event_time == "101"}<a href="/events/industry" class="label label-warning">Industry</a>&nbsp;
+						{/if}
+
+				{exp:gwcode_categories entry_id="{entry_id}" style="linear"}
+
+								<a href="/events/categories/{cat_url_title}" class="label label-default">{cat_name}</a>&nbsp;
+
+				{/exp:gwcode_categories}
+					</div>
+				</div>
+
+				<h1>{title}</h1>
+
+				<div class="row story-desc">
+				  <div class="col-xs-12">
+
+					{if !is_bwf_preview}
+					{embed="events/_get_event_date" entry_id="{entry_id}"}
+					{/if}
+
+					{if foreign_location != ""}<br>{foreign_location}{/if}
+
+					{if "{event_location:title}" == ""}
+					<div class="pull-right hidden-xs">
+				  		{social_share_buttons}
+					</div>
+					{/if}
+
+				  </div>
+				</div>
+				{if "{event_location:title}" != ""}
+				<div class="row story-desc">
+				  <div class="col-xs-12">Location: {event_location:title}</div>
+				  {!--<div class="col-xs-4" style="text-align: right;">Location:</div>
+				  <div class="col-xs-8">
+					{event_location:title}
+				  </div>--}
+
+				  	<div class="pull-right hidden-xs">
+				  		{social_share_buttons}
+					</div>
+				</div>
+				{/if}
+
+
+			</div>
+
+
+
+			{!-- Uses Bootstrap's nav tab pane JS. Documentation is found in main/sidebar template
+				Done this way so all section content can be on one page --}
+			{if event_bios OR event_schedule OR event_travel OR event_attendees OR register OR additional_info}
+			<ul id="event-nav" class="nav nav-tabs nav-justified">
+          		<li class="{if searchable != "No"}active{/if}"><a href="#about" data-toggle="tab">About</a></li>
+			{/if}
+				{if searchable == "No"}<li class="active"><a href="#userInfo" data-toggle="tab">User Info</a></li>{/if}
+          		{if event_bios}<li class=""><a href="#bios" data-toggle="tab">Bios</a></li>{/if}
+          		{if event_schedule}<li class=""><a href="#schedule" data-toggle="tab">Schedule</a></li>{/if}
+          		{if event_travel}<li class=""><a href="#travel" data-toggle="tab">Travel</a></li>{/if}
+          		{if event_attendees}<li class=""><a href="#attendees" data-toggle="tab">Attendees</a></li>{/if}
+          		{if register}<li class=""><a href="#signup" data-toggle="tab">Register</a></li>{/if}
+				{if additional_info}
+					{additional_info}
+						{if tab_id != "" AND tab_name != ""}<li class=""><a href="#{tab_id}" data-toggle="tab">{tab_name}</a></li>{/if}
+					{/additional_info}
+				{/if}
+			{if event_bios OR event_schedule OR event_travel OR event_attendees OR register OR additional_info}
+        	</ul>
+			{/if}
+
+
+			{if event_bios OR event_schedule OR event_travel OR event_attendees OR register OR additional_info}
+			<div id="event-content" class="tab-content">
+			{/if}
+          		<div class="tab-pane fade {if !eventName || !contact_name || !room_requested} in active{/if}" id="about">{event_about}</div>
+				{if eventName || contact_name || room_requested}
+					<div class="tab-pane fade in active" id="userInfo">
+						<div class="form-group">
+						  <label for="subject">Room requested:</label>
+						  <input type="text" class="form-control" value="{room_requested}">
+						</div>
+						<div class="form-group">
+						  <label for="name"><em class="required">&ast;</em>Contact name:</label>
+						  <p class="help-block">First and last name.</p>
+						  <input type="text" class="form-control" value="{contact_name}"/>
+						</div>
+
+						<div class="form-group">
+						  <label for="from"><em class="required">&ast;</em>Contact email:</label>
+						  <input type="text" class="form-control" value="{contact_email}"/>
+						</div>
+
+						<div class="form-group">
+						  <label for="from">Other rooms needed:</label>
+						  {rooms}
+						</div>
+
+						<div class="row">
+							<div class="form-group col-sm-6">
+							  <label class="control-label" for="subject">Meeting start time:</label>
+							  <div class="input-group">
+								  <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+								  <input type="text" class="form-control" value="{start_time}"/>
+							  </div>
+							</div>
+
+							<div class="form-group col-sm-6">
+							  <label for="subject"><em class="required">&ast;</em>Meeting end time:</label>
+							  <div class="input-group">
+								  <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+								  <input type="text" class="form-control" value="{end_time}"/>
+							  </div>
+							</div> 
+						</div>
+
+						<div class="row">
+						<div class="form-group col-sm-6">
+						  <label class="control-label" for="subject">Setup time:</label>
+						  <p class="help-block">15 min., 1 hour, etc.</p>
+						  <div class="input-group">
+							  <span class="input-group-addon"><i class="fa fa-cubes"></i></span>
+							  <input type="text" class="form-control" value="{setup_time}"/>
+						  </div>
+						</div>
+
+						<div class="form-group col-sm-6">
+						  <label for="subject">Cleanup time:</label>
+						  <p class="help-block">15 min., 1 hour, etc.</p>
+						  <div class="input-group">
+							  <span class="input-group-addon"><i class="fa fa-trash-o"></i></span>
+							  <input type="text" class="form-control" value="{cleanup_time}"/>
+						  </div>
+						</div>
+						</div>
+
+						<div class="row">
+						<div class="form-group col-sm-6">
+						  <label for="subject"><em class="required">&ast;</em>Telephone:</label>
+						  <div class="input-group">
+							  <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+							  <input type="text" class="form-control" value="{phone_number}" />
+						  </div>
+						</div>
+
+						<div class="form-group col-sm-6">
+						  <label for="subject"><em class="required">&ast;</em>Organization:</label>
+						  <div class="input-group">
+							  <span class="input-group-addon"><i class="fa fa-building-o"></i></span>
+							  <input type="text" class="form-control" value="{organization}" />
+						  </div>
+						</div>
+						</div>
+
+						<div class="row">
+							<div class="form-group col-sm-6">
+							  <label for="subject"><em class="required">&ast;</em>Name of event:</label>
+							  <div class="input-group">
+								  <span class="input-group-addon"><i class="fa fa-newspaper-o"></i></span>
+								  <input type="text" class="form-control" value="{eventName}" />
+							  </div>
+							</div>
+
+							<div class="form-group col-sm-6">
+							  <label for="subject"><em class="required">&ast;</em>Number of people attending:</label>
+							  <div class="input-group">
+								  <span class="input-group-addon"><i class="fa fa-users"></i></span>
+								  <input type="text" class="form-control" value="{people}" />
+							  </div>
+							</div>
+						</div>
+
+						<div class="form-group">
+						  <label for="message"><em class="required">&ast;</em>Summary:</label>
+						  <p class="help-block">Please give us a short description of the event you would like to hold at this time.</p>
+						  <textarea class="form-control" rows="7">{event_about}</textarea>
+						</div>
+
+						<div class="well well-lg">
+							<div class="checkbox">
+							  <label>
+								  <input type="checkbox" {if foodYes =="Yes"}checked{/if} />
+								  I will be serving food at this event and will obtain a <a href="http://ehs.missouri.edu/food/permits.html" target="_blank" name="Temporary food permit">temporary food permit</a>.
+							  </label>
+							</div>
+							<div class="checkbox">
+							  <label>
+								  <input type="checkbox" {if alcYes == "Yes"}checked{/if} />
+								  I will be serving alcohol at this event and will obtain a temporary use of <a href="http://businessservices.missouri.edu/services/alcohol-use.html" target="_blank" name="Alcoholic beverages permit">alcoholic beverages permit</a>.
+							  </label>
+							</div>
+							<div class="checkbox">
+							  <label>
+								  <input type="checkbox" {if readYes == "Yes"}checked{/if} />
+								  <em class="required">&ast;</em>I have read and understand the <a href="{site_url}uploads/room_policies.pdf" target="_blank">RJI room reservations policies</a>.
+							  </label>
+							</div>
+						</div>
+					</div>
+				{/if}
+				{if event_bios}<div class="tab-pane fade" id="bios">{event_bios}</div>{/if}
+				{if event_schedule}
+					<div class="tab-pane fade" id="schedule">
+						{event_schedule}
+						{event_schedule_2}
+							<h3 class="secondary">{event_schedule_2:event_day}</h3>
+							<p>{event_schedule_2:event_day_description}</p>
+							{event_schedule_2:event_sessions}
+								{if "{session_time}" != ""}
+								<div class="row">
+									<div class="col-xs-4 col-sm-3">
+										<p class="well well-sm text-center"><strong>{session_time}</strong></p>
+									</div>
+									<div class="col-xs-8 col-sm-9">
+										<h4>{session_title}</h4>
+										<p><strong>{session_speaker}</strong></p>
+										<p><i>{session_location}</i></p>
+										<p>{session_description}</p>
+									</div>
+								</div>
+								{/if}
+							{/event_schedule_2:event_sessions}
+						{/event_schedule_2}
+					</div>
+				{/if}
+				{if event_travel}<div class="tab-pane fade" id="travel">{event_travel}</div>{/if}
+				{if event_attendees}<div class="tab-pane fade" id="attendees">{event_attendees}</div>{/if}
+				{if register}<div class="tab-pane fade" id="signup">{register}</div>{/if}
+				{if additional_info}
+					{additional_info}
+						<div class="tab-pane fade" id="{tab_id}"><p>{tab_info}</p></div>
+					{/additional_info}
+				{/if}
+			{if event_bios OR event_schedule OR event_travel OR event_attendees OR register OR additional_info}
+			</div>
+			{/if}
+
+
+			{!-- Tags --}
+			{exp:tag:tags channel="events" websafe_separator="_"}
+				{if tag_count == 1}
+				<br>
+				<div class="row story-desc">
+					<div class="col-xs-12">
+						<strong>Tags</strong><br>
+				{/if}
+						<span class="badge tags"><a href="/stories/tag/{websafe_tag}">{tag_name}</a></span>&nbsp;
+
+				{if tag_count == tag_total_results}
+					</div>
+				</div>
+				{/if}
+			{/exp:tag:tags}
+
+			<br>
+			<div class="row story-desc visible-xs">
+					<div class="col-xs-12">
+						<strong>Share</strong><br>
+					</div>
+			</div>
+			<div class="visible-xs">
+				{social_share_buttons}
+			</div>
+
+			<br>
+
+			{!--if "{event_posts}" != "--"}
+			{embed="stories/_get_related_stories" series="{event_posts}" entry_id="{entry_id}"}
+			{if:else}
+			{embed="stories/_get_related_stories" entry_id="{entry_id}"}
+			{/if--}
+			<div class="page-header story-list-header">
+				<p class="story-list-heading">
+					<span class="focus">Recommended</span> for You
+				</p>
+			</div>
+			<div id="youneeq" class="card-bg container-fluid" data-yq-suggest-count="3"
+				data-yq-display-function="youneeq_display" data-yq-suggest-date-start="2011-01-01T00:00:00.000Z" data-yq-suggest-panel-custom="id|title|url|image|categories|date">
+				<a href="#" class="recommended-modal"><img src="http://api.youneeq.ca/Content/images/powered-by-y.gif" /></a>
+				<div class="row"></div>
+			</div>
+
+
+			{disqus_comments} {!-- Snippet that calls all comments for this post and has comment form --}
+			<br>
+
+
+  	</div> {!-- end primary section --}
+
+    <div id="sidebar" class="col-md-4 hidden-sm hidden-xs nocontent">
+
+		{embed="main/_sidebar" recent="YES" related="YES" events="YES" topics="NO" tags="NO" section="calendar_events"}
+
+ 	</div>
+
+</div> {!-- end row --}
+</div> {!-- end main section --}
+
+{page_end}
+{/exp:channel:entries}
+
+{/if} {!-- If event preview --}
+
+{/if} {!-- If single event --}

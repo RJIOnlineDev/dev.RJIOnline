@@ -1,0 +1,65 @@
+{!--- Base Template
+	This is the required base for creating a template. Fill in content for the new template's purpose!
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+	<title>
+	About | RJI
+	</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "item": {
+      "@id": "{site_url}about",
+      "name": "About"
+    }
+  }]
+}
+</script>
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li class="active">About</li>
+</ol>
+
+<div id="main-section" class="container">
+<div class="row">
+    
+	<div class="col-md-8 col-sm-12">
+
+		<div class="page-header"><h1>About RJI</h1></div>
+     
+		<iframe allowfullscreen="" frameborder="0" style="padding-bottom: 2em;" src="//www.youtube.com/embed/cO0I6UheLVE?rel=0"></iframe>
+
+		<div class="about-block about-block-text">RJI was launched in 2004 with a grant of $31 million from the Donald W. Reynolds Foundation. In conjunction with the centennial celebration of the Missouri School of Journalism, RJI&rsquo;s headquarters were opened in September 2008. This 50,000 square-foot facility on the University of Missouri campus has state-of-the-art resources to test and demonstrate new technologies, experiment with new approaches to producing, designing and delivering news, information and advertising, and to host conferences that can be live-streamed around the world. RJI&rsquo;s work crosses diverse specialties within journalism, including media convergence, editorial content and methods, the evolution of advertising, innovation in management and the impact of new technologies. It also includes varied fields on campus such as law, computer science, marketing, education and other disciplines. In 2012, the Foundation awarded RJI a $30.1 million endowment gift to guarantee permanent funding to pursue innovation, collaboration and research in media industries.</div>
+		<div class="about-block">
+			<blockquote>The Donald W. Reynolds Journalism Institute engages media professionals, scholars and other citizens in programs aimed at strengthening journalism in the service of democracy. RJI generates and tests new techniques and new thinking that promise to improve journalism.</blockquote>
+		</div>
+		<div class="about-block about-block-text">
+		  <h3>RJI focuses on ideas, experimentation and research, including:</h3>
+		  <ul>
+			  <li>Donald W. Reynolds Fellowships. Each Reynolds Fellow carries out a major project aimed at enhancing the practice or understanding of journalism or advertising.</li>
+			  <li>The RJI Research Center. Using rigorous social science methods, the center provides RJI staff and external clients with measures of what works and what doesn&rsquo;t in the real world of journalism.</li>
+			  <li>The Journalism Futures Lab and Technology Testing Center. Professionals, students and researchers experiment with new technologies and their potential for improving the gathering, content, design and delivery of news, information and advertising.</li>
+			  <li>Conference hosting. RJI&rsquo;s physical facilities, three high-tech buildings on the University of Missouri campus, provide an inviting setting for symposia, forums, exhibits and conferences.</li>
+			  <li>An extensive public outreach program, including live-streaming and taping of conferences, how-to guides for journalists and citizens and reports on the latest research on media innovations.</li>
+		  </ul>
+		</div>
+    
+    </div>
+    
+    <div id="sidebar" class="col-sm-12 col-md-4"> 
+		{about_sidebar}
+	</div>
+	
+</div>
+</div>
+
+{page_end}

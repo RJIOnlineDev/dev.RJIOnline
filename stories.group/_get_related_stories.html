@@ -1,0 +1,100 @@
+{!--- stories/More Stories
+	Displays stories that are related to the story because of tags.
+	*See template main/index for more template details; only details on this specific template will be documented --}
+{!--exp:stash:cache name="related" unprefix="esc_cache" refresh="1400"--}
+
+<div class="page-header story-list-header">
+	<p class="story-list-heading">
+		<span class="focus">Related</span>
+		Stories
+	</p>
+</div>
+	
+<div class="card-bg container-fluid" id="thumbnails">
+
+{if "{embed:series}" != ""}
+<div class="row">
+{exp:channel:entries channel="stories" sticky="no" search:post_series="{embed:series}" limit="3" disable="categories|member_data|category_fields|pagination" dynamic="no" status="open|featured" entry_id="not {embed:entry_id}"}
+
+<div class="col-sm-4 col-xs-12">
+				  <div class="thumbnail card">
+				  
+					  <a href="{post_path}">
+						{!-- If there is a news image, use that, else maybe it's an event so if there is an event image use that, else there is no given image, use default image --}
+						<img src=
+							{if news_image}
+								{news_image}
+									{url:rect}
+								{/news_image}
+							{if:else}
+									"{default_img_src}" 
+							{/if}
+							alt="{title}" title="{title}" class="img-responsive"/>
+					  </a>
+					  
+					  <div class="caption">
+						  
+							<h4>{if post_series != ""}<span class="small capitalize">{post_series}</span><br>{/if}<a class="media-heading" href="{post_path}">{title}</a>
+							{!-- If statement below checks if there is a start time (it is an event) and gives the event start/finish but if not (it is a post) and displays author and publish date --}
+							<br /><span class="small capitalize">
+								{entry_date format="%F %j, %Y"}
+							</span></h4>
+							
+					  </div>
+					  
+				  </div>
+				</div>
+{/exp:channel:entries}
+</div>
+{if:else}
+
+{!-- Displays stories with similar tags --}
+{!--exp:channel:entries related_categories_mode="yes" {if "{embed:series}" != ""}search:post_series="not {embed:series}"{/if} channel="stories" limit="6" custom_fields="yes" status="open|featured"--}
+{exp:tag:related_entries channel="stories" limit="5" orderby="relevance" disable="categories|member_data|category_fields" dynamic="no" status="open|featured" entry_id="{embed:entry_id}"}
+
+{if count == 1 OR count == 4}
+<div class="row">
+{/if}
+		
+		<div class="col-sm-4 col-xs-12">
+				  <div class="thumbnail card">
+				  
+					  <a href="{post_path}">
+						{!-- If there is a news image, use that, else maybe it's an event so if there is an event image use that, else there is no given image, use default image --}
+						<img src=
+							{if news_image}
+								{news_image}
+									{url:rect}
+								{/news_image}
+							{if:else}
+									"{default_img_src}" 
+							{/if}
+							alt="{title}" title="{title}" class="img-responsive"/>
+					  </a>
+					  
+					  <div class="caption">
+						  
+							<h4>{if post_series != ""}<span class="small capitalize">{post_series}</span><br>{/if}<a class="media-heading" href="{post_path}">{title}</a>
+							{!-- If statement below checks if there is a start time (it is an event) and gives the event start/finish but if not (it is a post) and displays author and publish date --}
+							<br /><span class="small capitalize">
+								{entry_date format="%F %j, %Y"}
+							</span></h4>
+							
+					  </div>
+					  
+				  </div>
+				</div>
+	
+{if count == total_results OR count == 3}
+
+	</div>
+
+{/if}
+
+{!--/exp:channel:entries--}
+{/exp:tag:related_entries}
+{/if}
+
+</div>
+
+{!--/exp:stash:cache--}

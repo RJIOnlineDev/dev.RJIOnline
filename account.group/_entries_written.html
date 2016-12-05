@@ -1,0 +1,26 @@
+<div class="card-bg">
+<ul class="media-list">
+{exp:user:entries
+    user_author_id="{embed:author_id}"
+    channel="stories"
+	limit="10"
+}
+	{if no_results}<div class="card media"><div class="media-body">{if segment_3 == ""}You{if:else}This user{/if} has not written any articles.</div></div>{/if}
+    {!--if count == 1}<h4>Articles written by {embed:first_name}...</h4>{/if--}
+    <li class="card">
+		<div class="media-body">
+		  <h5>{if post_series != ""}<span class="small capitalize">{post_series}</span><br>{/if}<a class="media-heading" href="{post_path}">{title}</a>
+			{!-- If statement below checks if there is a start time (it is an event) and gives the event start/finish but if not (it is a post) and displays author and publish date --}
+			<br /><span class="small capitalize">
+			{entry_date format="%F %j, %Y"}
+			</span></h5>
+		</div> {!-- ends .media-body --}
+	</li>
+	{if count == total_results}
+	<ul class="pager">
+		  <li class="next"><a href="{site_url}stories/author/{embed:author_id}">View all...</a></li>
+	  </ul>
+	{/if}
+{/exp:user:entries}
+</ul>
+</div>
