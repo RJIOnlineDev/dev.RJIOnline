@@ -1,0 +1,195 @@
+{!--- Base Template
+	This is the required base for creating a template. Fill in content for the new template's purpose!
+	*See template main/index for more template details; only details on this specific template will be documented --}
+{html_head}
+	<title>
+	Resources | RJI
+	</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "item": {
+      "@id": "{site_url}about",
+      "name": "About"
+    }
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "item": {
+      "@id": "{site_url}about/resources",
+      "name": "Resources"
+    }
+  }]
+}
+</script>
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path='about/index'}">About</a></li>
+	<li class="active">Resources</li>
+</ol>
+
+<div id="main-section" class="container">
+	<div class="row">
+    
+		<div class="col-md-8 col-sm-12">
+	
+			<div class="page-header"><h1>Resources</h1></div>
+     
+			<ul class="nav nav-tabs nav-justified">
+				<li class="active"><a data-toggle="tab" href="#programs">Programs</a></li>
+				<li><a data-toggle="tab" href="#locations">Locations</a></li>
+			</ul>
+
+			<p>&nbsp;</p>
+
+			<div class="tab-content">
+				<div class="tab-pane active" id="programs">
+					<div class="card-bg">
+						{!-- Reynolds Fellowships --}
+						<div class="card-lg">
+							<div class="card-lg-img" style="background-image: url('{site_url}images/uploads/front-entrance.jpg');">&nbsp;</div>
+							<div class="card-lg-desc">
+								<h3>
+									<a href="/fellowships">Reynolds Fellowships</a><br />
+									<small>The Reynolds Journalism Institute invites proposals from people and institutions with innovative ideas to improve the practice or understanding of journalism. We welcome any proposals that offer the hope of strengthening the journalism-democracy relationship. </small>
+								</h3>
+								<br />
+								<a href="/fellowships">Learn more</a>
+							</div>
+						</div>
+						{!-- Press Councils --}
+
+					  	<div class="card-lg">
+							<div class="card-lg-img" style="background-image: url('{site_url}images/uploads/q7799038.jpg');">&nbsp;</div>
+							<div class="card-lg-desc">
+								<h3>
+									<a href="http://accountablejournalism.org//press-councils" target="_blank">Press Councils</a><br />
+									<small>The bodies listed here are both genuine press councils and similar institutions, such as &quot;media observatories&quot; common in Africa. Some are listed with reservations: Their independence or their activity could not be ascertained. </small>
+						  		</h3>
+						  		<br />
+								<a href="http://accountablejournalism.org//press-councils" target="_blank">Learn more</a>
+							</div>
+						</div>
+					  	{!-- Codes of Ethics --}
+
+					  	<div class="card-lg">
+							<div class="card-lg-img" style="background-image: url('{site_url}images/uploads/Ethics.JPG');">&nbsp;</div>
+
+							<div class="card-lg-desc">
+						  	<h3>
+								<a href="http://accountablejournalism.org/" target="_blank">Codes of Ethics</a><br />
+								<small>Most of the 400+ codes listed here were drafted and adopted by an individual outlet (e.g. a newspaper), a sector of the media industry (e.g. broadcasting), a union/ association of journalists, a press council or a press club. </small>
+						  	</h3>
+						  	<br />
+						  	<a href="http://accountablejournalism.org/" target="_blank">Learn more</a>
+						</div>
+					</div>
+					{!-- Pricing Optimizer --}
+
+					<div class="card-lg">
+						<div class="card-lg-img" style="background-image: url('{site_url}images/posts/pricingoptimizer-banner.jpg');">&nbsp;</div>
+
+						<div class="card-lg-desc">
+						  	<h3>
+								<a href="/pricing-optimizer">Pricing Optimizer</a><br />
+								<small>This online tool uses the statistical technique called conjoint analysis to get information from your readers on their willingness to pay, their preferences for bundled packages, and more. </small>
+						  	</h3>
+						  	<br />
+						  	<a href="/pricing-optimizer">Learn more</a>
+						</div>
+					</div>
+					{!-- Resource Allocator --}
+
+					<div class="card-lg">
+						<div class="card-lg-img" style="background-image: url('{site_url}images/posts/resourceallocator-banner.jpg');">&nbsp;</div>
+
+						<div class="card-lg-desc">
+						  	<h3>
+								<a href="/resource-allocator">Resource Allocator</a><br />
+								<small>Researchers at the University of Missouri created Resource Allocator as an executive management tool to enable publishers to test the impact of various spending or cost-cutting decisions. A tested mathematical formula breaks down revenues and expenditures from news, advertising and circulation to predict profitability. </small>
+						  	</h3>
+						  	<br />
+						  	<a href="/resource-allocator">Learn more</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			{!-- Location Assets --}
+
+			<div class="tab-pane" id="locations">
+				<div class="card-bg">
+					{!-- Conference Facilities --}
+					<div class="card-lg">
+						<div class="card-lg-img" style="background-image: url('{site_url}images/uploads/TEDxSmithForum.jpg');">&nbsp;</div>
+
+						<div class="card-lg-desc">
+					  		<h3>
+								<a href="/facilities">Conference Facilities</a><br />
+								<small>About conference Facilitiies </small>
+							</h3>
+					  		<br />
+							<a href="/facilities">Learn more</a>
+						</div>
+					</div>
+				  	{!-- JSchool Library --}
+
+					<div class="card-lg">
+						<div class="card-lg-img" style="background-image: url('{site_url}images/uploads/jlibrary.jpg');">&nbsp;</div>
+
+						<div class="card-lg-desc">
+					  		<h3>
+								<a href="/frank-lee-martin-journalism-library">Frank Lee Martin Journalism Library</a><br />
+								<small>The Frank Lee Martin Journalism Library, located at the Reynolds Journalism Institute, houses the largest academic collection of journalism-related materials in the world. It is part of the University of Missouri library system. </small>
+					  		</h3>
+					  		<br />
+							<a href="/frank-lee-martin-journalism-library">Learn more</a>
+						</div>
+					</div>
+				  	{!-- Futures Lab --}
+
+					<div class="card-lg">
+						<div class="card-lg-img" style="background-image: url('{site_url}images/uploads/futureslab.jpg');">&nbsp;</div>
+
+						<div class="card-lg-desc">
+					  		<h3>
+								<a href="/futures-lab">Futures Lab</a><br />
+								<small>To move journalism forward, researchers, students and other innovators need a place to brainstorm and experiment. They need a place that offers both the freedom to think big and the resources to turn their big ideas into practical products and processes&mdash;RJI&rsquo;s Futures Lab is the place. </small>
+					  		</h3>
+					 		<br />
+							<a href="/futures-lab">Learn more</a>
+						</div>
+					</div>
+				  	{!-- Microsoft Lab --}
+
+					<div class="card-lg">
+						<div class="card-lg-img" style="background-image: url('{site_url}images/uploads/lab_resized.jpg');">&nbsp;</div>
+
+						<div class="card-lg-desc">
+							<h3>
+								<a href="/microsoft-lab">Microsoft Application Development Lab</a><br />
+								<small>The newly-remodeled space in RJI&rsquo;s Futures Lab is equipped with Windows-based laptops, tablets, hybrids and smartphones. The lab also includes Xbox 360 gaming systems with Kinect for Xbox 360-enabled motion, gaming and videoconferencing capabilities that will allow for new forms of interaction in business, communications and health care experiments. </small>
+							</h3>
+							<br />
+							<a href="/microsoft-lab">Learn more</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</div>
+	<div id="sidebar" class="col-sm-12 col-md-4"> 
+		{about_sidebar}
+	</div>
+	
+</div>
+</div>
+
+{page_end}

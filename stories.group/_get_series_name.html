@@ -1,0 +1,3 @@
+{exp:channel:entries channel="series" search:series_name="{embed:series}" disable="categories|category_fields|member_data|pagination" require_entry="yes" dynamic="no" limit="1"}
+{if no_results}{embed:series}{/if}<a href="{post_path}">{title}</a>
+{/exp:channel:entries}

@@ -1,0 +1,167 @@
+{!--- account/index
+	This template lets a user see their own account and details. It also allows anyone to see
+	a particular persons profile, based on the member's member_id. If non is given it defaults
+	to their own profile (unless not logged in and then it sends to the login page)
+	*See template main/index for more template details; only details on this specific template will be documented --}
+{if !logged_in AND segment_3 == ''}{redirect="account/login"}{/if}
+{if segment_2 == ''}{redirect="account/profile"}{/if}
+{exp:user:stats}
+
+{html_head}
+	<title>
+	{first_name} {last_name} | RJI
+	</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+
+		
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "item": {
+      "@id": "{site_url}account",
+      "name": "Profile"
+    }
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "item": {
+      "@id": "{site_url}account/profile/{member_id}",
+      "name": "{first_name} {last_name}"
+    }
+  }]
+}
+</script>
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path='account/index'}">Account</a></li>
+	<li class="active">{first_name} {last_name}</li>
+</ol>
+	
+	{if photo_filename}
+			  {!--<div 	style=" background-image: url('{photo_url}{photo_filename}');" id="page-header-img" class="hidden-xs"
+					  {if {ress} > 970}data-0="background-position: 0px -300px; opacity: 1;"
+					  data-350="background-position: 0px 0px;"{/if}>
+			  </div>--}
+			  <div 	style=" background-image: url('{photo_url}{photo_filename}');" id="user-banner">
+			  </div>
+	{/if}
+<div id="main-section" class="container">
+<div class="row">
+	  <div {if photo_filename}id="profile-info"{/if} class="col-sm-3 col-xs-12" {if photo_filename}style="margin-top: -150px;"{/if}>
+
+	  {if avatar_filename}
+		  <img src="{avatar_url}{avatar_filename}" class="img-responsive img-thumbnail" alt="{screen_name}" title="{screen_name}"/>
+	  {/if}
+		  <h2 class="no-margin-bottom">{first_name} {last_name}</h2>
+		  <h2 class="no-margin-top"><small>
+		  {if staff_team != "none" AND staff_team}{staff_team}<br>{/if}
+		  {if fellows_class != "none" AND fellows_class}{fellows_class} Reynolds Fellow<br>{/if}
+		  {categories}{category_body}{category_name}{/category_body}{/categories}
+		  </small></h2>
+		  <p>{if position_1}{exp:low_replace find="," replace="<br><i class='fa fa-briefcase'></i>&nbsp;&nbsp;"}<i class="fa fa-briefcase"></i>&nbsp;&nbsp;{position_1}{/exp:low_replace}<br>{/if}
+		  {if institution_1}<i class="fa fa-building"></i>&nbsp;&nbsp;{institution_1}<br>{/if}
+		  {if position_2}{exp:low_replace find="," replace="<br><i class='fa fa-briefcase'></i>&nbsp;&nbsp;"}<i class="fa fa-briefcase"></i>&nbsp;&nbsp;{position_2}{/exp:low_replace}<br>{/if}
+		  {if institution_2}<i class="fa fa-building"></i>&nbsp;&nbsp;{institution_2}<br>{/if}
+		  {if position_3}{exp:low_replace find="," replace="<br><i class='fa fa-briefcase'></i>&nbsp;&nbsp;"}<i class="fa fa-briefcase"></i>&nbsp;&nbsp;{position_3}{/exp:low_replace}<br>{/if}
+		  {if institution_3}<i class="fa fa-building"></i>&nbsp;&nbsp;{institution_3}<br>{/if}
+		  {if city}<i class="fa fa-map-marker"></i>&nbsp;&nbsp;{city}{if state && city}, {/if}{state}{/if}</p>
+		  <hr>
+		  <h5>Contact</h5>
+		  <p>
+			Email: {encode="{email}"}<br>
+			{if url}Website: <a href="{url}" target="_blank">{url}</a><br>{/if}
+			{if phone}Telephone: <a href="tel:{phone}">{phone}</a><br>{/if}
+		  </p>
+		  <p>
+			{if facebook}<a href="{facebook}" target="_blank"><i class="fa fa-facebook-square  fa-2x"></i></a>{/if}
+			{if twitter}<a href="{twitter}" target="_blank"><i class="fa fa-twitter-square  fa-2x"></i></a>{/if}
+			{if linkedin}<a href="{linkedin}" target="_blank"><i class="fa fa-linkedin-square  fa-2x"></i></a>{/if}
+		  </p>
+
+		  {if segment_2 == 'profile' AND segment_3 == ''}
+		  <hr>
+		  <p><a href="{site_url}account/edit" class="btn btn-block btn-default">Edit Your Profile</a></p>
+		  <p><a href="{site_url}account/profile/{member_id}" class="btn btn-block btn-default">View as Stranger</a></p>
+		  {/if}
+	  </div>
+
+	  <div class="col-sm-9 col-xs-12">
+	  
+	  	<ul class="nav nav-pills nav-justified" role="tablist">
+		  {if segment_2 == 'profile' AND segment_3 == ''}<li class="active"><a href="#dashboard" role="tab" data-toggle="tab">Dashboard</a></li>{/if}
+		  <li {if segment_2 == 'profile' AND segment_3 != ''}class="active"{/if}><a href="#bio" role="tab" data-toggle="tab">About</a></li>
+		  <li><a href="#articles-written" tabindex="-1" role="tab" data-toggle="tab">Stories by</a></li>
+		  {if project}<li><a href="#project" role="tab" data-toggle="tab">Project</a></li>{/if}
+		</ul>
+		
+		<div class="tab-content" style="margin-top: 1em;">
+		  <div class="tab-pane fade {if segment_2 == 'profile' AND segment_3 == ''}in active{/if}" id="dashboard">
+		    <div class="row">
+				<div class="col-sm-6 col-xs-12">
+					<h4>Account Details</h4>
+					<p>Member ID: {member_id}</p>
+					<p>Group Title: {group_title}</p>
+					<p>Join Date: {join_date format="%F %j, %Y"}</p>
+				</div>
+				<div class="col-sm-6 col-xs-12">
+					<h4>Activity</h4>
+					<p>Last Visit: {last_visit format="%F %j, %Y"}</p>
+					<p>Last Activity: {last_activity format="%F %j, %Y"}</p>
+					<p>Total Entries: {total_entries}</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-xs-12">
+					<h4>Technical</h4>
+					<p>Timezone: {timezone}</p>
+				</div>
+			</div>
+			<h4>Downloads</h4>
+			{exp:store:orders member_id='CURRENT_USER' order_by='order_date' sort='desc'}
+				{if no_orders}<p class="alert alert-info">You haven't downloaded anything yet!</p>{/if}
+				{if count == 1}<p class="help-block">Click to redownload.</p>
+				<div class="card-bg">
+				<ul class="media-list">{/if}
+						{items}
+                            <li class="card"><div class="media-body"><h5><a href="{path='downloads/download/{order_hash}'}">{title}</a><br><small class="capitalize">{order_date format="%F %j, %Y"}</small></h5></div></li>
+                        {/items}
+				{if count == total_results}
+				</ul>
+			</div>
+				{/if}
+				{/exp:store:orders}
+		  </div>
+		  <div class="tab-pane fade {if segment_2 == 'profile' AND segment_3 != ''}in active{/if}" id="bio">
+		  	{if bio}<h4>About {first_name} {last_name}</h4>
+			{bio}{/if}
+			{if signature}<i>{signature}</i>{/if}
+			{if interests}<h4>Interests</h4>
+			{interests}{/if}
+			{embed="account/_entries_about" first_name="{first_name}" last_name="{last_name}"}
+		  </div>
+		  <div class="tab-pane fade" id="project">
+		  	<h4>{project_name}</h4>
+		  	<p>{project}</p>
+			<hr class="hidden-xs">
+			{embed="account/_user_projects" author_id="{member_id}" first_name="{first_name}"}
+		  </div>
+		  <div class="tab-pane fade" id="articles-written">
+		  	{embed="account/_entries_written" author_id="{member_id}" first_name="{first_name}"}
+		  </div>
+		</div>
+	
+	  </div>
+	{/exp:user:stats}
+	
+</div>
+</div>
+
+{page_end}

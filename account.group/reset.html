@@ -1,0 +1,80 @@
+{!--- account/reset
+	Allows user to reset thier password provided the key is valid. User should be getting key from a sent email from account/indentify
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+	<title>
+	Reset Password
+	</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path='account/index'}">Account</a></li>
+	<li class="active">Reset Password</li>
+</ol>
+<div id="main-section" class="container">
+<div class="row">
+    
+	<div class="col-md-12 col-sm-12">
+	
+	{!-- based mostly on user docs at http://www.solspace.com/docs/user/reset_password/#examples --}
+	  <div class="page-header"><h3>Reset Password</h3></div>
+	  <p class="help-block">This form will let you reset your password.</p>
+
+	  {!--exp:user:reset_password
+		  reset_code="{segment_3}"
+		  return="user/profile"
+		  error_page="user/error_template" 
+	  }
+		
+	  {if user_no_results}
+      	<h4>The reset token provided is invalid.</h4>
+      {/if}
+	
+	  <form role='form'>
+		  <div class="form-group">
+			<label for="password">Password</label>
+			<input type="password" class="form-control" name="password" id="password" required/>
+		  </div>
+		  <div class="form-group">
+			<label for="password_confirm">Confirm Password</label>
+			<input type="password" class="form-control" name="password_confirm" id="password_confirm" required/>
+		  </div>
+		  <input class="btn btn-success" type="submit" name="submit" value="Submit" />
+	  </form>
+
+	  {/exp:user:reset_password--}
+	  
+		{exp:freemember:reset_password return="account/success" error_handling="inline" error_delimiters='<span class="has-error"><p class="help-block">|.</p></span>'}
+
+		  {if no_results}
+			  <p class="alert alert-danger">Sorry, the link you clicked does not appear to be valid, or has expired.</p>
+		  {/if}
+		
+			  <div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" class="form-control" name="password" id="password" required/>
+				{error:password}
+			  </div>
+			  <div class="form-group">
+				<label for="password_confirm">Confirm Password</label>
+				<input type="password" class="form-control" name="password_confirm" id="password_confirm" required/>
+				{error:password_confirm}
+			  </div>
+			  <input class="btn btn-success" type="submit" name="submit" value="Submit" />
+		
+	  	{/exp:freemember:reset_password}
+	  
+	  	{exp:stash:set scope="user" name="success" save="yes"}
+			You may now use your new password to log in to your account with your provided email address.
+		{/exp:stash:set}
+	  
+    </div>
+	
+</div>
+</div>
+
+{page_end}

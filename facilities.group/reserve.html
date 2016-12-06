@@ -1,0 +1,329 @@
+{!--- Reserve a facility
+	The view will change depending on the how far the user has gone through the process.
+	1. It will ask the user for a place and date
+	2. The user will select from a list of available times.
+	3. The user will fill out a contact form that will email the appropriate person to approve the request.
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+	<title>
+	Request a facility | RJI
+	</title>
+	{head_content}
+    {exp:calendar:datepicker_css}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path='facilities/index'}">Facilities</a></li>
+	<li class="active">Reservations</li>
+</ol>
+
+<div id="main-section" class="container">
+<div class="row">
+	<div class="col-md-8 col-sm-12">
+	
+	{if segment_4 == "" AND segment_7 == ""}
+		<div class="page-header">
+			<h2>Request a room</h2>
+		</div>
+		
+		<form onsubmit="return go();">
+		<div class="row">
+			<div class="form-group col-sm-6">
+				<label for="room">Room</label>
+				<select id="room" name="room" class="form-control">
+				{exp:channel:entries channel="rooms" dynamic="no" sortby="title" sort="asc"}
+					<option value="{entry_id}">{title} {room_number}</option>
+				{/exp:channel:entries}
+				</select>
+			</div>
+			<div class="form-group col-sm-3">
+				<label for="year">Year</label>
+				<select id="year" name="year" class="form-control">
+				{!--{exp:calendar:cal date_range_start="year-01-01" date_range_end="year-12-31"}
+					{display_each_year}
+					<option value="{date format='%Y'}">{date format="%Y"}</option>
+					{/display_each_year}
+				{/exp:calendar:cal}--}
+					<option value="2015">2015</option>
+					<option value="2016">2016</option>
+				</select>
+			</div>
+			<div class="form-group col-sm-3">
+				<label for="month">Month</label>
+				<select id="month" name="month" class="form-control">
+				{exp:calendar:cal date_range_start="year-01-01" date_range_end="year-12-31"}
+					{display_each_month}
+					<option value="{date format='%m'}">{date format="%M"}</option>
+					{/display_each_month}
+				{/exp:calendar:cal}
+				</select>
+			</div>
+			{!-- <div class="form-group">
+				<label for="dat">Day</label>
+				<select id="day" name="day" class="form-control">
+					{exp:for_loop start="1" end="31" increment="1"}
+					{if {index} < 10}
+					<option value="0{index}">{index}</option>
+					{if:else}
+					<option value="{index}">{index}</option>
+					{/if}
+					{/exp:for_loop}
+				</select>
+			</div> --}
+			</div>
+			<input type="submit" class="btn btn-default" name="submit" value="Continue">
+		</form>
+	{if:else}
+	
+		{if segment_6 == ""}
+		<div class="header">
+		  <div class="page-header">
+			<h2>{exp:channel:entries channel="rooms" entry_id="{segment_3}" dynamic="no"}{title}{/exp:channel:entries} availability</h2>
+		  </div>
+		  <br style="clear: both;" />
+		</div>
+		<p>
+			There are currently reservations for this room on days shaded yellow. Click on 'view' to see detailed availability.
+		</p>
+		
+		  <div id="mc_wrap" style="margin-top: 1em;">
+			  {exp:calendar:cal
+				  {if segment_4 == ''}
+					  date_range_start="year-month-01"
+					  date_range_end="year-month-last"
+				  {/if}
+				  {if segment_4 != ''}
+					  date_range_start="{segment_4}-{segment_5}-01"
+					  date_range_end="{segment_4}-{segment_5}-last"
+				  {/if}
+				  calendar_id="100|115"
+			  }
+				  <div id="mini-cal">
+					  {display_each_month}
+					  <table class="table table-bordered table-responsive">
+						  <thead>
+							  <tr class="h2">
+								  <th colspan="1">
+									  <a
+										  id="mc_prev_month"
+										  href="{path='facilities/reserve'}/{segment_3}/{prev_month format='%Y/%m'}/">
+										  <i class="fa fa-chevron-left"></i>
+										  </a>
+								  </th>
+								  <th colspan="5" class="text-center">
+									  <a href="{path='facilities/reserver'}/{segment_3}/{month format='%Y/%m'}/">
+										  {date format="%F %Y"}
+									  </a>
+								  </th>
+								  <th colspan="1" class="text-right">
+									  <a
+										  id="mc_next_month"
+										  href="{path='facilities/reserve'}/{segment_3}/{next_month format='%Y/%m'}/">
+										  <i class="fa fa-chevron-right"></i>
+									  </a>
+								  </th>
+							  </tr>
+							  <tr id="mc_days">
+							  {display_each_day_of_week}
+								  <th class="{if day_of_week_is_weekend}active{/if} text-center">
+									  {day_of_week_one}
+								  </th>
+							  {/display_each_day_of_week}
+						  </tr>
+					  </thead>
+					  <tbody>
+						  {display_each_week}
+						  <tr style="height: 100px;">
+							  {display_each_day}
+							   <a href="{path='events/calendar'}/{date format='%Y/%m/%d'}" class="visible-xs">
+							  <td class="
+								  {if day_in_current_month == FALSE}active{/if}
+								  {!--events}
+							  		{if "{event_location:entry_id}" == "{segment_3}"}warning{/if}
+								  {/events--}
+								  {!--if day_event_total > 1}warning{/if--}
+								  {if day_is_weekend}active{/if}
+								  {if day_is_weekday}weekday{/if}
+								  text-left
+							  " style="width:100px;"><div class="mc_date">
+							  {if day_in_current_month}
+								  <a href="{path='facilities/reserve'}/{segment_3}/{date format='%Y/%m/%d'}">
+								  {day} - view</a>
+								  {events}
+							  		{if "{event_location:entry_id}" == "{segment_3}"}<p class="alert-warning">{event_start_date format="%g%a"}-{event_end_date format="%g"}</p>{/if}
+								  {/events}
+								{/if}
+							</div>
+								
+								  </td>
+							  {/display_each_day}
+						  </tr>
+						  {/display_each_week}
+					  </tbody>
+				  </table>
+				  {/display_each_month}
+				  </div>
+			  {/exp:calendar:cal}
+		  </div>
+		  
+		  {if:else}
+	
+		{if segment_7 != ""}
+		
+			<div class="page-header">
+				<h2>Room request form</h2>
+			</div>
+		
+			You are requesting to reserve the 
+				{exp:channel:entries 
+					channel="rooms" 
+					entry_id="{segment_3}"
+					dynamic="no"
+					disable="categories|category_fields|member_data|pagination"}
+					
+					<strong>{title}</strong>
+				
+				
+				on <strong>{segment_5}/{segment_6}/{segment_4}</strong> 
+				at 
+				<strong>
+				{if {exp:math formula="[1]/100" params="{segment_7}" round="down" decimals="0"} > 12}{exp:math formula="[1]/100-12" params="{segment_7}" round="down" decimals="0"}{if:else}{exp:math formula="[1]/100" params="{segment_7}" round="down" decimals="0"}{/if}{if {segment_7} % 100 == 0}:00{if:else}:30{/if}{if {exp:math formula="[1]/100" params="{segment_7}" round="down" decimals="0"} > 11} p.m.{if:else} a.m.{/if}
+				</strong>
+				
+				<a href="{site_url}facilities/reserve/{segment_3}/{segment_4}/{segment_5}">Pick another time.</a>
+			
+			{embed="facilities/_email_form" room="{title}" room_number="{room_number}" year="{segment_4}" month="{segment_5}" day="{segment_6}" time="{segment_7}"}
+			
+			{/exp:channel:entries} 
+		
+		{if:else}
+
+		{exp:calendar:cal 
+		  calendar_id="100|115"
+		  pad_short_weeks="n" 
+		  {if segment_4 == ''}
+			  date_range_start="today"
+			  date_range_end="today"
+		  {/if}
+		  {if segment_4 != ''}
+			  date_range_start="{segment_4}-{segment_5}-{segment_6}"
+			  date_range_end="{segment_4}-{segment_5}-{segment_6}"
+		  {/if}
+		 }
+		 
+		  {display_each_day}
+			  <div class="header">
+				  <div class="page-header">
+					  <h2>{date format="%l, %F %d, %Y"} | {exp:channel:entries channel="rooms" entry_id="{segment_3}" dynamic="no"}{title}{/exp:channel:entries}</h2>
+				  </div>
+				  <p>Please select your meeting start time, not the time you will start setting up. Setup and cleanup time needed is included on the request form on the next page.</p>
+				  <br style="clear: both;" />
+			  </div>
+			  <div class="row">
+			  <div class="col-xs-2">
+			  	<div style="height: 50px; padding: 10px;">
+					12:00 am
+				</div>
+				<div style="height: 50px; padding: 10px;">
+					12:30 am
+				</div>
+			  	{exp:for_loop start="1" end="11" increment="1"} 
+			  	<div style="height: 50px; padding: 10px;">
+					{index}:00 am
+				</div>
+				<div style="height: 50px; padding: 10px;">
+					{index}:30 am
+				</div>
+				{/exp:for_loop}
+				<div style="height: 50px; padding: 10px;">
+					12:00 pm
+				</div>
+				<div style="height: 50px; padding: 10px;">
+					12:30 pm
+				</div>
+				{exp:for_loop start="1" end="11" increment="1"} 
+			  	<div style="height: 50px; padding: 10px;">
+					{index}:00 pm
+				</div>
+				<div style="height: 50px; padding: 10px;">
+					{index}:30 pm
+				</div>
+				{/exp:for_loop}
+			  </div>
+			  <div class="col-xs-10">
+			  
+			  {!-- Have open reservation buttons that lead to a URL with a form that you can then add to the reservation space
+			       these get covered by reservations (heigher z-index values) --}
+			  {exp:for_loop start="0" end="2350" increment="50"} 
+			  	<div class="space-available alert-success" 
+					style="height: 50px; top: {index}px;">
+					
+					<a href="{site_url}facilities/reserve/{segment_3}/{segment_4}/{segment_5}/{segment_6}/{index}" class="alert-link">Request this space</a>
+					 
+				</div>
+			  {/exp:for_loop}
+			  
+			  {display_each_hour}
+				  {events}
+				  {if "{event_location:entry_id}" == "{segment_3}"}
+				  {if event_all_day OR event_has_rules}
+				   <div class="space-reserved alert-warning" 
+				  	style="height: {exp:math formula='50*48' thousands_seperator=''}px; top:0px;">
+				  {!-- if:elseif {exp:math formula='50*[1]+50*[2]' params='{event_duration_hours}|{event_start_date format="%G"}' thousands_seperator=""} > 1200 }
+				  	{!-- The is a multi-day event and needs to be cut -}
+					<div class="space-reserved alert-warning"
+					 style="height: {exp:math formula='1200-50*[1]' params='{event_start_date format="%G"}'}px; top: {exp:math formula='50*[1]' params='{event_start_date format="%G"}'}px;">
+				  --}{if:else}
+				  <div class="space-reserved alert-warning" 
+				  	style="height: {exp:math formula='100*[1]+50*([2]/30)' params='{event_duration_hours}|{event_duration_minutes}' thousands_seperator=""}px; top: {exp:math formula='100*[1]+[2]*(5/3)' params='{event_start_date format="%G"}|{event_start_date format="%i"}' thousands_seperator=""}px;">
+				  {/if}
+					  <div class="head">
+						  <h4>
+						  	Room reserved
+						  </h4> 
+					  {if event_all_day}
+						  <p>
+							  All day! | {event_location:title}
+						  </p>
+					  {if:else}
+						  <p>
+							  {event_start_date format="%g:%i %a"}
+							  {if event_end_date}
+								  - {event_end_date format="%g:%i %a"}
+							  {/if} | {event_location:title}
+						  </p>
+					  {/if}
+					  </div>
+					  <div class="body">
+						  <p>
+							  {!--Details: {event_teaser}--}
+						  </p>
+					  </div>
+				  </div>
+				  {/if}
+				  {/events}
+			  {/display_each_hour}
+			  </div>
+			  </div>
+		  {/display_each_day}
+	  {/exp:calendar:cal}
+	  {/if}
+	  
+	  {/if}
+	  
+	{/if}
+	
+    </div>	
+	
+    <div id="sidebar" class="col-md-4 hidden-sm hidden-xs nocontent"> 
+  		{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="NO" tags="NO" section="stories"}
+    </div>
+	
+</div>
+</div>
+
+{page_end}

@@ -1,0 +1,68 @@
+{!--- Events/Upcoming
+	Shows a list of events that have not happened yet.
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+	<title>Industry events | RJI</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+
+<ol class="breadcrumb" vocab="http://schema.org" typeof="BreadcrumbList">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path="events/index"}" property="itemListElement" typeof="WebPage"><span property="name">Events</span><meta property="position" content="1"></a></li>
+	<li class="active" property="itemListElement" typeof="WebPage"><span property="name">Industry</span><meta property="position" content="2"></li>
+</ol>
+
+<div id="main-section" class="container">
+<div class="row">
+	
+	<div id="primary-section" class="col-md-8 col-sm-12">
+		
+		<div class="dropdown">
+		  <a data-toggle="dropdown" href="#" style="color: #333;"><h2 class="page-header">Upcoming industry events <b class="caret"></b></h2></a>
+		  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+		  	<li><a href="{site_url}events/upcoming"><h4>See upcoming RJI events</h4></a></li>
+			<li><a href="{site_url}events/past"><h4>See past RJI events</h4></a></li>
+		  </ul>
+		</div>
+
+		<div class="card-bg">
+			<ul id="recent-posts" class="media-list">
+				
+				{exp:calendar:events 
+					calendar_id="101" 
+					event_limit="10" 
+					date_range_start="today" 
+					show_months="12" 
+					pad_short_weeks="n" 
+					dynamic="no" 
+					paginate="bottom" 
+					enable="custom_fields|pagination"
+				}
+ 
+				{if no_results}
+				<div class="card"><p class="alert alert-warning">There are currently no upcoming industry events</p></div>
+				{/if}
+
+				{rji_media_list_events}
+				
+				{pagination_snippet_calendar_industry}
+				
+			{/exp:calendar:events}
+			
+			</ul>
+			</div>
+	
+  	</div> {!-- end primary section --}
+	
+    <div id="sidebar" class="col-md-4 hidden-sm hidden-xs"> 
+		{!-- If we are displaying list of events, we don't need to be in the sidebar, too --}
+		{embed="main/_sidebar" recent="YES" events="NO" related="NO" topics="NO" tags="NO" section="calendar_events"}
+ 	</div>
+	
+</div> {!-- end row --}
+</div> {!-- end main section --}
+
+{page_end}

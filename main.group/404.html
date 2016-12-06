@@ -1,0 +1,63 @@
+{!--- 404/Page not found
+	Redirected here every time a bad URL is given or there are no entries found
+	*See template main/index for more template details; only details on this specific template will be documented --}
+{html_head}
+	<title>
+	Error 404 | RJI
+	</title>
+	{!--head_content--}
+	<link rel="stylesheet" type="text/css" href="{path='global_embeds/bootstrap_css'}">
+	<script>
+        // Asynchronously load non-critical css 
+        function loadCSS(e, t, n) { 
+			"use strict"; 
+		  	var i = window.document.createElement("link"); 
+		  	var o = t || window.document.getElementsByTagName("script")[0]; 
+		  	i.rel = "stylesheet"; 
+			i.href = e; 
+			i.media = "only x"; 
+			o.parentNode.insertBefore(i, o); 
+			setTimeout(function () { i.media = n || "all" }) 
+		}
+        // load css file async
+        loadCSS("//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css");
+	</script>
+{html_head_end}	
+{!--embed="main/_navbar"--}
+
+<div id="main-section" class="container">
+	<div class="row">
+		<div class="col-md-12 col-sm-12">
+		{!-- Bootstrap jumbotron creates large grey square with large text
+			===================
+			div.jumbotron
+				h1
+				(optional) p
+			===================
+		--}
+			<div class="jumbotron text-center" style="margin-top: 5em;">
+				<div class="row">
+					<div class="col-xs-6 col-sm-2 col-xs-offset-3 col-sm-offset-0">
+						<a href="{site_url}"><img src="{site_url}images/uploads/RJI-Keypad.png" class="img-responsive" /></a>
+					</div>
+					<div class="col-xs-12 col-sm-10">
+						<h1>Sorry.</h1>
+					</div>
+				</div>
+				<p>Sorry, but the page you were trying to find couldn't be found.</p>
+				<p>Try checking our <a href="{site_url}">homepage</a> for all of the latest content!</p>
+				<hr>
+				<small>Our website was recently redesigned and some content has been lost or moved. If this is an old link that used to work before, try using the search bar below to find it again!</small>
+				{google_search_form}
+			</div>
+
+		</div>
+
+		{!-- <div id="sidebar" class="col-md-4 hidden-sm hidden-xs"> 
+		{embed="main/sidebar" recent="YES" events="YES" related="NO"}
+		</div> --}
+	</div>
+</div>
+</body>
+<html>
+{!--page_end--}

@@ -1,0 +1,19 @@
+{exp:tag:related_entries channel="stories|downloads" entry_id="{embed:entry_id}" orderby="relevence" limit="5"}
+	{if count == 1}
+	<h4>Related stories and downloads</h4>
+	<div class="card-bg">
+	<ul class="media-list">
+	{/if}
+	<li class="media card">
+		<div class="media-body">
+			<h5 class="media-heading">
+				<a href="{post_path}">{title}</a>
+				<br><span class="small capitalize">{entry_date format="%F %j, %Y"}</span>
+			</h5>
+		</div>
+	</li>
+	{if count == total_results}
+	</ul>
+	</div>
+	{/if}
+{/exp:tag:related_entries}

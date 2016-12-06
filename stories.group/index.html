@@ -1,0 +1,506 @@
+{!--- stories
+	Dynamic template that, based on URL segments, displays a post, list of stories, or list of topics
+	*See template main/index for more template details; only details on this specific template will be documented --}
+{if segment_1 == "stories" AND segment_2 == ""}
+{redirect="stories/recent"}
+
+{!-- =============================================Individual Story=============================================
+	if there is something in segment 2 then we know that we are looking at a story, however, BWF puts index in the URL
+	so we have to check for that, too.
+	=========================================================================================================== --}
+
+{if:else}
+{!-- SINGLE POST ------------------------------
+	Segment 2 is given but no segment 3; should be stories/'post-title'
+	Displays a specific post
+	Dynamically pulls a post based off of URL. Tracks views. --}
+{!--stash:nocache--}
+{exp:channel:entries
+	channel="stories"
+	limit="1"
+	require_entry="yes"
+	disable="member_data|category_fields|pagination"
+	show_expired="yes"
+	cache="no"
+	refresh="700"
+	status="closed|open|draft|submitted|preview"}
+
+{!-- Redirect to the 404 page if there are no results --}
+{if no_results}
+	{redirect="404"}
+{/if}
+
+{!-- Redirects to the 404 page if the story is not open and the user attempting access is not part of the right member group--}
+{if status != "open" && (member_group != "1" && member_group != "6" && member_group != "7" && member_group != "8" && member_group != "9")}
+	{redirect="404"}
+{/if}
+
+{!-- Send info to tracker module --}
+{exp:tracker:track entry_id="{entry_id}"}
+
+{!-- Begin HTML creation --}
+{html_head}
+
+	{!-- Display story title in the browser tab --}
+	<title>{title} | RJI</title>
+
+	{!-- Create meta tags for SEO and social media sharing. There are to keywords meta tag; that tag is no longer used. --}
+	{!-- Google SEO tags --}
+	<script type="application/ld+json"> {!-- Structured Data for Google SE --}
+	{
+		"@context": "http://schema.org",
+		"@type": "NewsArticle",
+		"mainEntityOfPage":{
+			"@type":"WebPage",
+			"@id":"{comment_url_title_auto_path}"
+		},
+		"headline": "{title} | RJI",
+		{if news_banner}
+		{exp:ce_img:pair src="{news_banner}"}
+		"image": {
+			"@type": "ImageObject",
+			"url": "{site_url}{made}",
+			"height": {height},
+			"width": {width}
+		},
+		{/exp:ce_img:pair}
+		{if:elseif news_image}
+		{exp:ce_img:pair src="{news_image}"}
+		"image": {
+			"@type": "ImageObject",
+			"url": "{site_url}{made}",
+			"height": {height},
+			"width": {width}
+		},
+		{/exp:ce_img:pair}
+		{/if}
+		"datePublished": "{entry_date format="%Y-%m-%dT%H:%i:%s%Q"}",
+		"dateModified": "{edit_date format="%Y-%m-%dT%H:%i:%s%Q"}",
+		{exp:user:authors
+          orderby="primary"
+          sort="desc"
+		  limit="1"
+          entry_id="{entry_id}"
+      	}
+		"author": {
+			"@type": "Person",
+			"name": "{first_name} {last_name}"
+		},
+		{/exp:user:authors}
+		"publisher": {
+			"@type" : "Organization",
+			"name" : "Donald W. Reynolds Journalism Institute",
+			"url" : "https://www.rjionline.org",
+			"logo" : {
+				"@type": "ImageObject",
+				"url": "https://www.rjionline.org/images/uploads/RJI-logo-horizontal-Google-sized.png",
+				"height": 60, {!-- They want this no taller than 60px and no wider than 600px --}
+				"width": 320
+			}
+		},
+		"description": "{teaser}"
+	}
+	</script>
+	<script src="{path='global_embeds/youneeq'}" type="text/javascript" async></script>
+	<script type="text/javascript" defer>
+		function youneeq_observe() {
+			var story_obj = JSON.parse($('script[type="application/ld+json"]').text());
+			var story_id_parts = story_obj.mainEntityOfPage["@id"].split('/');
+			var story_id = story_id_parts.length ? story_id_parts[story_id_parts.length - 1] : '';
+
+			return {
+				name: story_id,
+				title: jQuery('meta[property="og:title"]').attr('content').replace(' | RJI', ''),
+				create_date: story_obj.datePublished,
+				categories: $('#categories > a').map(function(i,e) { return $(e).text(); }).get()
+			};
+		}
+
+		function youneeq_display(response, tags) {
+			if (response && response.suggest && response.suggest.node) {
+				var stories = response.suggest.node, story_num = stories.length,
+					$box = jQuery(this.box), $row = jQuery('.row', this.box);
+
+				for (var i = 0; i < story_num; i++) {
+					if (i && !(i % 3)) {
+						var new_row = jQuery('<div class="row"></div>');
+						$row.after(new_row);
+						$row = new_row;
+					}
+					var s = {
+						'id': stories[i].id ? stories[i].id : '',
+						'title': stories[i].title ? stories[i].title.replace(/"/g, '&quot;') : '',
+						'url': stories[i].url ? stories[i].url : '',
+						'img': stories[i].image ? stories[i].image : '',
+						'date': stories[i].date ? youneeq_date_format(stories[i].date) : '',
+						'cat': stories[i].categories && stories[i].categories.length ? stories[i].categories[0] : '',
+					};
+
+					$row.append(
+						'<div id="yq-article-' + s.id + '" class="yq-article col-sm-4 col-xs-12" data-yq-id="' + s.id +
+						'" data-yq-title="' + s.title + '" data-yq-url="' + s.url + '"><div class="thumbnail card"><a href="' +
+						s.url + '"><img class="img-responsive" src="' + s.img + '" title="' + s.title + '" alt="' + s.title +
+						'" /></a><div class="caption"><h4>' + (s.cat ? '<span class="small capitalize">' + s.cat +
+						'</span><br />' : '') + '<a class="media-heading" href="' + s.url + '">' + s.title + '</a>' + (s.date ?
+						'<br /><span class="small capitalize">' + s.date + '</span>' : '') + '</h4></div></div></div>'
+					);
+				}
+			}
+		}
+
+		function youneeq_date_format(iso_string) {
+			var months = ['January', 'February', 'March', 'April', 'May', 'June',
+						  'July', 'August', 'September', 'October', 'November', 'December'],
+				d = new Date(iso_string);
+
+			return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+		}
+	</script>
+	{!--<link rel="amphtml" href="{url_title_path='stories/amp'}">  AMP page link --}
+	<meta name="description" content="{teaser}" /> {!-- Used when displaying text about this link --}
+	<link rel="publisher" href="https://plus.google.com/111709737662107424167" /> {!-- No surprise Google uses its own social network to identify publishers --}
+	{!-- Facebook/OpenGraph tags. Validated here: https://developers.facebook.com/tools/debug/ --}
+	<meta property="og:title" content="{exp:low_replace find="\"" replace="&quot;"}{title}{/exp:low_replace} | RJI" />
+	{if news_image}
+	<meta property="og:image" content="{news_image}" />
+	{/if}
+	{if news_banner}
+	<meta property="og:image" content="{news_banner}" />
+	{/if}
+	<meta property="og:image" content="{default_img_src}" /> {!-- Use preview image or the default one --}
+	<meta property="og:url" content="{comment_url_title_auto_path}" /> {!-- Use default URL path from EE to consolidate URLs --}
+	<meta property="og:description" content="{exp:low_replace find="QUOTE" replace="&quot;"}{teaser}{/exp:low_replace}" /> {!-- Use the same value as our regular meta description --}
+	{!--<meta property="fb:admins" content="USER_ID" /> [[Need to find info]] https://developers.facebook.com/docs/platforminsights/domains--}
+	{!-- Twitter tags. Validated here: https://cards-dev.twitter.com/validator --}
+	<meta name="twitter:card" content="summary" /> {!-- Use the same value as our regular meta description --}
+	<meta name="twitter:url"  content="{comment_url_title_auto_path}" /> {!-- Use default URL path from EE to consolidate URLs --}
+	<meta name="twitter:site" content="@RJI" />
+	<meta name="twitter:title" content="{title} | RJI" />
+	<meta name="twitter:image" content="{if news_image}{news_image}{if:else}{default_img_src}{/if}" /> {!-- Use preview image or the default one. Twitter wants a smaller, square image < 1mb --}
+	<meta name="twitter:description" content="{teaser}" /> {!-- Use the same value as our regular meta description --}
+
+	{head_content}
+
+{html_head_end}
+
+<body>
+
+{embed="main/_navbar"}
+
+{newsletter_card}
+
+<ol class="breadcrumb" vocab="http://schema.org" typeof="BreadcrumbList">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path="stories/index"}" property="itemListElement" typeof="WebPage"><span property="name">Stories</span><meta property="position" content="1"></a></li>
+	<li class="active visible-xs-inline-block">{exp:trunchtml chars="19" exact="yes" ending="..."}{title}{/exp:trunchtml}</li>
+	<li class="active visible-sm-inline-block">{exp:trunchtml chars="100" exact="yes" ending="..."}{title}{/exp:trunchtml}</li>
+	<li class="active visible-md-inline-block visible-lg-inline-block" property="itemListElement" typeof="WebPage"><span property="name">{title}</span><meta property="position" content="2"></li>
+</ol>
+
+<div id="main-section" class="container">
+	<div class="row">
+		<div id="primary-section" class="col-md-8 col-sm-12">
+			{!--  This used to give warnings during previews, but I removed it to simplify previews. This may come back
+			if status == "open" OR (status == "draft" AND (member_group == "1" OR member_group == "6" OR member_group == "7" OR member_group == "8"))--}
+			{!--if status == "open" OR (member_group == "1" OR member_group == "6" OR member_group == "7" OR member_group == "8")}
+			{if status != "open"}<div class="alert alert-warning">This entry is currently unpublished and is not visible to the public! ({status})</div>{/if} --}
+
+			{!-- Banner --}
+			{if banner_url}<a href="{exp:low_replace find='<p>|</p>'' replace='|' multiple='yes'}{banner_url}{/exp:low_replace}">{/if}
+				{if news_banner}
+					<div class="banner-wrapper">
+						<img src="{news_banner}" class="img-responsive banner"/>
+					</div>
+				{/if}
+			{if banner_url}</a>{/if}
+			{if banner_caption}<figcaption style="float: right; position: relative; top: -15px;">{banner_caption}</figcaption>{/if}
+
+			{!-- Begin story presentation --}
+
+			{!-- Begin title section --}
+			<div class="page-header">
+
+				{exp:gwcode_categories entry_id="{entry_id}" style="linear"}
+
+				{if results_total > 0 AND cat_count == 1}
+
+					<div class="row story-desc">
+
+						<div class="col-xs-12" id="categories">
+
+				{/if}
+
+							<a href="/stories/categories/{cat_url_title}" class="label label-default">{cat_name}</a>&nbsp;
+				{if cat_count == results_total }
+						</div>
+
+					</div>
+
+				{/if}
+
+				{/exp:gwcode_categories}
+				<h1>{title}</h1>
+
+				<div class="row story-desc">
+					{!-- Author information. If we have an outside source providing (RJI in the news) we use that first, else we fetch author data form the Author module --}
+					<div class="col-xs-12">
+						{if source_url}
+							<a href="{source_url}" target="blank">{if source}{source}{if:else}{source_url}{/if}</a> | {entry_date format="%F %j, %Y"}
+						{if:else}
+							{embed="stories/_author_list" entry_author="{author}" entry_id="{entry_id}"} | {entry_date format="%F %j, %Y"}
+						{/if}
+
+						{if !post_series}
+						<div class="pull-right hidden-xs">
+							{social_share_buttons}
+						</div>
+						{/if}
+					</div>
+
+
+				</div>
+				{!-- If this is in a series, display the series name and part number --}
+				{if post_series}
+				<div class="row story-desc">
+					<div class="col-xs-12">
+						{embed="stories/_get_series_name" series="{post_series}" part="{series_part_number}"}
+						{secondary_series}
+							{embed="stories/_get_secondary_series" secondary_series="{item}"}
+						{/secondary_series}
+						<div class="pull-right hidden-xs">
+							{social_share_buttons}
+						</div>
+					</div>
+				</div>
+				{/if}
+
+
+
+
+			</div>
+			{!-- End title section --}
+
+
+
+			{!-- Begin story body --}
+			{if count == "1"}
+			<div id="news_listing">
+			{/if}
+
+
+			{!-- Story lead --}
+			{!-- exp:low_replace is 3rd party add-on that finds one thing inside its brackets and replaces it with something else
+					We are using this to replace the lede p tag with a p tag with class 'lead' to give Bootstrap lead styling --}
+
+				<p class="lead">{exp:low_replace find="<p>" replace="<p class='lead'>"}{lede}{/exp:low_replace}</p>
+
+
+					{!-- Siderail displays if we have attached galleries, documents or a summar list --}
+					{if summary_list OR "{story_galleries:count}" != "" OR "{story_documents:count}" != ""}
+					<div class="row">
+						<div class="col-sm-3" id="summary-column">
+					  		{!-- thumb_only is custom entry field that if checked, means user does not want the image to be automatically placed into the post --}
+
+							<div id="summary">
+								{if thumb_only == "yes"}
+									{if news_image}
+									<img class="img-responsive" src="{news_image}" alt="{title}" style="margin-bottom:10px;"/>
+									{/if}
+								{/if}
+
+								{!-- Summary List --}
+								{if summary_list}
+									<h5>Highlights</h5>
+									<ul class="list-unstyled summary-list">
+										{summary_list}
+
+											<li class="small">
+											{if summary_list:anchor_name != ""}
+												<a href="#{summary_list:anchor_name}">{summary_list:list_item}</a>
+											{/if}
+
+											{if summary_list:anchor_name == ""}
+												{summary_list:list_item}
+											{/if}
+											</li>
+
+										{/summary_list}
+									</ul>
+								{/if}
+
+								{!-- Related Galleries --}
+
+								{story_galleries}
+
+									{if story_galleries:count == 1}
+
+									<h5>Galleries</h5>
+
+									{empty_gallery_modal} {!-- Needed somewhere on the page. Will be used by any related galleries --}
+
+									{/if}
+
+									<button {!--href="{post_path}"--}
+									type="button" class="btn btn-default btn-gallery btn-block visible-lg visible-xl" style="padding: 0; border-radius: 0; margin-bottom: 10px; white-space: normal;" data-toggle="modal" data-target="#gallery" data-fetch="{story_galleries:url_title_path='galleries/data'}" data-cache="{story_galleries:url_title}">
+
+										{story_galleries:gallery limit="1"}
+
+											<p><img src="{if story_galleries:gallery:image}{story_galleries:gallery:image}{if:else}{exp:low_replace find='www|watch?v=' replace='img|vi/' multiple='yes'}{story_galleries:gallery:youtube_url}{/exp:low_replace}/mqdefault.jpg{/if}" class="img-responsive hidden-xs"/></p>
+
+									  	{/story_galleries:gallery}
+
+									  	<p>View {story_galleries:title}</p>
+
+									</button>
+
+									<span class="hidden-lg hidden-xl side-gallery-desc">
+									<a {!--href="{post_path}"--} href="#"
+									class="btn-block btn-gallery" data-toggle="modal" data-target="#gallery" data-fetch="{story_galleries:url_title_path='galleries/data'}" data-cache="{story_galleries:url_title}">
+										{story_galleries:title} gallery</a>
+									</span>
+
+								{/story_galleries}
+
+								{!-- Related Documents --}
+
+									{story_documents}
+									{if story_documents:count == 1}
+
+									<h5>Downloads</h5>
+
+									<ul class="list-unstyled" style="font-size: 12px;">
+
+										{/if}
+
+										<li><a href="{site_url}downloads/{story_documents:url_title}/{!--if story_documents:doc_file}{story_documents:doc_file}{url}{/story_documents:doc_file}{if:else}{story_documents:doc_link}{/if--}" target="_blank">{story_documents:title}</a><br>{story_documents:doc_teaser}</li>
+
+									{if story_documents:count == story_documents:total_results}
+
+									</ul>
+
+									{/if}
+
+									{/story_documents}
+
+
+
+							</div> {!-- End summary --}
+
+						</div> {!-- End summary column --}
+
+				  		<div id="story-column" class="col-sm-9">
+
+				{/if}
+
+							{news_body}
+
+				{if summary_list OR "{story_galleries:count}" != "" OR "{story_documents:count}" != ""}
+
+						</div>
+
+					</div>
+
+				{/if}
+
+		{!-- Author signature. Dependent on custom entry field that if checked places the author's signature --}
+
+		{if "{include_author_signature}" == "Yes"}
+
+			{embed="stories/_author_signature" entry_id="{entry_id}"}
+
+		{/if}
+
+		{read_next}
+		{if "{read_next:title}" != ""}
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 col-xl-3 col-sm-offset-8 col-xl-offset-9">
+
+				<div class="card-bg">
+					<div class="card media">
+						<div class="media-body">
+							<span class="small" style="color: #aaaaaa;">READ NEXT</span>
+							<br>
+							<a href="{read_next:comment_url_title_auto_path}" name="{read_next:title}" alt="{read_next:title}">
+								<span class="fa fa-2x fa-chevron-right pull-right hidden-xs hidden-sm"></span>
+								<span class="fa fa-chevron-right pull-right visible-xs visible-sm"></span>
+								{exp:trunchtml chars="20" exact="yes" ending="..."}{read_next:title}{/exp:trunchtml}</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<br>
+		{/if}
+		{/read_next}
+
+		<!--hr-->
+
+		{!-- Tags --}
+		{exp:tag:tags entry_id="{entry_id}" channel="stories" websafe_separator="_"}
+			{if tag_count == '1'}
+			<br>
+			<div class="row story-desc">
+				<div class="col-xs-12">
+					<strong>Tags</strong><br>
+			{/if}
+					<span class="badge tags"><a href="/stories/tag/{websafe_tag}">{tag_name}</a></span>&nbsp;
+
+			{if tag_count == tag_total_results}
+				</div>
+			</div>
+			{/if}
+		{/exp:tag:tags}
+
+		<br>
+		<div class="row story-desc visible-xs">
+				<div class="col-xs-12">
+					<strong>Share</strong><br>
+				</div>
+		</div>
+		<div class="visible-xs">
+			{social_share_buttons}
+		</div>
+
+		<br>
+
+		</div> {!-- ends #news-listing --}
+
+		{!--embed="stories/_get_related_stories" entry_id="{entry_id}" series="{post_series}"--}
+{!-- EVERYTHING BETWEEN THIS AND THE NEXT COMMENT TAG IS YOUNEEQ --}
+<div class="page-header story-list-header">
+    <p class="story-list-heading">
+        <span class="focus">Recommended</span> for You
+    </p>
+</div>
+<div id="youneeq" class="card-bg container-fluid" data-yq-suggest-count="3" data-yq-observe-function="youneeq_observe"
+    data-yq-display-function="youneeq_display" data-yq-features="google-analytics" data-yq-suggest-date-start="2011-01-01T00:00:00.000Z" data-yq-suggest-panel-custom="id|title|url|image|categories|date">
+    <a href="#" class="recommended-modal"><img src="http://api.youneeq.ca/Content/images/powered-by-y.gif" /></a>
+    <div class="row"></div>
+</div>
+{!-- THIS ENDS THE YOUNEEQ TAG--}
+
+		{if !is_bwf_preview}
+		{disqus_comments} {!-- Snippet that calls all comments for this post and has comment form --}
+		{/if}
+
+{/exp:channel:entries}
+{!--/stash:nocache--}
+
+</div> {!-- ends primary section --}
+
+        <div id="sidebar" class="col-md-4 hidden-sm hidden-xs nocontent">
+
+			{!-- If we are looking at a single post, show related, and if we are listing topics, we don't need to show them again --}
+
+			{embed="main/_sidebar" recent="YES" events="YES" related="YES" categories="YES" tags="YES" section="stories"}
+
+ 		</div>
+
+	</div> {!-- ends .row --}
+
+</div> {!-- ends #main-section --}
+
+{page_end}
+
+{/if} {!-- End single entry view --}

@@ -1,0 +1,107 @@
+{if {ress} > 767}
+{!--exp:stash:cache name="sidebar" unprefix="esc_cache" refresh="1400"--}
+{sidebar_calendar}
+
+{if segment_1 == 'jdna'}
+{jdna_menu}
+{/if}
+
+{!-- Events --}
+<div class="page-header story-list-header">
+  <p class="story-list-heading">
+	<span class="focus">Upcoming</span>
+	Events
+  </p>
+</div>
+{exp:calendar:events calendar_id="100" event_limit="5" date_range_start="today" show_months="12" pad_short_weeks="n" sticky="no" dynamic="off" enable="custom_fields" cache="yes" refresh="1500"}
+
+	{if no_results}
+	  <div class="media-body">
+		<p>There are currently no upcoming events listed.</p>
+		<p>For industry and past events, <a href="/events">go to the events page!</a></p>
+	  </div>
+	{/if}
+
+	{rji_media_list_sidebar}
+	
+{/exp:calendar:events}
+
+
+{!-- Popular --}
+<div class="page-header story-list-header">
+  <p class="story-list-heading">
+	<span class="focus">Popular</span>
+	Stories
+  </p>
+</div>
+
+{exp:tracker:rank
+channel="stories|calendar_events|projects|research|downloads"
+status="open|featured"
+limit="5"
+tracker_timeframe_start="2 months ago"
+tracker_timeframe_end="today"
+tracker_views=">=0"
+sticky="no"
+dynamic="no"
+cache="yes"
+refresh="1500"
+}
+	{rji_media_list_sidebar}
+{/exp:tracker:rank}
+
+
+
+
+{!-- BLOCKS --}
+{exp:channel:entries channel="blocks" search:visibility_segment_1="=/{segment_1}" disable="categories|member_data|category_fields|pagination" dynamic="no" limit="10" status="open"}
+
+	{if "{visibility_segment_2}" == "" OR "{visibility_segment_2}" == "/{segment_2}"}
+		{if "{visibility_segment_3}" == "" OR "{visibility_segment_3}" == "/{segment_3}"}
+
+			{if "{contained}" == "YES"}
+			<div class="tab-content"  style="">
+				<div class="tab-pane active" style="border-top-width: 1px;">
+			{/if}
+
+					{block_content}
+
+			{if "{contained}" == "YES"}
+				</div>
+			</div>
+			{/if}
+		{/if}
+	{/if}
+{/exp:channel:entries}
+
+
+{if segment_1 == '' OR segment_1 == 'events'}
+	{live_event}
+{/if}
+
+
+{if embed:categories != "NO"}
+<div id="topics" class="list-group">
+
+	<a class="list-group-item active">Popular categories</a>
+
+	{!-- exp:channel:categories gathers list of categories
+	parent_only="yes" so we don't see sub-categories such as Mediatwits & iPad --}
+	{exp:top_categories channel="{if '{embed:section}' != ''}{embed:section}{if:else}stories{/if}" limit="5"}
+
+	<a href="{site_url}{if '{embed:section}' == 'calendar_events'}events{if:elseif '{embed:section}' != ''}{embed:section}{if:else}stories{/if}/categories/{top_cats_cat_url_title}" class="list-group-item">
+	  	{!-- exp:catcount is a 3rd party module that gathers the number of stories in a category id. That number is put into a badge next to topic name --}
+	  	<span class="badge">{top_cats_entries_number}</span>
+	  	{top_cats_cat_name}
+	</a>
+
+	{/exp:top_categories}
+
+	<a href="/{if '{embed:section}' == 'calendar_events'}events{if:elseif '{embed:section}' != ''}{embed:section}{if:else}stories{/if}/categories" class="list-group-item">
+	  	See all...
+	</a>
+</div>
+{/if}
+
+{!--/exp:stash:cache--}
+{/if}

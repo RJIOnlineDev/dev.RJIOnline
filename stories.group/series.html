@@ -1,0 +1,201 @@
+{!--- Stories/Series
+	Used as Page template for displaying a post series' info and its stories.
+	See template notes for more info on creating a post series and how it behaves.
+	*See template main/index for more template details; only details on this specific template will be documented --}
+	
+	
+{!------------------------ Viewing Series List --------------------------}
+{if segment_1 == "stories" AND segment_2 == "series" AND segment_3 == ""}
+{html_head}
+	<title>
+	Story series | RJI
+	</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path="stories/index"}" property="itemListElement" typeof="WebPage"><span property="name">Stories</span><meta property="position" content="1"></a></li>
+	<li class="active"><span property="name">Series</span><meta property="position" content="2"></li>
+</ol>
+
+<div id="main-section" class="container">
+<div class="row">
+    
+	<div class="col-md-8 col-sm-12">
+		<div class="page-header">
+			<h2>Story series</h2>
+		</div>
+     
+	 	<div class="card-bg">
+		<ul id="recent-posts" class="media-list">
+		  {exp:channel:entries sticky="no" channel="series" disable="categories|member_data|pagination" cache="yes" refresh="100" orderby="title" sort="asc"}
+			  <li class="media card">
+				  <a class="pull-left" href="{post_path}">
+					  {!-- If there is a news image, use that, else maybe it's an event so if there is an event image use that, else there is no given image, use default image --}
+					  <img src=
+					  {if series_image}
+					  	{series_image}
+							"{url:rect}"
+						{/series_image}
+					  {if:elseif series_banner}
+						{series_banner}
+							"{url:rect}"
+						{/series_banner}
+					  {if:else}
+					  		"{site_url}/images/posts/rji-post.jpg"
+					  {/if} alt="{title}" title="{title}" class="img-responsive"/>
+				  </a>
+				  <div class="media-body">
+					  <h4 class="media-heading"><a href="{post_path}">{title}</a><br /><span class="small capitalize">{entry_date format="%F %j, %Y"}</span></h4>
+					  <p>{exp:trunchtml chars="200" exact="no" ending="..."}{exp:low_replace find="<p>|</p>" replace="" multiple="yes"}{series_description}{/exp:low_replace}{/exp:trunchtml}</p>
+				  </div>
+			  </li>
+		  {/exp:channel:entries}
+		</ul>
+		</div>
+    
+    </div>
+    
+    <div id="sidebar" class="col-md-4 hidden-sm hidden-xs"> 
+  		{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="YES" tags="YES" section="stories"}
+    </div>
+	
+</div>
+</div>
+
+{page_end}
+{/if}
+
+
+
+
+{!--------------------------------- Viewing Single Series Entry -----------------------------------}
+{if segment_1 != "stories" OR segment_3 != ""}
+
+{!-- exp:channel:entries started up here and used for entire page
+			Dynamically shows a post with the same Page URI as the page URL and is of status Series (see template notes for more)  limit="1" require_entry="yes"--}
+{exp:channel:entries channel="series" sticky="no" dynamic="yes" disable="categories|member_data|pagination" require_entry="yes" limit="1" status="closed|open|draft|submitted|preview"} 
+{if no_results}{redirect="404"}{/if}	
+{exp:tracker:track entry_id="{entry_id}"}
+		
+{html_head}
+
+	<title>{title} | RJI Series</title>
+	{head_content}
+	<script type="application/ld+json">
+	{
+	  "@context": "http://schema.org",
+	  "@type": "BreadcrumbList",
+	  "itemListElement": [{
+		"@type": "ListItem",
+		"position": 1,
+		"item": {
+		  "@id": "{site_url}stories",
+		  "name": "Stories"
+		}
+	  },{
+		"@type": "ListItem",
+		"position": 2,
+		"item": {
+		  "@id": "{site_url}series",
+		  "name": "Series"
+		}
+	  },{
+		"@type": "ListItem",
+		"position": 3,
+		"item": {
+		  "@id": "{site_url}series/{segment_3}",
+		  "name": "{exp:trunchtml chars="18" exact="yes" ending="..."}{title}{/exp:trunchtml}"
+		}
+	  }]
+	}
+	</script>
+	<meta name="description" content="{series_teaser}" /> {!-- Used when displaying text about this link --}
+	<link rel="publisher" href="https://plus.google.com/111709737662107424167" /> {!-- No surprise Google uses its own social network to identify publishers --}
+	{!-- Facebook/OpenGraph tags. Validated here: https://developers.facebook.com/tools/debug/ --}
+	<meta property="og:title" content="{title} | RJI" />
+	<meta property="og:image" content="{if series_banner}{series_banner}{if:elseif series_image}{series_image:rect}{if:else}{site_url}/images/posts/rji-post.jpg{/if}" /> {!-- Use preview image or the default one --}
+	<meta property="og:url" content="{comment_url_title_auto_path}" /> {!-- Use default URL path from EE to consolidate URLs --}
+	<meta property="og:description" content="{series_teaser}" /> {!-- Use the same value as our regular meta description --}
+	{!--<meta property="fb:admins" content="USER_ID" /> [[Need to find info]] https://developers.facebook.com/docs/platforminsights/domains--}
+	{!-- Twitter tags. Validated here: https://cards-dev.twitter.com/validator --}
+	<meta name="twitter:card" content="summary{if series_banner}_large_image{/if}" /> {!-- Use the same value as our regular meta description --}
+	<meta name="twitter:url"  content="{comment_url_title_auto_path}" /> {!-- Use default URL path from EE to consolidate URLs --}
+	<meta name="twitter:site" content="@RJI" />
+	<meta name="twitter:title" content="{title} | RJI" />
+	<meta name="twitter:image" content="{if series_banner}{series_banner}{if:elseif series_image}{series_image:rect}{if:else}{site_url}/images/posts/rji-post.jpg{/if}" /> {!-- Use preview image or the default one. Twitter wants a smaller, square image < 1mb --}
+	<meta name="twitter:description" content="{series_teaser}" /> {!-- Use the same value as our regular meta description --}
+	
+	{html_head_end}	
+<body>
+{embed="main/_navbar"}
+
+
+{!-- breadcrumb documentation at stories/index --}	
+<ol class="breadcrumb">
+   	<li><a href="{site_url}">Home</a></li>
+   	<li><a href="{site_url}stories">Stories</a></li>
+	<li><a href="{site_url}stories/series">Series</a></li>
+   	<li class="active visible-xs-inline-block">{exp:trunchtml chars="18" exact="yes" ending="..."}{title}{/exp:trunchtml}</li>
+	<li class="active visible-sm-inline-block">{exp:trunchtml chars="90" exact="yes" ending="..."}{title}{/exp:trunchtml}</li>
+	<li class="active visible-md-inline-block visible-lg-inline-block">{title}</li>
+</ol>
+
+<div id="main-section" class="container">
+	<div class="row">
+		
+		<div id="primary-section" class="col-md-8 col-lg-8 col-sm-12">
+			
+			{if series_banner}
+				<img src="{series_banner}" class="img-responsive" alt="{title}" title="{title}" width="100%"/>
+			{/if}
+			
+			<div class="page-header"><h1>{title}</h1>
+				
+			</div>
+			
+				{series_description}
+				
+				{if "{series_site:count}" != "" OR "{series_event:count}" != ""}
+				<div class="well well-sm">
+				{/if}
+					{if "{series_site:count}" != ""}
+					<dl class="dl-horizontal">
+						<dt>Pages</dt>
+						<dd><ul class="list-unstyled">{series_site}<li><a href="{series_site:page_url}">{series_site:title}{if series_site:subtitle}: {series_site:subtitle}{/if}</a></li>{/series_site}</ul></dd>
+					</dl>
+					{/if}
+					{if "{series_event:count}" != ""}
+					<dl class="dl-horizontal">
+						<dt>Events</dt>
+						<dd><ul class="list-unstyled">{series_event}<li><a href="{path='events/index'}/{series_event:url_title}">{series_event:title}</a></li>{/series_event}</ul></dd>
+					</dl>
+				{/if}
+				{if "{series_site:count}" != "" OR "{series_event:count}" != ""}
+				</div>
+				{/if}
+			
+			
+			{exp:stash:set name="series_title" type="snippet"}{series_name}{/exp:stash:set}
+			{exp:stash:set name="post_has_event" type="snippet" parse_tags="yes"}{series_event}{series_event:entry_id}{/series_event}{/exp:stash:set}
+		
+			
+			{embed="stories/_series_stories" series="{series_name}" page_url="{page_url}" comment_path="{comment_url_title_auto_path}"}
+			
+		</div>
+		
+        <div id="sidebar" class="col-md-4 col-lg-4 hidden-sm hidden-xs">
+				{embed="main/_sidebar" recent="YES" events="YES" categories="NO" tags="NO" section="stories"}
+ 		</div>
+	
+	</div>
+</div>
+
+{page_end}
+
+{/exp:channel:entries}
+
+{/if}

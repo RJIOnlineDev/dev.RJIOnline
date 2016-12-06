@@ -1,0 +1,57 @@
+{!-- Want to use exp:channel:entries and use search:series="{title}" but we will have to use exp:stash for that --}
+			{exp:channel:entries channel="stories" sticky="no" dynamic="no" search:post_series="{embed:series}" limit="1" disable="categories|member_data|pagination" }
+			<h3>Most recent story</h3>
+				  <div class="media">
+				  	  <a href="{if page_url != ''}{page_url}{if:else}{comment_url_title_auto_path}{/if}" class="pull-left" style="width: 15%;">
+	
+					  {!-- If there is a news image, use that, else maybe it's an event so if there is an event image use that, else there is no given image, use default image --}
+					  {if news_image}
+						  {news_image}
+							  <img src={url:rect} alt="{title}" class="img-responsive hidden-xs"/>
+						  {/news_image}
+					  {if:else}
+							  <img src="{site_url}/images/posts/rji-post.jpg" alt="{title}" class="img-responsive hidden-xs"/>
+					  {/if}
+
+				  </a>
+				  <div class="media-body">
+					  {if series_part_number != 0}<span class="small capitalize">{post_series}{if series_part_number != 0}&nbsp;{series_part_number}{/if}</span><br>{/if}<h4 class="media-heading"><a href="{comment_url_title_auto_path}">{title}</a><br /><span class="small capitalize">{entry_date format="%F %j, %Y"}</span></h4>
+					  {!-- exp:low_replace find="<p>" replace="<p class='lead'>" --}
+						{teaser}
+					  </div>
+				</div>
+				<br>
+					{if lede}<div class="well">{/if}
+						{lede}
+					
+					  <a href="{comment_url_title_auto_path}"><p class="lead">Read more...</p></a>
+					{if lede}</div>{/if}
+				
+				
+	{/exp:channel:entries}
+				<div class="page-header"><h3>More stories</h3></div>
+				  
+				<div class="card-bg">
+			
+				<ul id="recent-posts" class="media-list">
+				
+	{exp:channel:entries sticky="no" channel="stories" dynamic="no" search:post_series="{embed:series}" limit="5" offset="1" disable="categories|member_data" paginate="bottom"}
+
+
+					{rji_media_list}
+					
+					{if current_url == embed:page_url}
+						{paginate}
+							<ul class="pager">
+								<li class="next"><a href="{embed:comment_path}/P5#recent-posts">Older &rarr;</a></li>
+							</ul>
+						{/paginate}
+					{if:else}
+						{pagination_snippet}
+					{/if}
+	{/exp:channel:entries}
+			</ul>
+			</div>
+
+				
+  		

@@ -1,0 +1,159 @@
+{!--- stories/topics
+	Dynamic template that, based on URL segments, displays a list of topics
+	*See template main/index for more template details; only details on this specific template will be documented --}
+{exp:stash:cache refresh="1400" name="categories"}
+{html_head}
+
+	<title>
+		Categories | RJI
+	</title>
+
+	{head_content}
+
+{html_head_end}	
+
+<body>
+
+{embed="main/_navbar"}
+
+{if segment_1 == "stories" AND segment_2 == "categories" AND segment_3 == ""}
+
+	<ol class="breadcrumb" vocab="http://schema.org" typeof="BreadcrumbList">
+		<li><a href="{site_url}">Home</a></li>
+		<li><a href="{path="stories/index"}" property="itemListElement" typeof="WebPage"><span property="name">Stories</span><meta property="position" content="1"></a></li>
+		<li class="active" property="itemListElement" typeof="WebPage"><span property="name">Categories</span><meta property="position" content="2"></li>
+	</ol>
+
+{/if}
+
+{if segment_2 == "categories" AND segment_3 != ""}
+
+	<ol class="breadcrumb" vocab="http://schema.org" typeof="BreadcrumbList">
+		<li><a href="{site_url}">Home</a></li>
+		<li><a href="/stories" property="itemListElement" typeof="WebPage"><span property="name">Stories</span><meta property="position" value="1"></a></li>
+		<li><a href="/stories/categories" property="itemListElement" typeof="WebPage"><span property="name">Categories</span><meta property="position" value="2"></a></li>
+		<li class="active visible-xs-inline-block" property="itemListElement" typeof="WebPage"><span class="name">{exp:trunchtml chars="19" exact="yes" ending="..."}{exp:cat2:name category_url_title="{segment_3}" category_group="1"}{/exp:trunchtml}</span><meta property="position" value="2"></li>
+		<li class="active visible-sm-inline-block">{exp:trunchtml chars="97" exact="yes" ending="..."}{exp:cat2:name category_url_title="{segment_3}" category_group="1"}{/exp:trunchtml}</li>
+		<li class="active visible-md-inline-block visible-lg-inline-block">{exp:cat2:name category_url_title="{segment_3}" category_group="1"}</li>
+	</ol>
+
+{/if}
+
+<div id="main-section" class="container">
+
+	<div class="row">
+
+		<div id="primary-section" class="col-md-8 col-sm-12">
+
+		{!-- TOPICS list --------------------
+			Both segment 2 is topics & 3 is not provided: URL should be /stories/topics
+			Show list of topics --}
+
+        {if segment_2 == "categories" AND segment_3 == ""}
+		
+
+
+			<div class="page-header"><h1>Categories</h1></div>
+			
+			{!-- Get list of categories for stories channel. Uses Bootstrap list-group (see template main/sidebar documentation) --}
+
+			<div class="list-group">
+			
+				{exp:channel:categories channel="stories" sticky="no" style="linear" show_empty="yes" category_group="1" parent_only="yes"}
+
+					{!-- this catcount gets number of stories in each topic (3rd party add-on) --}
+
+					<a href="{path="stories/index"}" class="list-group-item">
+
+						<span class="badge">{exp:catcount channel="stories" cat_id="{category_id}" status="open|featured"}</span>
+
+						<h4 class="list-group-item-heading">{category_name}</h4>
+
+						<p class="list-group-item-text">{category_description}</p>
+
+					</a>
+
+				{/exp:channel:categories}
+		
+			</div> {!-- ends .list-group --}
+
+
+
+		{/if}
+			
+		{!-- TOPIC stories -----------------------------
+			Both segment 2 is topics && 3 is given; should look like /stories/topics/'topic-name'
+			Display specified topic and its stories --}
+
+		{exp:channel:categories channel="stories" sticky="no" style="linear"}
+
+			{if segment_3 == "{category_url_title}"}
+
+				<div class="page-header">
+
+					<h1>
+
+						{!-- Category image should be self explanatory so is used IN PLACE of category title instead with it --}
+
+						{if category_image}
+
+							<img src="{category_image}" alt="{title}" class="img-responsive center-block" />
+
+							{if:else}
+
+							{category_name}
+
+						{/if}
+
+						{if category_description}<br><small>{category_description}</small>{/if}
+
+					</h1>
+
+				</div>
+
+			{!-- .media-list of entries, is automatically dynamic to the topic --}
+
+			<div class="card-bg">
+
+				<ul id="recent-posts" class="media-list">
+
+					{exp:channel:entries channel="stories" sticky="no" category="{category_id}" limit="10" disable="categories|member_data|category_fields" status="open" cache="yes" refresh="100"}
+
+						{if stash:no_results}<p class="alert alert-danger">No results found.</p>{/if}
+						
+						{rji_media_list}
+						
+						{pagination_snippet}
+
+					{/exp:channel:entries}
+
+				</ul>
+
+			</div>
+
+			{/if}
+
+		{/exp:channel:categories}
+		
+  		</div> {!-- ends primary section --}
+		
+        <div id="sidebar" class="col-md-4 hidden-sm hidden-xs"> 
+
+			{!-- If we are looking at a single post, show related, and if we are listing topics, we don't need to show them again --}
+
+			{if segment_2 != "" && segment_2 != "categories" }{embed="main/_sidebar" recent="YES" events="YES" related="YES" categories="YES" tags="YES" section="stories"}
+
+				{if:else}
+
+				{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="YES" tags="YES" section="stories"}
+
+			{/if}
+
+ 		</div>
+
+	</div> {!-- ends .row --}
+
+</div> {!-- ends #main-section --}
+	
+{page_end}
+{/exp:stash:cache}

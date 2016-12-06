@@ -1,0 +1,119 @@
+{!--- project/tags
+	Dynamic template that, based on URL segments, displays a list of tags
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+
+	<title>
+		Project Tags{if segment_2 == "tag" AND segment_3 != ""}: {exp:tag:tag_name case="title" websafe_separator="_"}{/if} | RJI
+	</title>
+
+	{head_content}
+
+{html_head_end}	
+
+<body>
+
+{embed="main/_navbar"}
+
+{if segment_3 == ""}
+
+	<ol class="breadcrumb" vocab="http://schema.org" typeof="BreadcrumbList">
+		<li><a href="{site_url}">Home</a></li>
+		<li><a href="{path="projects/index"}" property="itemListElement" typeof="WebPage"><span property="name">Projects</span><meta property="position" content="1"></a></li>
+		<li class="active" property="itemListElement" typeof="WebPage"><span property="name">Tags</span><meta property="position" content="2"></li>
+	</ol>
+
+{/if}
+
+{if segment_3 != ""}
+
+	<ol class="breadcrumb" vocab="http://schema.org" typeof="BreadcrumbList">
+		<li><a href="{site_url}">Home</a></li>
+		<li><a href="/projects" property="itemListElement" typeof="WebPage"><span property="name">Projects</span><meta property="position" value="1"></a></li>
+		<li><a href="/projects/tag" property="itemListElement" typeof="WebPage"><span property="name">Tags</span><meta property="position" value="2"></a></li>
+		<li class="active" property="itemListElement" typeof="WebPage"><span property="name">{exp:tag:tag_name case="title" websafe_separator="_"}</span><meta property="position" value="3"></li>
+	</ol>
+
+{/if}
+
+<div id="main-section" class="container">
+
+	<div class="row">
+
+		<div id="primary-section" class="col-md-8 col-sm-12">
+
+		{!-- TAGS list --------------------
+			Both segment 2 is tag & 3 is not provided: URL should be /stories/tags
+			Show list of tags --}
+
+        {if segment_3 == ""}
+
+			<div class="page-header"><h2>Project tags</h2></div>
+			
+			{!-- Get list of categories for stories channel. Uses Bootstrap list-group (see template main/sidebar documentation) --}
+
+			<div class="list-group">
+			
+
+				{exp:tag:cloud case="upper" orderby="count" sort="desc" start="0" step="10" websafe_separator="_" most_popular="30"}
+
+					<a href="{site_url}project/tag/{websafe_tag}" class="list-group-item capitalize2">{tag} <span class="badge">{total_entries}</span></a>
+
+				{/exp:tag:cloud}
+			
+			</div> {!-- ends .list-group --}
+
+		{/if}
+			
+		{!-- TAGS stories -----------------------------
+			Both segment 2 is tag && 3 is given; should look like /stories/tags/'tag-name'
+			Display specified tags and its stories --}
+
+		{if segment_3 != ""}
+
+			<div class="page-header"><h1>Tags: {exp:tag:tag_name case="title" websafe_separator="_"}</h1></div>
+					
+				<div class="card-bg">
+					
+					<ul id="recent-posts" class="media-list">
+
+					{exp:tag:entries channel="projects" orderby="entry_date" sort="desc" limit="10" paginate="bottom" websafe_separator="_" status="open"}
+
+						{rji_media_list}
+
+						{tag_paginate}
+						  {tag_pagination_links}
+							<ul class="pager">
+							  {previous_page}
+							  	<li class="previous"><a href="{pagination_url}#recent-posts">&larr; Newer</a></li>
+							  {/previous_page}
+							  {next_page}
+								<li class="next"><a href="{pagination_url}#recent-posts">Older &rarr;</a></li>
+							  {/next_page}
+							</ul>
+						  {/tag_pagination_links}
+						{/tag_paginate}
+
+					{/exp:tag:entries}
+
+				</ul>
+
+			</div>
+
+		{/if}
+		
+  		</div> {!-- ends primary section --}
+		
+        <div id="sidebar" class="col-md-4 hidden-sm hidden-xs"> 
+		
+				{!-- no related, we wouldn't find any results anyway --}
+				{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="YES" tags="YES" section="projects"}
+
+ 		</div>
+
+	</div> {!-- ends .row --}
+
+</div> {!-- ends #main-section --}
+	
+{page_end}

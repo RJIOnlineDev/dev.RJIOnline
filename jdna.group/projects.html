@@ -1,0 +1,123 @@
+{!-- jdna/index
+	The basic information about JDNA. Most of this is STATIC.
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+
+
+{!-- List of Pages about JDNA --}
+{html_head}
+
+	<title>JDNA Projects | RJI</title>
+	
+	<script type="application/ld+json">
+	{
+	  "@context": "http://schema.org",
+	  "@type": "BreadcrumbList",
+	  "itemListElement": [{
+		"@type": "ListItem",
+		"position": 1,
+		"item": {
+		  "@id": "/jdna",
+		  "name": "JDNA"
+		}
+	  },{
+		"@type": "ListItem",
+		"position": 2,
+		"item": {
+		  "@id": "/jdna/projects",
+		  "name": "Projects"
+		}
+	  }]
+	}
+	</script>
+	<meta name="description" content="The Journalism Digital News Archive (JDNA) initiative's mission is to preserve news content originally produced in digital formats." /> {!-- Used when displaying text about this link --}
+	<link rel="publisher" href="https://plus.google.com/111709737662107424167" /> {!-- No surprise Google uses its own social network to identify publishers --}
+	{!-- Facebook/OpenGraph tags. Validated here: https://developers.facebook.com/tools/debug/ --}
+	<meta property="og:title" content="JDNA Projects | RJI" />
+	<meta property="og:image" content="/images/uploads/jdnabn02.png" /> {!-- Use preview image or the default one --}
+	<meta property="og:url" content="{current_url}" /> {!-- Use default URL path from EE to consolidate URLs --}
+	<meta property="og:description" content="The Journalism Digital News Archive (JDNA) initiative's mission is to preserve news content originally produced in digital formats." /> {!-- Use the same value as our regular meta description --}
+	{!--<meta property="fb:admins" content="USER_ID" /> [[Need to find info]] https://developers.facebook.com/docs/platforminsights/domains--}
+	{!-- Twitter tags. Validated here: https://cards-dev.twitter.com/validator --}
+	<meta name="twitter:card" content="summary_large_image" /> {!-- Use the same value as our regular meta description --}
+	<meta name="twitter:url"  content="{current_url}" /> {!-- Use default URL path from EE to consolidate URLs --}
+	<meta name="twitter:site" content="@RJI" />
+	<meta name="twitter:title" content="JDNA Projects | RJI" />
+	<meta name="twitter:image" content="/images/uploads/jdnabn02.png" /> {!-- Use preview image or the default one. Twitter wants a smaller, square image < 1mb --}
+	<meta name="twitter:description" content="The Journalism Digital News Archive (JDNA) initiative's mission is to preserve news content originally produced in digital formats." /> {!-- Use the same value as our regular meta description --}
+
+	
+	{head_content}
+	
+{html_head_end}	
+
+<body>
+
+{embed="main/_navbar"}
+
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path='jdna/index'}">JDNA</a></li>
+	<li class="active">Projects</li>
+</ol>
+
+<div id="main-section" class="container">
+
+	<div class="row">
+	
+		{!----- Main Section -----}
+		<div class="col-md-8 col-sm-12">
+
+			<div class="banner-wrapper">
+				<a href="{path='jdna/index'}"><img src="/images/uploads/jdnabn02.png" class="img-responsive" /></a>
+			</div>
+			
+			<div class="page-header">
+
+				<h1>JDNA Projects</h1>
+				<br/>
+				{social_share_buttons_generic}
+
+			</div>
+
+			<p>
+				We enhance knowledge and practice in the born-digital news archiving field through research we conduct, projects we lead 
+				and communities we foster. Learn more about the specific work we’ve done, what we’re currently doing and how you can get involved.
+			</p>
+			
+			<div class="card-bg">
+			<ul id="recent-posts" class="media-list">
+			{!-- Get pages categorized as JDNA (#146) --}
+			{exp:channel:entries
+						channel="projects|research|series"
+						category="150"
+						status="open"
+						disable="categories|member_data|category_fields"
+						cache="yes"
+						refresh="100"
+			}
+
+						{if no_results}<p>No results</p>{/if}
+						
+						{rji_media_list_all}
+						
+						{pagination_snippet}
+			{/exp:channel:entries}
+			</ul>
+			</div>
+
+		</div>
+
+		{!----- Sidebar ------}
+		<div id="sidebar" class="col-md-4 hidden-sm hidden-xs">
+
+			{jdna_menu}
+
+		</div>
+
+	</div>
+	
+</div>
+
+{page_end}
+{!--/if--}

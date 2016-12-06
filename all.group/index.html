@@ -1,0 +1,73 @@
+{!--- all
+	[[about all]]
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{!--exp:stash:set name="site_section" type="snippet" parse_tags="yes"}stories{/exp:stash:set--}
+
+{html_head}
+
+	<title>All Posts | RJI</title>
+
+	{head_content}
+
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li class="active">All</li>
+</ol>
+
+<div id="main-section" class="container">
+
+	<div class="row">
+
+		<div id="primary-section" class="col-md-8 col-sm-12">
+			
+		{!-- STORIES LANDING PAGE and RECENT STORIES ----------------------------
+			Segment 2 is empty and 1 is stories; should be most recent stories --}
+
+		
+			<div class="page-header"><h2>All posts</h2></div>
+			
+			<div class="card-bg">
+				<ul id="recent-posts" class="media-list">
+
+					{exp:channel:entries 
+						channel="stories|calendar_events|galleries|downloads|projects|research" 
+						sticky="no" 
+						status="open" 
+						limit="10"
+						disable="categories|member_data|category_fields"
+						paginate="bottom" 
+						cache="yes"
+						refresh="100"}
+
+						{if no_results}<p>No results</p>{/if}
+						
+						{rji_media_list_all}
+
+						{!-- Using custom pagination so Bootstrap CSS can work (need classes .pagination .page-first .page-last) --}
+						
+						{pagination_snippet}
+
+					{/exp:channel:entries}
+					
+					{empty_gallery_modal}
+
+				</ul> {!-- ends .media-list --} 
+			</div>
+
+			
+  		</div> {!-- ends primary section --}
+		
+        <div id="sidebar" class="col-md-4 hidden-sm hidden-xs nocontent"> 
+			{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="YES" tags="YES" section="all"}
+ 		</div>
+
+	</div> {!-- ends .row --}
+
+</div> {!-- ends #main-section --}
+	
+{page_end}

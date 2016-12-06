@@ -1,0 +1,214 @@
+{exp:channel:entries channel="galleries" dynamic="yes" require_entry="yes" disable="categories|category_fields|member_data|pagination" limit="1"}
+{if no_results} {redirect="404"} {/if}
+
+{html_head}
+	<title>
+	Galleries | RJI
+	</title>
+	
+	<script type="application/ld+json">
+	{
+	  "@context": "http://schema.org",
+	  "@type": "BreadcrumbList",
+	  "itemListElement": [{
+		"@type": "ListItem",
+		"position": 1,
+		"item": {
+		  "@id": "/galleries",
+		  "name": "Galleries"
+		}
+	  },{
+		"@type": "ListItem",
+		"position": 2,
+		"item": {
+		  "@id": "{comment_url_title_auto_path}",
+		  "name": "{title}"
+		}
+	  }]
+	}
+	</script>
+	<meta name="description" content="{exp:trunchtml chars='128' exact='yes' ending='...'}{exp:low_replace find='<p>|</p>' replace='|' multiple='yes'}{gallery_description}{/exp:low_replace}{/exp:trunchtml}" /> {!-- Used when displaying text about this link --}
+	<link rel="publisher" href="https://plus.google.com/111709737662107424167" /> {!-- No surprise Google uses its own social network to identify publishers --}
+	{!-- Facebook/OpenGraph tags. Validated here: https://developers.facebook.com/tools/debug/ --}
+	<meta property="og:title" content="{title} | RJI" />
+	<meta property="og:image" content="{gallery limit='1'}
+					  	{if gallery:image}
+					  	{gallery:image}
+						  {path}_rect/{filename}.{extension}
+						{/gallery:image}
+						{if:elseif gallery:youtube_url}
+						  {exp:low_replace find='www|watch?v=' replace='img|vi/' multiple='yes'}{gallery:youtube_url}{/exp:low_replace}/mqdefault.jpg
+						{/if}
+					  {/gallery}" /> {!-- Use preview image or the default one --}
+	<meta property="og:url" content="{comment_url_title_auto_path}" /> {!-- Use default URL path from EE to consolidate URLs --}
+	<meta property="og:description" content="{exp:trunchtml chars='128' exact='yes' ending='...'}{exp:low_replace find='<p>|</p>' replace='|' multiple='yes'}{gallery_description}{/exp:low_replace}{/exp:trunchtml}" /> {!-- Use the same value as our regular meta description --}
+	{!--<meta property="fb:admins" content="USER_ID" /> [[Need to find info]] https://developers.facebook.com/docs/platforminsights/domains--}
+	{!-- Twitter tags. Validated here: https://cards-dev.twitter.com/validator --}
+	<meta name="twitter:card" content="summary" /> {!-- Use the same value as our regular meta description --}
+	<meta name="twitter:url"  content="{comment_url_title_auto_path}" /> {!-- Use default URL path from EE to consolidate URLs --}
+	<meta name="twitter:site" content="@RJI" />
+	<meta name="twitter:title" content="{title} | RJI" />
+	<meta name="twitter:image" content="{gallery limit='1'}
+					  	{if gallery:image}
+					  	{gallery:image}
+						  {path}_rect/{filename}.{extension}
+						{/gallery:image}
+						{if:elseif gallery:youtube_url}
+						  {exp:low_replace find='www|watch?v=' replace='img|vi/' multiple='yes'}{gallery:youtube_url}{/exp:low_replace}/mqdefault.jpg
+						{/if}
+					  {/gallery}" /> {!-- Use preview image or the default one. Twitter wants a smaller, square image < 1mb --}
+	<meta name="twitter:description" content="{exp:trunchtml chars='128' exact='yes' ending='...'}{exp:low_replace find='<p>|</p>' replace='|' multiple='yes'}{gallery_description}{/exp:low_replace}{/exp:trunchtml}" /> {!-- Use the same value as our regular meta description --}
+
+	
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path='galleries/index'}">Galleries</a></li>
+	<li class="active visible-xs-inline-block">{exp:trunchtml chars="22" exact="yes" ending="..."}{title}{/exp:trunchtml}</li>
+	<li class="active visible-sm-inline-block">{exp:trunchtml chars="100" exact="yes" ending="..."}{title}{/exp:trunchtml}</li>
+	<li class="active visible-md-inline-block visible-lg-inline-block">{title}</li>
+</ol>
+
+<div id="main-section" class="container">
+<div class="row">
+    
+	<div class="col-md-8 col-sm-12">
+	
+	
+		<div class="page-header">
+			{exp:gwcode_categories entry_id="{entry_id}" style="linear"}
+				{if results_total > 0 AND cat_count == 1}
+					<div class="row story-desc">
+						<div class="col-xs-12">
+				{/if}
+							<a href="/stories/categories/{cat_url_title}" class="label label-default">{cat_name}</a>&nbsp;
+				{if cat_count == results_total }
+						</div>					
+					</div>
+				{/if}
+
+			{/exp:gwcode_categories}
+		
+			<h1>{title}</h1>
+			
+			<div class="row story-desc">
+					{!-- Author information. If we have an outside source providing (RJI in the news) we use that first, else we fetch author data form the Author module --}
+					<div class="col-xs-12">
+						{if source_url}
+							<a href="{source_url}" target="blank">{if source}{source}{if:else}{source_url}{/if}</a> | {entry_date format="%F %j, %Y"}
+						{if:else}
+							{embed="stories/_author_list" entry_author="{author}" entry_id="{entry_id}"} | {entry_date format="%F %j, %Y"}					
+						{/if}
+						
+						{if !post_series}
+						<div class="pull-right hidden-xs">
+							{social_share_buttons}
+						</div>
+						{/if}
+					</div>
+			</div>
+		</div>
+		
+		{gallery_description}
+     
+	 	<div id="gallery-images">
+		
+			<p class="help-block">Click each item to zoom in or play video.</p>
+		
+		{gallery}
+			{if ( gallery:count % 3 ) == 1}
+			<div class="row">
+			{/if}
+			
+				<div class="col-xs-12 col-sm-4">
+				
+				{if gallery:youtube_url}
+				<span class="fa-stack fa-lg" style="
+					position: absolute;
+					top: 10px;
+					left: 25px;
+				">
+					<i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+					<i class="fa fa-youtube-play fa-stack-1x" style="
+						color: #cd201f;
+					"></i>
+				</span>
+				{/if}
+				
+				<a class="preview-img" data-toggle="modal" data-target="#gallery-modal" href="#gallery-modal" data-slide-to="{gallery:index}">
+				{if gallery:image}
+					<p><img class="img-responsive" src="{gallery:image}"></p>
+				{if:elseif gallery:youtube_url}
+					<p><img class="img-responsive" src="{exp:low_replace find='www|watch?v=' replace='img|vi/' multiple='yes'}{gallery:youtube_url}{/exp:low_replace}/mqdefault.jpg"></p>
+				{/if}
+				</a>
+				
+				</div>
+			
+			{if ( ( gallery:count % 3 ) == 0 ) OR ( gallery:count == gallery:total_rows ) }
+			</div>
+			{/if}
+		
+		{/gallery}
+		
+		</div>
+		
+		<!--script defer>
+			$('.preview-img').on('click', function() {
+				index = $(this).attr('data-slide-to');
+				$("#image-gallery").carousel(parseInt(index));
+			});
+		</script-->
+
+		{!-- Tags --}
+		{exp:tag:tags entry_id="{entry_id}" channel="stories" websafe_separator="_"}
+			{if tag_count == '1'}
+			<br>
+			<div class="row story-desc">
+				<div class="col-xs-12">
+					<strong>Tags</strong><br>
+			{/if}
+					<span class="badge tags"><a href="/stories/tag/{websafe_tag}">{tag_name}</a></span>&nbsp;
+
+			{if tag_count == tag_total_results}
+				</div>
+			</div>
+			{/if}
+		{/exp:tag:tags}
+	
+		<br>
+		<div class="row story-desc visible-xs">
+				<div class="col-xs-12">
+					<strong>Share</strong><br>
+				</div>
+		</div>
+		<div class="visible-xs">	
+			{social_share_buttons}
+		</div>
+		
+		{disqus_comments}
+    
+    </div>
+    
+    <div id="sidebar" class="col-md-4 hidden-sm hidden-xs nocontent"> 
+  		{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="NO" tags="NO"}
+    </div>
+	
+</div>
+</div>
+
+
+<div class="modal fade" id="gallery-modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			{embed="galleries/data" entry_id="{entry_id}" indicators="false"}
+		</div>
+	</div>
+</div>
+
+{page_end}
+{/exp:channel:entries}

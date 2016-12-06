@@ -1,0 +1,165 @@
+{!-- Member modal that allows users to create an account and sign in --}
+
+{!-- Modal uses Bootstrap JS and class system. Requirements described below:
+          ====================
+          div.modal#modal id aria-hidden="true"
+                    div.modal-dialog
+                                 div.modal-content
+                                             div.modal-header
+                                             div.modal-body
+          ====================
+         Also note: a button is required to activate the modal. Button must have : data-toggle="modal" data-target='modal id' --}
+<div class="modal fade " id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+       <div class="modal-header">
+             {!-- In the modal header are two nav pills, one to reveal login form in modal body and one to reveal registration in modal body
+                          Documentation for these nav pills and panes are found in the main/sidebar template --}
+             <h4 class="modal-title" id="myModalLabel2"><ul class="nav nav-pills nav-justified">
+             	<li class="active"><a href="#login" data-toggle="tab">Login</a></li>
+                {if segment_1 != "account" AND segment_2 != "register"}
+                <li class=""><a href="#register" data-toggle="tab">Register</a></li>
+                {/if}
+             </ul></h4>
+        </div>
+        <div class="modal-body">
+       {!-- Modal body has two forms, one for login and another for registration
+                      Each uses freemember, an ExpressionEngine add-on to allow custom forms and fields --}
+        <div class="tab-content">
+        	<div class="tab-pane active" id="login">
+                
+                {!-- Login function looks at forms values which must be used with ExpressionEngine template language that points to a member field. error:member_field shows the place where an error should occur and uses error_delimeters --}
+                {exp:freemember:login error_handling="inline" error_delimiters='<span class="has-error login-error"><p class="help-block">|</p></span>'}
+                
+                <form class="horizontal-form">
+               {!-- the form uses Bootstrap styling and components to make it look nice. Forms take the general form:
+                    =====================
+                    form.horizontal-form
+                            fieldset.horizontal-form
+                                    div.form-group row
+                                             label.col-'minScreen'-'colSize'.control-label
+                                             div.col-...-....
+                                                        input.form-control
+                   ====================== --}
+                <fieldset class="horizontal-form" id="login_fields">
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10"><input class="form-control" type="text" id="email" name="email" value="{email}" required>{error:email}</div>
+                        
+                    </div>
+                    <div class="form-group row">
+                        <label for="password" class="col-sm-2 control-label">Password</label>	
+                        <div class="col-sm-10"><input class="form-control" type="password" id="password" name="password" value="{password}" required>{error:password}</div>
+                        
+                    </div>
+                    <div class="form-group row">
+                        <div class="checkbox col-sm-offset-2 col-sm-10">
+                        <label for="auto_login"><input type="checkbox" id="auto_login" name="auto_login" value="1" {auto_login_checked}>Remember me</label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-offset-2 col-sm-10 col-xs-12">
+                        <div class="row">
+                          <div class="col-xs-12 col-sm-6 col-md-3">
+                          	<input class="btn btn-success btn-block" type="submit" name="submit" value="Login" id="submit_login">
+                          </div>
+                          <div class="col-xs-12 visible-xs">&nbsp;</div>
+                          <div class="col-xs-12 col-sm-6 col-md-3">
+                            <button type="button" class="btn btn-default btn-danger btn-block" data-dismiss="modal">Close</button>
+                          </div>
+                          </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <p><a href="{path='account/identify'}">Forgot your password?</a></p>
+            
+            {/exp:freemember:login}
+            
+            </div>
+            
+            <div class="tab-pane" id="register">
+            
+            {!-- Register function very similar to login as documented above --}
+            {if segment_1 != "account" AND segment_2 != "register"}
+            {exp:freemember:register
+				return="account/registered"
+				error_handling="inline"
+				require="first_name|last_name|email|password"
+                rules:zip="integer|exact_length[5]|greater_than[1]"
+                rules:password="alpha_dash"
+                rules:first_name="alpha"
+                rules:last_name="alpha"
+				error_delimiters='<span class="has-error register-error"><p class="help-block">|</p></span>'
+			}   
+            	<fieldset id="register_fields">
+                    <div class="form-group row">
+                    	<div class="col-sm-6">
+                        <label for="first_name" class="control-label">First Name</label>
+                        <div><input class="form-control" type="text" id="first_name" name="first_name" value="{first_name}" required></div>
+                        {error:first_name}
+                        </div>
+                        <div class="col-sm-6">
+                        <label for="last_name" class="control-label">Last Name</label>
+                        <div><input class="form-control" type="text" id="last_name" name="last_name" value="{last_name}" required></div>
+                        {error:last_name}
+                    	</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="zip" class="control-label">Zip Code</label>
+                        <div><input class="form-control" type="number" id="zip" name="zip" value="{zip}" required>{error:zip}</div>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="control-label">Email</label>
+                        <div><input class="form-control" type="email" id="email" name="email" value="{email}" required>{error:email}</div>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="control-label">Password</label>	
+                        <div><input class="form-control" type="password" id="password" name="password" value="{password}" required>{error:password}</div>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="password_confirm" class="control-label">Confirm Password</label>	
+                        <div><input class="form-control" type="password" id="password_confirm" name="password_confirm" value="{password_confirm}" required>{error:password_confirm}</div>
+                        
+                    </div>
+                    
+                    <div class="form-group">
+                      {if captcha}
+                      	<p>{captcha}</p>
+                        <p class="help-block">Please enter in the word you see above:
+                        <br><input type="text" class="form-control" name="captcha" /></p>
+                        {error:captcha}
+                      {/if}
+                   </div>
+                   
+                    <div class="checkbox">
+                        <label>
+                        	<input type="checkbox" name="accept_terms"/> I agree to the <a href="{site_url}privacy-policy" target="_blank">Privacy Policy</a> and <a href="{site_url}terms-service" target="_blank">Terms of Service</a>
+                        </label>
+                        {error:accept_terms}
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="row">
+                          <div class="col-xs-12 col-sm-6 col-md-3">
+                          	<input class="btn btn-success btn-block" type="submit" name="submit" value="Register" id="submit_comment">
+                          </div>
+                          <div class="col-xs-12 visible-xs">&nbsp;</div>
+                          <div class="col-xs-12 col-sm-6 col-md-3">
+                            <button type="button" class="btn btn-default btn-danger btn-block" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                    </div>
+                </fieldset>
+                    
+            {/exp:freemember:register}
+            {/if}
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+</div>

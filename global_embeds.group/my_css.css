@@ -1,0 +1,1361 @@
+@charset "UTF-8";
+/* CSS Document ================================================== 
+	RJI Online - Styling - Nick Cappo / Lamar Henderson / Kean Mattingly
+	Update: 160405 lah
+
+	Sections:
+	0. General
+    1. Header
+    2. Navbar
+    3. Main Section
+    4. Events
+    5. Comments
+    6. Footer
+    7. Sidebar
+    8. About Pages
+    9. Profiles
+	10. Bootstrap Extension
+	11. Galleries
+   --------------------------------------------------------------
+*/
+
+
+
+
+
+
+/*  0.) General ==================================================
+	General CSS used throughout the site
+    --------------------------------------------------------------
+*/
+#rss { color: #f26522; text-decoration: none; }
+#rss > i { padding: 3px 5px; }
+option:focus, select::selection {
+	background-color: #006983;
+}
+.capitalize{
+	text-transform: uppercase;
+}
+.capitalize2{
+	text-transform: capitalize;
+}
+.secondary { color: #eaab00; }
+.hanging-indent {
+	padding-left: 22px ;
+ 	text-indent: -22px ;
+}
+em.required {
+	color: #a94442;
+	font-size: 14px;
+}
+.gray {
+	color: #777;
+}
+.story-list-header {
+	text-align: center;
+	width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+}
+.story-list-heading {
+	font-size: 1.5em;
+	color: #7D7D7D;
+	width: 70%;
+    margin-right: auto;
+    margin-left: auto;
+}
+.story-list-heading .focus {
+	font-weight: 700;
+	color: #585858;
+}
+.scrollable {
+	height: 0px;
+    overflow-y: scroll;
+    padding-bottom: 56.25%;
+    width: 100%;
+}
+.sharing-buttons{list-style:none;text-decoration:none;padding-left:0px;margin-bottom:0px;margin-top:-3px;}
+.sharing-buttons li{display:inline-flex;display:-webkit-inline-flex;display:-moz-inline-flex;margin:1px}
+.sharing-buttons a{text-decoration:none}
+.sharing-buttons a:hover{text-decoration:none}
+.facebook,.facebook:hover,.facebook:active,.facebook:visited{color:#3B5998}
+.twitter,.twitter:hover,.twitter:active,.twitter:visited{color:#55ACEE}
+.linkedin,.linkedin:hover,.linkedin:active,.linkedin:visited{color:#0077B5}
+.google-plus,.google-plus:hover,.google-plus:active,.google-plus:visited{color:#DC4E41}
+.email,.email:hover,.email:active,.email:visited{color:#808080}
+
+
+/* Gives links the simple pulse effect when active */
+
+.container a:focus {
+	animation: pulse 4s linear infinite;
+	-webkit-animation: pulse 4s linear infinite;
+}
+
+@keyframes pulse {
+    0% {
+        #color: #1f8599;
+        background-color: transparent;
+    }
+    25% {
+        background-color: #b3f1ff;
+    }
+    50% {
+        #color: #1f8599;
+        background-color: #transparent;
+    }
+    75% {
+        background-color: #b3f1ff
+    }
+    100% {
+        #color: #1f8599;
+        background-color: transparent;
+    }
+}
+
+
+
+
+/*  1.) Header ===================================================
+	Header displayed above the nav bar. 
+	Is not visible on mobile.
+    --------------------------------------------------------------
+*/
+#header {
+	/*height: 200px;*/
+	/*background-image: url("/images/uploads/rjibg01.jpg");*/
+	/*background-image: url("/images/uploads/channels4_banner.jpg");*/
+	/*background-image: url("/images/uploads/banner-test2.jpg");*/
+	background-image: url("/images/uploads/rjibg02.jpg");
+	background-position: 50% 0;
+	background-size: cover;
+	background-repeat: no-repeat;
+	/*background-color: #006983;*/
+	color: white;
+	padding-top: /*5,2*/3em;
+	padding-bottom: /*2*/3em;
+	/*margin-top: -4em;*/
+}
+/*@media (min-width: 1400px){
+  #header {
+	  height: 250px;
+  }
+}*/
+@media (max-width: 992px){
+  #logo-img {
+	  max-width: 2000px;
+	  width: auto;
+	  height: 120px;
+  }
+}
+#header > .container-fluid {
+	padding-right: 50px;
+	padding-left: 50px;
+}
+#header > .row > div > #member-info > div > a,
+#member-info > div.col-sm-6 > a {
+	color: white;
+	font-size: 11px;
+}
+#search {
+	margin-top: 1em;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	color: black;
+	padding: 8px;
+	background-image: url("/images/uploads/background-transparent.png");
+	border-radius: 2px;
+}
+#search, input.gsc-input { font-size: 14 !important }
+td.gsib_a { padding-right: 1px; padding-top: 3px; }
+div > form.gsc-search-box, div > form.gsc-search-box > table {
+	margin-bottom: 0px;
+	margin-right: 3px;
+}
+form.gsc-searchbox > table.gsc-search-box > tbody > tr > td.gsc-input { padding-right: 5px; }
+td.gsc-search-button > input.gsc-search-button {
+	padding: 10px 20px 14px 20px;
+	margin-top: 3px;
+	background-image: url("https://www.google.com/uds/css/v2/search_box_icon.png");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+div.gsc-selected-option-container { padding-right: 5.5em; }
+#jschool { margin-left: 1.5em; }
+#greeting > span { font-size: 11px; }
+#myAccount { margin-left: 1.5em; }
+
+
+
+/* Header > Social Media 
+   ---------------------------------------------------------------
+ */
+#socialMedia {
+	margin-bottom: 0;
+}
+#socialMedia > li {
+	text-decoration: none;
+	list-style-image: none;
+	list-style-type: none;
+	list-style-position: outside;
+	display: inline-block;
+}
+#socialMedia > li > a:hover {
+	color: #EAAB00;
+}
+#member-info > div.col-xs-offset-2{
+	padding-right: 0;
+}
+
+
+
+
+
+
+
+
+
+
+/* 2.) Navbar ==================================================== 
+	Responsive navbar that collapses at xs.
+	Includes login modal.
+    --------------------------------------------------------------
+*/
+.navbar-brand {
+	padding-top: 5px;
+}
+.navbar-brand > img{
+	max-height: 40px;
+}
+#nav.affix {
+    position: fixed;
+    top: 0;
+    width: 100%;
+	z-index: 100;
+}
+.xs-top{
+	margin-top: 30px;	
+}
+.shadow {
+	box-shadow: 0 4px 4px -2px #232323;
+    -moz-box-shadow: 0 4px 4px -2px #232323;
+    -webkit-box-shadow: -2px 4px 4px -2px #232323;
+}
+.navbar {
+	z-index: 50;
+}
+.navbar-default{
+	background-color: #006983;
+	border: none;
+	border-radius: 0;
+}
+.navbar-default .navbar-nav > .active > a {
+	background-color: #006983;
+	color: #EAAB00;
+}
+.navbar-default .navbar-nav > li > a {
+	color: #ffffff;
+	text-transform: uppercase;
+	padding-left: 1em;
+	padding-right: 1em;
+	font-size: 13px;
+	letter-spacing: 1px;
+	font-weight: 500;
+}
+.navbar > div > .navbar-collapse > .navbar-nav > li > a:hover{
+	background-color: #CCE1E6;
+	color: #006983;}
+.navbar > div > .navbar-collapse > .navbar-nav > li > a:focus,
+.navbar > div > .navbar-collapse > .navbar-nav > .open > a {
+	/*color: #EAAB00;
+	background-color: #006983;*/
+	background-color: #E0EDF0;
+	color: #006983;
+}
+.navbar-default .navbar-brand, .navbar-default .navbar-brand:hover {
+	color: #ffffff;
+}
+.navbar-toggle {
+	background-color: #dddddd;
+}
+.dropdown > .dropdown-menu > .active > a {
+	background-color: #006983;
+}
+#member, #member > p > a{
+	color: white;
+}
+#loginModal > .modal-dialog > .modal-content > .modal-header > .modal-title > .nav-pills > li.active > a {
+	background-color: #006983;
+}
+#loginModal > .modal-dialog > .modal-content > .modal-header > .modal-title > .nav-pills > li:not(.active) > a {
+	color: #006983;	
+}
+#nav-wrapper{
+	height: 50px;
+}
+.navbar-collapse > .navbar-nav > li.active > a:hover {
+	color: #EAAB00;
+	background-color: #006983;
+}
+.navbar-collapse > .navbar-nav > li.active {
+	z-index: 100;
+}
+.rjiicon01 {
+	display: block;
+	width: 40px;
+	height: 40px;
+	background: url('/images/uploads/rjiicon01.png') bottom;
+	text-indent: -99999px;
+	margin-top: 5px;
+	margin-left: 13px; /*This should only have an effect on mobile, 
+						this is to help balance it out asthetically, 
+						on non-mobile, bootstrap should kick in 
+						(which has also been altered to balance things aesthetically) */
+}
+.rjiicon01:hover {
+	background-position: 0 0;
+}
+@media (max-width: 767px){
+  .navbar-collapse > ul.navbar-nav > li {
+	  width: 29%;
+	  display: inline-block;
+  }
+  .navbar > div > .navbar-collapse {
+	  border-color: #006983;
+  }
+  .rjiicon01 {
+	  margin-right: 13px; /* To move login/logout button away a bit */
+  }
+}
+
+
+
+/* Navbar > Yamm
+	We needed to extend Yamm a little bit further so the styling
+	matched our site and didn't look stock
+   ---------------------------------------------------------------
+ */
+li.yamm-fw.open > a.dropdown-toggle {
+	background-color: #E0EDF0;
+	color: #006983;
+}
+.yamm-content > .row-fluid > .col-sm-2 { padding-right: 0; padding-left: 0; }
+.yamm-content > .row-fluid > .col-sm-2 > ul { margin-top: 3em; width: 100%; }
+.yamm-content > .row-fluid > .col-sm-2 > ul > li:hover { background-color: #f1f7f8;}
+.yamm-content > .row-fluid > .col-sm-2 > ul > li.active { background-color: white; }
+.yamm-content > .row-fluid > .col-sm-2 > ul > li > a:hover,
+.yamm-content > .row-fluid > .col-sm-2 > ul > li > a:focus { text-decoration: none; }
+.yamm-content > .row-fluid > .col-sm-2 > ul > li > a > h4 { padding: 10px 15px 10px 0; margin: 0;}
+.yamm-content > .row-fluid > .col-sm-10 { background-color: #fff; padding-top: 10px; padding-bottom: 1em; }
+.yamm-fw > .dropdown-menu { background-color: /*#CCE1E6*/#E0EDF0; }
+
+   
+/* Gives the navbar the simple pulse effect when a tab is active */ 
+
+.dropdown-toggle:focus {
+	border-radius: 0;
+	animation: navbar_pulse 4s linear infinite;
+	-webkit-animation: navbar_pulse 4s linear infinite;
+}
+ 
+@keyframes navbar_pulse {
+    0% {
+        color: #1f8599;
+        background-color: #b3f1ff;
+		opacity: 1;
+    }
+    25% {
+		opacity: 0.7;
+    }
+    50% {
+		opacity: 1;
+        color: #1f8599;
+        background-color: #b3f1ff;
+    }
+    75% {
+		opacity: 0.7;
+    }
+    100% {
+		opacity: 1;
+        color: #1f8599;
+        background-color: #b3f1ff;
+    }
+}
+
+
+
+
+
+
+
+/* 3. Main Section =============================================== 
+	Main section (left of sidebar) that holds the majority of content.
+	Makes use of media queries for mobile and desktop.
+    --------------------------------------------------------------
+*/
+#main-section > a:link a:visited a:hover a {
+	color: #1f8599;
+}
+.page-header {
+	position: relative;
+}
+@media(max-width: 767px){
+	.banner-wrapper {
+		margin-right: -15px;
+		margin-left: -15px;
+		margin-top:	-1em;
+	}
+}
+#page-header-img {
+	padding-bottom: 20%; 
+	width: 100%; 
+	margin-bottom: 2em; 
+	background-size: cover; 
+	background-position: 0px 0px;
+}
+#comment_button {
+	margin-bottom: 3em;
+}
+ul.pagination {
+	display: inline-table;
+}
+ul.pagination > li {
+	display: inline;
+}
+#pagination {
+	text-align: center;
+}
+#pagination > .pagination > li > a {
+	color: #1f8599;
+}
+.breadcrumb {
+	/*margin-left: -300px;
+	padding-left: 300px;*/
+	border-radius: 0;
+	width: 100%;
+	padding-left: 15px;
+	margin-bottom: 1em;
+}
+#recent-posts,
+#recent-posts > .pager {
+	margin-bottom: 0;
+}
+figure { 
+	/*padding: 0 0 20px 0; */
+	max-width: 100%;
+}
+#news_listing figure[style*="float: right;"] {
+	margin-left: 10px;
+	margin-right: 0px;
+}
+#news_listing figure[style*="float: left;"] {
+	margin-right: 10px;
+	margin-left: 0px;
+}
+/*#news_listing > figure > img { 
+	max-width: 100%; 
+}*/
+figcaption,
+.user-info { 
+	color: #777; 
+}
+div#carousel > ol.carousel-indicators {
+	bottom: 0;
+}
+div#carousel > ol.carousel-indicators > li {
+	margin-right: 2px;
+	margin-left: 2px;
+}
+ul.topics {
+	list-style-type: none;
+	padding-left: 0;
+}
+.page-header,
+.page-header > h2 {
+	margin-top: 0;
+}
+.banner {
+	margin-bottom: 1em;
+}
+#summary {
+	padding-top: 10px;
+}
+#summary h5 {
+	margin-top: 0;
+}
+#summary ul.summary-list li {
+	/*border-bottom: 1px solid rgba(49, 112, 143, 0.35);
+	border-bottom: 1px solid #eee;*/
+	margin-bottom: 0.5em;
+	padding-bottom: 0.5em;
+}
+#summary figcaption {
+	padding: 0;
+}
+#categories .label {
+	display: inline-block;
+}
+.side-gallery-desc, .side-gallery-desc > p {
+	font-size: 12px;
+}
+.tags {
+	font-size: 0.75em;
+}
+.tags a:link,
+.tags a:visited,
+.tags02 a:link,
+.tags02 a:visited {
+	color: #ffffff;
+}
+.tags a:hover,
+.tags02 a:hover {
+	color: #f1f7f8;
+	text-decoration: none;
+}
+.tags02 {
+	font-size: 1.5em;
+	line-height: 1em;
+	text-transform: uppercase;
+}
+.case-title01 {
+	text-transform: capitalize;
+}
+#mission {
+	margin: 0;
+}
+#___gcse_0 .gsc-control-cse-en {
+	padding-left: 0;
+}
+#resInfo-0 {
+	padding-left: 0;
+}
+#___gcse_0 .gsc-thumbnail-inside,
+#___gcse_0 .gsc-url-top {
+	padding-left: 0;
+}
+#___gcse_0 .gsc-cursor-box {
+	margin-left: 0;
+}
+.mediatwits {
+	height: 166px;
+}
+.story-desc > .col-xs-4,
+.story-desc > .col-xs-8,
+.story-desc > .col-xs-12 {
+	color: #777;
+	text-transform: uppercase;
+}
+.story-desc > .col-xs-4 {
+	padding-right: 0px;
+	text-align: right;
+}
+.share-buttons {
+	padding-bottom: 1em;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+.img-float-right {
+	float: right;
+	margin: 0 0 0 12px;
+	padding: 6px 0 12px 0;
+	max-width: 100%;
+	height: auto;
+	display: block;
+	width: 100%;
+}
+.img-float-left {
+	float: left;
+	margin: 0 12px 0 0;
+	padding: 6px 0 12px 0;
+	max-width: 100%;
+	height: auto;
+	display: block;
+	width: 100%;
+}
+@media (min-width : 767px){
+/*.img-float-left { padding: 6px 20px 12px 0; }
+.img-float-right { padding: 6px 0 12px 20px; }*/
+}
+figcaption {
+	padding: 0;
+}
+figure > img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+figcaption{
+	font-size: 12px;
+	text-align: left !important;
+	margin-top: 9px;
+}
+#summary {
+	padding: 10px 9px 0px;
+	background-color: #f5f5f5;
+}
+#summary h5 {
+	margin-top: 0;
+}
+#summary ul.summary-list li {
+	/*border-bottom: 1px solid rgba(49, 112, 143, 0.35);
+	border-bottom: 1px solid #eee;*/
+	margin-bottom: 0.5em;
+	padding-bottom: 0.5em;
+}
+#summary figcaption {
+	padding: 0;
+}
+#summary li.small {
+	line-height: 1.4em;
+}
+#signature{
+	background-color: #f5f5f5;
+}
+#signature .position{
+	margin-top: 5px;
+	color: #6b6b6b;
+}
+#signature {
+	border-radius: 0;
+	padding: 0;
+	margin-top: 1em; 
+	/*max-height: 100px;*/
+	/*background-color: rgba(0, 39, 59, 0.05);*/
+}
+#signature/* > .media > a >*/ img {
+	max-height: 75px;
+	width: auto;
+}
+@media (min-width: 768px){
+	#signature img {
+		max-height: 100px;
+	}
+}
+#signature/* > .media >*/ .media-body {
+  padding: 12px;
+}
+#signature/* > .media > .media-body >*/ p {
+	margin-bottom: 0;
+	line-height: 1.4em;
+}
+.carousel-control > span.fa {
+	position: absolute;
+	top: 50%;
+	display: inline-block;
+	line-height: 1;
+	margin-top: -15px;
+}
+
+
+/* Main Section > Non-phone view
+   ---------------------------------------------------------------
+   ---------------------------------------------------------------
+ */
+@media (min-width : 767px){
+	/* Main Section > Non-phone view > Featured 
+	   (Featured posts on homepage)
+	   ---------------------------------------------------------------
+	*/
+	#main-section { margin-bottom: 3em; }
+	.breadcrumb{ margin-right: -30px; }
+	#thumbnails > .row > .col-sm-4 {
+		padding-right: 5px;
+		padding-left: 5px;
+	}
+	#primary-section > .row > .col-sm-4 > .thumbnail {
+		border-radius: 0;
+	}
+	/*#thumbnails { margin-top: 2em; }*/
+	.thumbnail.card {
+		border: none;
+	}
+	#thumbnails > div:nth-child(-n+2) {
+		/*border-width: 1px;
+		border-right-style: solid;
+		border-color: rgba(200,200,200,.5);
+		border-bottom-style: none;
+		border-left-style: none;
+		border-top-style: none;*/
+		margin-right: none;
+	}
+	#thumbnails > div:last-child > div {
+		border: none;
+	}
+	/*#thumbnails > div > .thumbnail > .caption*/
+	
+	#thumbnails .thumbnail .caption {
+		/*position: relative;
+		background-color: white;
+		margin-top: -15px;*/
+		padding: 10px;
+		width: 100%;
+		z-index: 1;
+	}
+	div#news_listing > a > img {
+		max-width: 100%;
+		margin-top: 10px;
+	}
+	.media-list > li > a {
+		width: 15%;
+	}
+	/*#recent-posts > li > a {
+		margin-top: 10px;
+	}*/
+	.content {
+		display: inline-block;	
+	}
+	#carousel {
+		margin-bottom: 2em;
+		/*margin-top: 2em;*/
+		margin-top: 0;
+	}
+	#carousel > .container-fluid > .carousel-indicators-2 {
+		max-height: 50px;
+		height: 50px;
+	}
+	#carousel > .container-fluid > .carousel-indicators-2 > div {
+		/*border-width: 1px;
+		border-right-style: solid;*/
+		height: 50px;
+		border-color: #006983;
+	}
+	#carousel > .container-fluid > .carousel-indicators-2 > div > h5 {
+		color: #006983;
+	}
+	#carousel > .container-fluid > .carousel-indicators-2 > div.active {
+		border-bottom-color: #EAAB00;
+		border-bottom-width: 3px;
+		border-bottom-style: solid;
+	}
+	#carousel > .container-fluid > .carousel-indicators-2 > div.active > h5 { color: #004C66; }
+	.media-body > h4 > span.small {
+		line-height: 1.5em;
+	}
+	.media-body > h4 {
+		margin-bottom: 0;
+	}
+	.card-lg {
+		background: white;
+		padding: 0;
+		margin: 0 1rem 2rem;
+		border-radius: 3px;
+	}
+	.card-lg-img {
+		height: 150px;
+		background-size: 100%;
+	}
+	.card-lg-desc {
+		background-color: white;
+		position: relative;
+		z-index: 1;
+		padding: 1rem;
+		margin: 0;
+		background-color: white;
+	}
+}
+
+
+
+/* Main Section > Phone view 
+   (make card style) 
+   ---------------------------------------------------------------
+*/
+@media (max-width : 767px){
+	.card-bg { 
+		background: #d5d5d5;
+		margin: 0 -15px 0 -15px;
+		padding-top: 1.5rem;
+		padding-bottom: 1.5rem;
+		/*box-shadow: inset 0 1px 2px #aaa;
+		-webkit-box-shadow: inset 0 1px 2px #aaa;
+		-moz-box-shadow: inset 0 1px 2px #aaa;*/
+	}
+	.breadcrumb{ margin-right: -15px; }
+	#recent-posts{
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+	.card {
+		/*box-shadow: 0px 1px 2px #aaa;
+		-moz-box-shadow: 0px 1px 2px #aaa;
+		-webkit-box-shadow: 0px 1px 2px #aaa;*/
+		background: white;
+		padding: 0;
+		/*margin: 0 1rem 1rem;*/
+		margin: 0 auto 1rem auto;
+		max-width: 300px;
+		/*border-radius: 3px;*/
+		border: none;
+	}
+	.card > div > h4 {
+		margin: 0;
+	}
+	.card > div.caption,
+	.card > div.media-body {
+		position: relative;
+		z-index: 1;
+		padding: 1rem;
+		margin: 0 0 0 0;
+		background-color: white;
+	}
+	#thumbnails > div.col-xs-12 {
+		margin-right: 0px;
+		margin-left: 0px;
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	#thumbnails > div > .thumbnail {
+		border-radius: 3px;
+	}
+	#carousel {
+		margin-left: -15px;
+		margin-right: -15px;
+	}
+	ul.pager {
+		/*margin-left: 1rem;
+		margin-right: 1rem;*/
+		padding-left: 1rem;
+		padding-right: 1rem;
+		margin-top: 0;
+	}
+	ul.pager > li > a { 
+		/*box-shadow: 0px 1px 2px #aaa;
+		-moz-box-shadow: 0px 1px 2px #aaa;
+		-webkit-box-shadow: 0px 1px 2px #aaa;*/
+		width: 100%;
+		border: none;
+		max-width: 300px;
+		margin: 1rem auto 0 auto;
+		border-radius: 0px;
+		float: none !important;
+		/*margin-top: 1rem;*/
+	}
+	li.next > a { margin-top: 1em; }
+	.card-lg {
+		/*box-shadow: 0px 1px 2px #aaa;
+		-moz-box-shadow: 0px 1px 2px #aaa;
+		-webkit-box-shadow: 0px 1px 2px #aaa;*/
+		background: white;
+		padding: 0;
+		margin: 0 1rem 1rem;
+		border-radius: 3px;
+		border: none;
+	}
+	.card-lg-img {
+		height: 150px;
+		background-size: 100%;
+	}
+	.card-lg-desc {
+		background-color: white;
+		position: relative;
+		z-index: 1;
+		padding: 1rem;
+		margin: 0;
+		background-color: white;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 4. Events ===================================================== 
+	Events page padding
+    --------------------------------------------------------------
+*/
+#event-content {
+	padding: 1em 0;
+}
+#travel > .panel, #travel > .panel > .panel-heading {
+	border-radius: 0;
+	border: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+#travel > .panel > .panel-heading > .panel-title {
+	font-size: 20px;
+}
+.space-reserved, .space-available {
+	width: 93%;
+	padding: 10px;
+	position: absolute;
+	overflow-y: hidden;
+}
+.space-available {
+	z-index: 5;
+}
+.space-reserved {
+	z-index: 10;
+}
+
+
+
+
+
+
+
+
+
+
+/* 5. Comments =================================================== 
+	Small changes to media lists for comments.
+	Keep avatar image at descent size.
+    --------------------------------------------------------------
+*/
+#comment-list > li > a {
+	max-width: 45px;
+}
+#avatar {
+	max-width: 45px;
+}
+h4.media-heading > small{
+	line-height:200%;	
+}
+#disqus_thread { margin-top: 1em; }
+
+
+
+
+
+
+
+
+
+
+/* 6. Footer ===================================================== 
+	Footer at bottom of each page.
+	#footer is the top footer with links and contact info.
+	>Only contact info is visible on mobile.
+	#footer2 is the disclaimer at the very bottom of each page.
+    --------------------------------------------------------------
+*/
+#footer{
+	background-color: #006983;
+}
+#footer > .container {
+	padding: 3em 0em 1em;	
+}
+#footer2{
+	background-color: #006983;
+}
+.footer-menu > li > a{
+	color: #ffffff;
+	list-style-type: none;
+	list-style-image: none;
+	line-height: normal;
+	/*font-weight: bold;*/
+}
+.list-group-item-heading{
+	color: #eaab00;
+	text-transform: uppercase;
+	font-size: 13px;
+	letter-spacing: 1px;
+	font-weight: 800;
+}
+#footer-message{
+	color: white;
+	font-size: 0.857em;
+	line-height: 1em;
+	height: auto;
+	padding-top: .7em;
+	color: #a1d2de
+}
+#footer-message > p > a{
+	color: white;	
+}
+#contact > p, #contact > address{
+	color: #a1d2de;	
+}
+/*#contact {
+	background-image: url("{site_url}/images/uploads/background-rji-footer-block.png");
+	background-repeat: no-repeat;
+	background-position: 2em top;
+}*/
+/*#contact > address {
+	padding-top: 13.5em;	
+}*/
+#contact > address > a {
+	color: white;	
+}
+#contact > h1 {
+	color: white;
+}
+#footer > .container > .row-fluid > .col-sm-3 {
+	padding-top: 0;
+	padding-left: 1.4em;
+}
+@media (min-width: 767px){
+#footer > .container > .row-fluid > .col-sm-3 {
+	border-left: 2px solid #00A9E0;
+}
+}
+#footer > .container > .row-fluid {
+	max-width: 100%;	
+}
+/*@media (max-width : 767px){
+#footer > .container > .row > #contact > address{
+	padding-left: 10em;
+	padding-top: 3em;
+	padding-bottom: 0em;
+}
+}*/
+
+
+
+
+
+
+
+
+
+/* 7. Sidebar ====================================================
+	Sidebar is on the right of most pages next to Main Section.
+	Mainly consists of tabs and topics list.
+    --------------------------------------------------------------
+*/
+#sidebar {
+	border-left: solid 1px #eee;
+	padding-left: 1em;
+}
+#sidebar > *:nth-child(n+3){
+	margin-top: 1em;
+}
+#sidebar > .nav > li > a {
+	text-transform: uppercase;
+	color: white;
+	padding: 5px;
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+}
+#sidebar > .nav > li.active > a {
+	color: black;
+}
+#sidebar > .tab-content > .tab-pane {
+	padding: 1em;
+	border-style: solid;
+	border-color: rgb(221,221,221);
+	border-width: 0px 1px 1px 1px;
+}
+#sidebar > ul.nav > li {
+	background-color: #aaa;
+}
+#sidebar > ul.nav > li:hover > a{
+	color: #000;
+}
+/* !---- Keep space around sidebar ----! 
+#main-section > .row > #sidebar {
+	padding-left: 0;
+	padding-right: 0;
+}
+*/
+#sidebar .media-body p {
+	/*font-size: 12px;*/
+	font-size: 13px;
+	line-height: 1.433em;
+}
+#sidebar .media-body h5 {
+	margin: 0 0 2px 0;
+}
+a#read-more {
+	color: #006983;
+}
+
+div#topics > a,
+div#tags > a {
+	color: #006983;
+}
+
+div#topics > a.active,
+div#tags > a.active {
+	/*background-color: #aaa;
+	border-color: #aaa;*/
+	background-color: #006983;
+	border-color: #006983;
+	text-transform: uppercase;
+}
+
+div#topics,
+div#tags {
+	margin-top: 1em;
+	margin-bottom: 0;
+}
+
+div#topics > a:first-child,
+div#tags > a:first-child {
+	border-radius: 0;
+	color: #ffffff;
+}
+
+div#topics > a:last-child,
+div#tags > a:last-child {
+	border-radius: 0;
+}
+
+
+
+
+
+
+
+
+
+/* 8. About Pages ================================================
+	Styling used for the about pages. (ie. About)
+	Slightly different stylings for mobile and desktop.
+    --------------------------------------------------------------
+*/
+.focus {
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+
+
+/* About Pages > Desktop
+   (Slight change in video size and focus background image)
+   ---------------------------------------------------------------
+*/
+@media (min-width : 767px){
+/*.vid-embed > iframe { 
+	max-width: 100%; 
+	max-height: 500px; 
+}*/
+.focus { background-size: 100% auto; }
+}
+.about-block{
+	margin: 0 -15px 2em -15px;
+	display: block;
+}
+.about-block-text{ 
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.focus > img {
+	width: 100%;
+	display: block;
+}
+.focus > .focus-text {
+	color: white;
+	background-color: rgba(150,150,150,.75);
+	margin: 0;
+	padding: 1em 0.5em 1em 0.5em;
+	text-align: center;
+}
+
+
+
+
+/* About Pages > Mobile
+   (Slight change in video size and mission background image)
+   ---------------------------------------------------------------
+*/
+@media (max-width: 767px){
+/*.vid-embed > iframe { 
+	max-width: 100%; 
+	max-height: 300px; 
+}*/
+.focus { background-size: auto 100%; }
+}
+
+
+
+
+/* About Pages > About RJI
+   ID's specific to About RJI page
+   ---------------------------------------------------------------
+*/
+#mission {
+	background-image: url(https://www.rjionline.org/sites/default/files/images/buildingfront.jpg);
+}
+
+dt:before { 
+  display: block; 
+  content: " "; 
+  margin-top: -55px; 
+  height: 55px; 
+  visibility: hidden; 
+}
+#recent-posts:before {
+	display: block;
+	content: " ";
+	margin-top: -50px;
+	height: 50px;
+	visibility: hidden;
+}
+
+
+
+
+/* About Pages > Staff
+   Used in /about/staff, /fellowship/fellows, and /research/scholars
+   ---------------------------------------------------------------
+*/
+@media (max-width : 767px){
+  .staff > a > img { max-width: 100px; }
+  #contact > address { padding-left: 2em; }
+}
+@media (min-width : 767px){
+  .staff > a > img { max-width: 70px; }
+}
+.staff { margin: 10px 0; }
+.partnersbox01 { display: block; }
+.row > .col-sm-6 > .pull-left {	width: 25%; }
+.row > .media {	margin-top: 0px; }
+
+
+
+
+
+
+
+
+/* 9. Profiles ================================================
+	Styling used for staff and fellows profiles.
+    --------------------------------------------------------------
+*/
+
+.inactive {
+	background: #f5f5f5;
+}
+
+.margin-bottom {
+	margin-bottom: 1.5em;
+}
+
+.no-margin-bottom {
+	margin-bottom: 0;
+}
+
+.no-margin-top {
+	margin-top: 0;
+}
+
+.profile-avatar {
+	max-height: 120px;
+	max-width: 120px;
+}
+
+.profile-height {
+	min-height: 100px;
+}
+
+.profile-list {
+	list-style-type: none;
+	padding: 0;
+}
+#user-banner {
+	padding-bottom: 300px; 
+	width: 100%; 
+	margin-bottom: 2em; 
+	background-size: cover; 
+	background-position: 50% 0px;
+}
+@media (max-width: 768px){
+  #profile-info {
+	  margin: -200px auto 0 auto;
+  }
+  #profile-info > img {
+	  max-width: 200px;
+	  height: auto;
+  }
+}
+
+
+
+
+
+
+
+/* 10. Bootstrap Extension =======================================
+	We extended bootstrap to have one larger size (XL) for large
+	desktop screens
+    --------------------------------------------------------------
+*/
+@media (min-width : 1540px){
+	.hidden-xl { display: none !important; }
+	.col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12 {
+    	float: left;
+  	}
+  	.col-xl-12 { width: 100%; }
+  	.col-xl-11 { width: 91.66666667%; }
+  	.col-xl-10 { width: 83.33333333%; }
+  	.col-xl-9 { width: 75%; }
+  	.col-xl-8 { width: 66.66666667%; }
+  	.col-xl-7 { width: 58.33333333%; }
+  	.col-xl-6 { width: 50%; }
+ 	.col-xl-5 { width: 41.66666667%; }
+  	.col-xl-4 { width: 33.33333333%; }
+  	.col-xl-3 { width: 25%; }
+  	.col-xl-2 { width: 16.66666667%; }
+  	.col-xl-1 { width: 8.33333333%; }
+  	/*.container{ width: 1400px; }*/
+	.col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12{
+	  position: relative;
+	  min-height: 1px;
+	  padding-right: 15px;
+	  padding-left: 15px;
+	}
+	.col-xl-offset-12 { margin-left: 100%; }
+  	.col-xl-offset-11 { margin-left: 91.66666667%; }
+  	.col-xl-offset-10 { margin-left: 83.33333333%; }
+  	.col-xl-offset-9 { margin-left: 75%; }
+  	.col-xl-offset-8 { margin-left: 66.66666667%; }
+  	.col-xl-offset-7 { margin-left: 58.33333333%; }
+  	.col-xl-offset-6 { margin-left: 50%; }
+  	.col-xl-offset-5 { margin-left: 41.66666667%; }
+  	.col-xl-offset-4 { margin-left: 33.33333333%; }
+  	.col-xl-offset-3 { margin-left: 25%; }
+  	.col-xl-offset-2 { margin-left: 16.66666667%; }
+ 	.col-xl-offset-1 { margin-left: 8.33333333%; }
+  	.col-xl-offset-0 { margin-left: 0; }
+}
+
+
+
+
+
+
+
+/* 11. Galleries ================================================
+	Modified modals specially designed for displaying pictures
+	and videos
+    --------------------------------------------------------------
+*/
+.gallery-footer {
+	background-color: rgba(0, 48, 62, 1);
+	width: 100%;
+	left: 30%;
+	bottom: -80px;
+	padding: 10px;
+	/*overflow-x: scroll;*/
+}
+.gallery-footer > .active > img {
+	border: 2px solid #EAAB00;
+}
+.gallery-footer > .gallery-thumbnail {
+	margin: 5px;
+	width: auto;
+	height: auto;
+	border: none;
+	background-color: none;
+	border-radius: none;
+	text-indent: 0;
+}
+.gallery-thumbnail > img {
+	height: 50px;
+	width: auto;
+}
+.gallery-caption {
+	background-color: rgba(200,200,200,.3);
+}

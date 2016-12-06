@@ -1,0 +1,45 @@
+{!--- account/success
+	Account forms will send the user here if they successfully complete something. Content will check for post data.
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+	<title>
+	Success
+	</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path='account/index'}">Account</a></li>
+	<li><a href="{path='account/register'}">Register</a></li>
+	<li class="active">Activated</li>
+</ol>
+<div id="main-section" class="container">
+<div class="row">
+    
+	<div class="col-md-12 col-sm-12">
+	
+		<div class="page-header"><h2>
+		
+		Account Activated
+		
+		<div class="progress pull-right" style="width: 35%; margin-top: 10px;">
+		  <div class="progress-bar" role="progressbar" style="width: 66.666%; background-color: #1F879C;">
+			2/3
+		  </div>
+		</div>
+		
+		</h2></div>
+		
+		<div class="alert alert-success" role="alert"><p>You have successfully activated your account! 
+			Complete your user experience by editing your profile <a href="{site_url}account/edit" class="alert-link">here.</a>
+			</p></div>
+    
+    </div>
+	
+</div>
+</div>
+
+{page_end}

@@ -1,0 +1,83 @@
+{!-- Pages
+	Used to display entries in the Pages channel for custom static pages with custom URLs.
+	*See template main/index for more template details; only details on this specific template will be documented --}
+{!--{exp:stash:cache refresh="10000"}--}
+{html_head}
+	{exp:channel:entries channel="pages" dynamic="on" limit="1" require_entry="yes" disable="categories|member_data|pagination"}
+	{if no_results}{redirect="404"}{/if}
+	<title>{title} | RJI</title>
+	{exp:tracker:track entry_id="{entry_id}"}
+	{head_content}
+{html_head_end}	
+
+<body>
+{embed="main/_navbar"}
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li class="{if !subtitle}active{/if} visible-xs-inline-block">{exp:trunchtml chars="30" exact="yes" ending="..."}{if subtitle}<a href="/{segment_1}">{/if}{title}{if subtitle}</a>{/if}{/exp:trunchtml}</li>
+	<li class="{if !subtitle}active{/if} visible-sm-inline-block">{exp:trunchtml chars="100" exact="yes" ending="..."}{if subtitle}<a href="/{segment_1}">{/if}{title}{if subtitle}</a>{/if}{/exp:trunchtml}</li>
+	<li class="{if !subtitle}active{/if} visible-md-inline-block visible-lg-inline-block">{if subtitle}<a href="/{segment_1}">{/if}{title}{if subtitle}</a>{/if}</li>
+	{if subtitle}
+	<li class="active visible-xs-inline-block">{exp:trunchtml chars="30" exact="yes" ending="..."}{subtitle}{/exp:trunchtml}</li>
+	<li class="active visible-sm-inline-block">{exp:trunchtml chars="100" exact="yes" ending="..."}{subtitle}{/exp:trunchtml}</li>
+	<li class="active visible-md-inline-block visible-lg-inline-block">{subtitle}</li>
+	{/if}
+	{!--exp:trunchtml chars="30" exact="yes" ending="..."}
+	<li class="{if !subtitle}active{/if} visible-xs-inline-block">{if subtitle}<a href="/{segment_1}">{/if}{title}{if subtitle}</a>{/if}</li>
+	{if subtitle}
+	<li class="active visible-xs-inline-block">{subtitle}</li>
+	{/if}
+	{/exp:trunchtml--}
+	
+</ol>
+
+
+<div id="main-section" class="container">
+
+{!-- If there is to be no sidebar, we want to ensure that the page body takes up the entire width of #main-section --}
+{if "{sidebar_options}" == "None" }
+{if:else}
+<div class="row">
+    	<div class="col-md-8 col-sm-12">
+{/if}
+
+		{if page_header}
+			{page_header}
+			<div class="banner-wrapper">
+				<img class="img-responsive" src={url} />
+			</div>
+			{/page_header}
+		{/if}
+		
+		
+		<div class="page-header">
+			<h1>{title}{if subtitle}<br/><small>{subtitle}</small>{/if}</h1>
+			<br/>
+			{social_share_buttons}
+		</div>
+			{page_body}
+    	</div>
+    
+		{if "{sidebar_options}" != "None" }
+		  {if "{sidebar_options}" == "Default"}
+			  <div id="sidebar" class="col-md-4 hidden-sm hidden-xs">
+				  {if "{page_series}" != ""}
+				  	  {exp:stash:set name="series_title" type="snippet"}{page_series}{/exp:stash:set}
+				  {/if}
+					  {embed="main/_sidebar" recent="YES" events="YES" categories="NO" tags="NO" section="stories"}
+		  {if:elseif "{sidebar_options}" == "Custom"}
+			  {!-- If custom sidebar, we want it at bottom of page on mobile, usually useful info --}
+			  <div id="sidebar" class="col-md-4 col-xs-12"> 
+				  {custom_sidebar}
+		  {/if}
+			  </div>
+
+	</div>
+		{/if}
+
+    {/exp:channel:entries}
+	
+</div>
+
+{page_end}
+{!--{/exp:stash:cache}--}

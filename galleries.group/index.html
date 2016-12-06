@@ -1,0 +1,74 @@
+{html_head}
+	<title>
+	Galleries | RJI
+	</title>
+	<script type="application/ld+json">
+	{
+	  "@context": "http://schema.org",
+	  "@type": "BreadcrumbList",
+	  "itemListElement": [{
+		"@type": "ListItem",
+		"position": 1,
+		"item": {
+		  "@id": "/galleries",
+		  "name": "Galleries"
+		}
+	  }]
+	}
+	</script>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li class="active">Galleries</li>
+</ol>
+
+<div id="main-section" class="container">
+<div class="row">
+    
+	<div class="col-md-8 col-sm-12">
+		<div class="page-header">
+			<h1>Galleries</h1>
+		</div>
+     
+	 	<div class="card-bg">
+		<ul id="recent-posts" class="media-list">
+		  {exp:channel:entries channel="galleries" disable="categories|member_data" limit="10" paginate="bottom"}
+			  <li class="media card">
+				  <a class="pull-left" href="{post_path}">
+					  {gallery limit="1"}
+					  	{if gallery:image}
+					  	{gallery:image}
+						  <img src="{path}_rect/{filename}.{extension}" class="img-responsive"/>
+						{/gallery:image}
+						{if:elseif gallery:youtube_url}
+						  <img src="{exp:low_replace find='www|watch?v=' replace='img|vi/' multiple='yes'}{gallery:youtube_url}{/exp:low_replace}/mqdefault.jpg" class="img-responsive">
+						{/if}
+					  {/gallery}
+				  </a>
+				  <div class="media-body">
+					  <h4 class="media-heading"><a href="{post_path}">{title}</a><br /><span class="small capitalize">{entry_date format="%F %j, %Y"}</span></h4>
+					  {exp:trunchtml chars="128" exact="yes" ending="..."}{exp:low_replace find='<p>|</p>' replace='|' multiple='yes'}{gallery_description}{/exp:low_replace}{/exp:trunchtml}
+				  </div>
+			  </li>
+			  
+			  {pagination_snippet}
+			  
+		  {/exp:channel:entries}
+		</ul>
+		</div>
+    
+    </div>
+    
+    <div id="sidebar" class="col-md-4 hidden-sm hidden-xs nocontent"> 
+  		{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="NO" tags="NO"}
+    </div>
+	
+</div>
+</div>
+
+{page_end}
+{/if}

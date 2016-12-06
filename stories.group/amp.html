@@ -1,0 +1,95 @@
+{exp:channel:entries channel="stories" dynamic="yes" limit="1"}
+<!doctype html>
+<html amp lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{title} | RJI</title>
+    <link rel="canonical" href="{site_url}stories/{segment_3}" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "NewsArticle",
+        "headline": "{title}",
+        "datePublished": "{entry_date format='%Y-%m-%dT%H:%i:%s%Q'}",
+        "image": [
+          "{news_image}"
+        ]
+      }
+    </script>
+    <style>body {opacity: 0}</style><noscript><style>body {opacity: 1}</style></noscript>
+    <style amp-custom>
+      {embed="global_embeds/amp_css"}
+    </style>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="brand-logo">
+        <amp-img
+            src="/images/uploads/logo-small.png" placeholder
+            alt="Donald W. Reynolds Journalism Institute"
+            height="41" width="27.5">
+        </amp-img>
+      </div>
+    </header>
+  	{if news_banner}
+    {exp:ce_img:pair src="{news_banner}"}
+  	<figure>
+        <amp-img
+            src="{made}"
+            srcset="{made} 1x, {made} 2x"
+            layout="responsive" width="{width}" placeholder
+            alt="{title}"
+            height="{height}">
+        </amp-img>
+    </figure>
+	{/exp:ce_img:pair}
+    {/if}
+    <main role="main">
+      <article>
+        <div class="page-header">
+        {if post_series != ""}<h2><small class="capitalize">{post_series}</small></h2>{/if}
+        <h1>
+          {title}
+        </h1>
+        <h2><small class="capitalize">{entry_date format='%F %j, %Y'}</small></h2>
+        </div>
+        {lede}
+        {news_body remove_images="yes"}
+      </article>
+    </main>
+    <div class="author">
+      {exp:user:authors 
+          orderby="primary"
+          sort="desc"
+          entry_id="{entry_id}"
+      }
+      	  {if avatar_filename}
+          <amp-img src="/images/avatars/{avatar_filename}" id="author-avatar" placeholder
+              height="50" width="50" class="img-circle">
+          </amp-img>
+          {/if}
+          <div class="byline">
+            <p>
+              <span itemscope itemtype="http://schema.org/Person"
+              itemprop="author"><b>{first_name} {last_name}</b>
+              <a class="mailto" href="mailto:{email}">
+              {email}</a></span>
+            </p>
+            <p class="brand">{position_1}<p>
+          </div>
+      {/exp:user:authors}
+      </div>
+    <footer>
+      <div class="brand-logo">
+        <amp-img
+            src="/images/uploads/logo-small.png" placeholder
+            alt="Donald W. Reynolds Journalism Institute"
+            height="41" width="27.5">
+        </amp-img>
+      </div>
+  	</footer>
+  </body>
+</html>
+{/exp:channel:entries}

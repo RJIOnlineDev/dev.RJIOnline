@@ -1,0 +1,198 @@
+{!-- jdna/index
+	The basic information about JDNA. Most of this is STATIC.
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+
+	<title>Journalism Digital News Archive | RJI</title>
+
+	<script type="application/ld+json">
+	{
+	  "@context": "http://schema.org",
+	  "@type": "BreadcrumbList",
+	  "itemListElement": [{
+		"@type": "ListItem",
+		"position": 1,
+		"item": {
+		  "@id": "/jdna",
+		  "name": "JDNA"
+		}
+	  }]
+	}
+	</script>
+	<meta name="description" content="The Journalism Digital News Archive (JDNA) initiative's mission is to preserve news content originally produced in digital formats." /> {!-- Used when displaying text about this link --}
+	<link rel="publisher" href="https://plus.google.com/111709737662107424167" /> {!-- No surprise Google uses its own social network to identify publishers --}
+	{!-- Facebook/OpenGraph tags. Validated here: https://developers.facebook.com/tools/debug/ --}
+	<meta property="og:title" content="Journalism Digital News Archive | RJI" />
+	<meta property="og:image" content="/images/uploads/jdnabn02.png" /> {!-- Use preview image or the default one --}
+	<meta property="og:url" content="{current_url}" /> {!-- Use default URL path from EE to consolidate URLs --}
+	<meta property="og:description" content="The Journalism Digital News Archive (JDNA) initiative's mission is to preserve news content originally produced in digital formats." /> {!-- Use the same value as our regular meta description --}
+	{!--<meta property="fb:admins" content="USER_ID" /> [[Need to find info]] https://developers.facebook.com/docs/platforminsights/domains--}
+	{!-- Twitter tags. Validated here: https://cards-dev.twitter.com/validator --}
+	<meta name="twitter:card" content="summary_large_image" /> {!-- Use the same value as our regular meta description --}
+	<meta name="twitter:url"  content="{current_url}" /> {!-- Use default URL path from EE to consolidate URLs --}
+	<meta name="twitter:site" content="@RJI" />
+	<meta name="twitter:title" content="Journalism Digital News Archive | RJI" />
+	<meta name="twitter:image" content="/images/uploads/jdnabn02.png" /> {!-- Use preview image or the default one. Twitter wants a smaller, square image < 1mb --}
+	<meta name="twitter:description" content="The Journalism Digital News Archive (JDNA) initiative's mission is to preserve news content originally produced in digital formats." /> {!-- Use the same value as our regular meta description --}
+
+
+	{head_content}
+
+{html_head_end}
+
+<body>
+
+{embed="main/_navbar"}
+
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li class="active">JDNA</li>
+</ol>
+
+<div id="main-section" class="container">
+
+	<div class="row">
+
+		{!----- Main Section -----}
+		<div class="col-md-8 col-sm-12">
+
+			<div class="banner-wrapper">
+				<a href="{path='jdna/index'}"><img src="/images/uploads/jdnabn02.png" class="img-responsive" /></a>
+			</div>
+
+			<div class="page-header">
+
+				<h1>Journalism Digital News Archive</h1>
+				<br/>
+				{social_share_buttons_generic}
+
+			</div>
+
+			<p>
+				The Journalism Digital News Archive (JDNA) initiative’s mission is to preserve news content
+				originally produced in digital formats. Over the past four decades the transition from analog
+				to digital systems in news media has transformed the way journalistic content is produced and
+				accessed. Like other creators of “born-digital” content, news media have employed a series of
+				evolving file formats and technical infrastructures, many of which are now — or may soon be — obsolete.
+			</p>
+			<p>
+				In response to these challenges, the Donald W. Reynolds Journalism Institute and University of
+				Missouri Libraries saw the need to preserve and maintain the legacy of born-digital news media and
+				established the world’s first digital curator of journalism position. This position laid the groundwork
+				for forming JDNA, with the goal of creating and supporting sustainable systems for preserving born-digital
+				news content. By exploring best practices to archive and access content and resources, including text,
+				photos, video and interactive news apps, JDNA seeks novel approaches for developing scalable digital
+				news preservation enviroments.
+			</p>
+
+			<br/>
+			<div class="page-header story-list-header">
+				<p class="story-list-heading">
+					<a href="{path='jdna/about'}"><span class="focus">About</span>
+					JDNA</a>
+			  	</p>
+			</div>
+
+			<div class="row">
+				<div class="col-md-2 hidden-xs">
+					<a href="{path='jdna/about'}"><img src="/images/uploads/jdna-about.png" class="img-responsive" /></a>
+				</div>
+				<div class="col-xs-12 col-md-10">
+					<p>
+						What goes into creating and sustaining an initiative of this scale, and what are our end goals?
+						Learn more about our systems-change agenda and how we’re implementing it.
+					</p>
+					<p>
+						<h5><a href="{path='jdna/about'}">Go to About JDNA</a></h5>
+					</p>
+				</div>
+			</div>
+
+
+			<br/>
+			<div class="page-header story-list-header">
+				<p class="story-list-heading">
+					<a href="{path='jdna/events'}">JDNA
+					<span class="focus">Events</span></a>
+			  	</p>
+			</div>
+
+			<div class="row">
+				<div class="col-md-2 hidden-xs">
+					<a href="{path='jdna/events'}"><img src="/images/uploads/jdna-events.png" class="img-responsive" /></a>
+				</div>
+				<div class="col-xs-12 col-md-10">
+					<p>
+						Our Dodging the Memory Hole forums bring together leading librarians, researchers, journalists, technologists
+						and archivists to come up with actionable solutions to solve problems in born-digital news archiving.
+						View content from our previous forums and register for our upcoming ones.
+					</p>
+					<p>
+						<h5><a href="{path='jdna/events'}">Go to JDNA Events</a></h5>
+					</p>
+				</div>
+			</div>
+
+			<br/>
+			<div class="page-header story-list-header">
+				<p class="story-list-heading">
+					<a href="{path='jdna/projects'}">JDNA
+					<span class="focus">Projects</span></a>
+			  	</p>
+			</div>
+
+			<div class="row">
+				<div class="col-md-2 hidden-xs">
+					<a href="{path='jdna/projects'}"><img src="/images/uploads/jdna-projects.png" class="img-responsive" /></a>
+				</div>
+				<div class="col-xs-12 col-md-10">
+					<p>
+						We enhance knowledge and practice in the born-digital news archiving field through research we
+						conduct, projects we lead and communities we foster. Learn more about the specific work we’ve
+						done, what we’re currently doing and how you can get involved.
+					</p>
+					<p>
+						<h5><a href="{path='jdna/projects'}">Go to JDNA Projects</a></h5>
+					</p>
+				</div>
+			</div>
+
+			<br/>
+			<div class="page-header story-list-header">
+				<p class="story-list-heading">
+					<a href="{path='jdna/stories'}">JDNA
+					<span class="focus">Stories</span></a>
+			  	</p>
+			</div>
+
+			<div class="row">
+				<div class="col-md-2 hidden-xs">
+					<a href="{path='jdna/stories'}"><img src="/images/uploads/jdna-stories.png" class="img-responsive" /></a>
+				</div>
+				<div class="col-xs-12 col-md-10">
+					<p>
+						Have you heard about the 34-part Pulitzer Prize nominee that just disappeared off the Internet?
+						How can this be prevented from happening again? Our stories highlight the importance of preserving
+						born-digital news — sharing some victories and some tragic failures — and what we’re doing about it.
+					</p>
+					<p>
+						<h5><a href="{path='jdna/stories'}">Go to JDNA Stories</a></h5>
+					</p>
+				</div>
+			</div>
+
+		</div>
+
+		{!----- Sidebar ------}
+		<div id="sidebar" class="col-md-4 hidden-sm hidden-xs">
+
+			{jdna_menu}
+
+		</div>
+
+	</div>
+
+</div>
+
+{page_end}

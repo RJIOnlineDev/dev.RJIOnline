@@ -1,0 +1,36 @@
+{!-- Without this first declaration of the $found variable, PHP throws an error (notice) that $found is not defined--}
+<?php $found = "no";?>
+{exp:channel:entries channel="stories|research|events" dynamic="no" search:news_body="{embed:first_name} {embed:last_name}" disable="categories|member_data" limit="999"}
+	{if no_results}<p>There are no articles written about {if segment_3 == ""}you!{if:else}this user.</p>{/if}{/if}
+	{if count == 1}
+<hr>
+<h4>Stories about {embed:first_name} {embed:last_name}</h4>
+<div class="card-bg">
+<ul class="media-list">
+	{/if}
+	{stories_not_about}
+		{if stories_not_about:first_name == embed:first_name && stories_not_about:last_name == embed:last_name} {!-- If the user was in the array, proceed to the next line --}
+			<?php $found = "yes";?> {!-- This stores information in the $found variable stating that the user's name has been found in the list of people who the story is not about --}
+		{/if}
+	{/stories_not_about}
+	{!-- The next line checks to see if the current user's name has been found for the current story. 
+	If it was, it sets $found to "no", readying the variable for the next iteration of the loop. 
+	If it was not, then an else is set up which will display the story on the page. 
+	Note: the way the else statement is set up essentially allows the use of printing html without echoing all of it. --}
+	<?php if ($found == "yes") {$found = "no";} else { ?> 
+	{!--if:elseif stories_not_about:first_name != embed:first_name--}
+	<li class="card">
+		<div class="media-body">
+		  <h5>{if post_series != ""}<span class="small capitalize">{post_series}</span><br>{/if}<a class="media-heading" href="{post_path}">{title}</a>
+			{!-- If statement below checks if there is a start time (it is an event) and gives the event start/finish but if not (it is a post) and displays author and publish date --}
+			<br /><span class="capitalize small" style="color: #777;">
+			{entry_date format="%F %j, %Y"}
+			</span></h5>
+		</div> {!-- ends .media-body --}
+	</li>
+	<?php } ?> {!-- This closes the else statement from above (the Note)--}
+{if count == total_results}
+</ul>
+</div>
+{/if}
+{/exp:channel:entries}

@@ -1,0 +1,18 @@
+[
+{exp:user:authors
+    entry_id="{embed:entry_id}"
+    orderby="primary"
+    sort="desc"
+    dynamic="off"
+}
+{
+	"@context": "http://schema.org",
+    "@type": "Person",
+    "name": "{fist_name} {last_name}",
+    "description": {signature},
+    "url": "{site_url}account/profile/{member_id}",
+    "jobTitle": "{position_1}",
+    "email": "{email}"
+}
+{/exp:user:authors}
+]

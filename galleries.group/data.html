@@ -1,0 +1,57 @@
+{exp:channel:entries channel="galleries" {if embed:entry_idid}entry_id="{embed:entry_id}"{/if} dynamic="yes" require_entry="yes" disable="categories|category_fields|member_data|pagination" limit="1"}
+
+{if no_results} {redirect="404"} {/if}
+<div id="image-gallery" class="carousel slide" data-ride="carousel" data-interval="false" data-cache="{url_title}">
+
+{if embed:indicators != "false"}
+  <ul class="carousel-indicators gallery-footer">
+	{gallery}
+	<li data-target="#image-gallery" data-slide-to="{exp:index}{gallery:count}{/exp:index}" class="gallery-thumbnail{if gallery:count == 1} active{/if}">
+	  {if gallery:image}
+	  	{gallery:image}
+	  		<img src="{path}_thumbs/{filename}.{extension}">
+	  	{/gallery:image}
+	  {if:elseif gallery:youtube_url}
+	  	<img src="{exp:low_replace find='www|watch?v=' replace='img|vi/' multiple='yes'}{gallery:youtube_url}{/exp:low_replace}/default.jpg">
+	  {/if}
+	  </li>
+	{/gallery}
+  </ul>
+{/if}
+
+  <div class="carousel-inner">
+	{gallery}
+	<div class="item{if gallery:count == 1} active{/if}">
+	{if gallery:image}
+	  	<img src="{gallery:image}" alt="{gallery:image}" class="img-responsive">
+	  
+		{if gallery:description}
+			<div class="carousel-caption gallery-caption">
+			  	<h4>{gallery:description}</h4>
+			</div>
+		{/if}
+	{if:elseif gallery:youtube_url}
+		<div class="embed-responsive embed-responsive-16by9">
+			<iframe class="embed-responsive-item" src="{exp:low_replace find='watch?v=' replace='embed/'}{gallery:youtube_url}{/exp:low_replace}" frameborder="0" allowfullscreen></iframe>
+		</div>
+		
+		{if gallery:description}
+			<div class="carousel-caption gallery-caption">
+				<h4>{gallery:description}</h4>
+			</div>
+		{/if}
+	{/if}
+	</div>
+	{/gallery}
+  </div>
+
+  <a class="left carousel-control" href="#image-gallery" role="button" data-slide="prev">
+	<span class="fa fa-chevron-left fa-2x"></span>
+  </a>
+  <a class="right carousel-control" href="#image-gallery" role="button" data-slide="next">
+	<span class="fa fa-chevron-right fa-2x"></span>
+  </a>
+
+</div>
+
+{/exp:channel:entries}

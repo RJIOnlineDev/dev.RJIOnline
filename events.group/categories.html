@@ -1,0 +1,156 @@
+{!--- events/topics
+	Dynamic template that, based on URL segments, displays a list of topics
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{exp:stash:set name="site_section" type="snippet" no_results_prefix="no_results" parse_tags="yes"}events{/exp:stash:set}
+{exp:stash:cache refresh="1400" name="categories"}
+{html_head}
+
+	{if segment_1 == 'events' AND segment_2 == 'categories'}<title>Event Categories | RJI</title>{/if}
+
+	{head_content}
+
+{html_head_end}	
+
+<body>
+
+{embed="main/_navbar"}
+
+{if segment_1 == "events" AND segment_2 == "categories" AND segment_3 == ""}
+
+	<ol class="breadcrumb" vocab="http://schema.org" typeof="BreadcrumbList">
+		<li><a href="{site_url}">Home</a></li>
+		<li><a href="{path="events/index"}" property="itemListElement" typeof="WebPage"><span property="name">Events</span><meta property="position" content="1"></a></li>
+		<li class="active" property="itemListElement" typeof="WebPage"><span property="name">Categories</span><meta property="position" content="2"></li>
+	</ol>
+
+{/if}
+
+{if segment_2 == "categories" AND segment_3 != ""}
+
+	<ol class="breadcrumb" vocab="http://schema.org" typeof="BreadcrumbList">
+		<li><a href="{site_url}">Home</a></li>
+		<li><a href="/events" property="itemListElement" typeof="WebPage"><span property="name">Events</span><meta property="position" value="1"></a></li>
+		<li><a href="/events/categories" property="itemListElement" typeof="WebPage"><span property="name">Categories</span><meta property="position" value="2"></a></li>
+		<li class="active visible-xs-inline-block" property="itemListElement" typeof="WebPage"><span class="name">{exp:trunchtml chars="19" exact="yes" ending="..."}{exp:cat2:name category_url_title="{segment_3}" category_group="1"}{/exp:trunchtml}</span><meta property="position" value="2"></li>
+		<li class="active visible-sm-inline-block">{exp:trunchtml chars="97" exact="yes" ending="..."}{exp:cat2:name category_url_title="{segment_3}" category_group="1"}{/exp:trunchtml}</li>
+		<li class="active visible-md-inline-block visible-lg-inline-block">{exp:cat2:name category_url_title="{segment_3}" category_group="1"}</li>
+	</ol>
+
+{/if}
+
+<div id="main-section" class="container">
+
+	<div class="row">
+
+		<div id="primary-section" class="col-md-8 col-sm-12">
+
+		{!-- CATEGORIES list --------------------
+			Both segment 2 is topics & 3 is not provided: URL should be /events/topics
+			Show list of topics --}
+
+        {if segment_2 == "categories" AND segment_3 == ""}
+
+			<div class="page-header"><h1>Categories</h1></div>
+			
+			{!-- Get list of categories for events channel. Uses Bootstrap list-group (see template main/sidebar documentation) --}
+
+			<div class="list-group">
+			
+				{exp:channel:categories channel="calendar_events" style="linear" show_empty="no" category_group="1" parent_only="yes"}
+
+					{!-- this catcount gets number of events in each topic (3rd party add-on) --}
+					<a href="{path="events/index"}" class="list-group-item">
+
+						<span class="badge">{exp:catcount channel="calendar_events" cat_id="{category_id}" status="open|featured"}</span>
+
+						<h4 class="list-group-item-heading">{category_name}</h4>
+
+						<p class="list-group-item-text">{category_description}</p>
+
+					</a>
+
+				{/exp:channel:categories}
+		
+			</div> {!-- ends .list-group --}
+
+		{/if}
+			
+		{!-- CATEGORY stories -----------------------------
+			Both segment 2 is topics && 3 is given; should look like /events/topics/'topic-name'
+			Display specified topic and its events --}
+
+		{exp:channel:categories channel="calendar_events" style="linear"}
+
+			{if segment_3 == "{category_url_title}"}
+
+				<div class="page-header">
+
+					<h1>
+
+						{!-- Category image should be self explanatory so is used IN PLACE of category title instead with it --}
+
+						{if category_image}
+
+							<img src="{category_image}" alt="{title}" class="img-responsive center-block" />
+
+						{if:else}
+
+							{category_name}
+
+						{/if}
+
+						{if category_description}<br><small>{category_description}</small>{/if}
+
+					</h1>
+
+				</div>
+
+			{!-- .media-list of entries, is automatically dynamic to the topic --}
+
+			
+			
+			<div class="card-bg">
+
+				<ul id="recent-posts" class="media-list">
+
+					{exp:calendar:events calendar_id="100" dynamic="on" sort="desc" category="{category_id}" event_limit="10" pad_short_weeks="n" pagination="bottom" enable="custom_fields"}
+				
+						{if stash:no_results}<p class="alert alert-danger">No results found.</p>{/if}
+						
+						{rji_media_list_events}
+						
+						{pagination_snippet}
+
+					{/exp:calendar:events}
+
+				</ul>
+
+			</div>
+
+			{/if}
+
+		{/exp:channel:categories}
+		
+  		</div> {!-- ends primary section --}
+		
+        <div id="sidebar" class="col-md-4 hidden-sm hidden-xs"> 
+
+			{!-- If we are looking at a single post, show related, and if we are listing topics, we don't need to show them again --}
+
+			{if segment_2 != "" && segment_2 != "categories" }{embed="main/_sidebar" recent="YES" events="YES" related="YES" topics="YES" section="calendar_events"}
+
+				{if:else}
+
+				{embed="main/_sidebar" recent="YES" events="YES" related="NO" topics="YES" tags="YES" section="calendar_events"}
+
+			{/if}
+
+ 		</div>
+
+	</div> {!-- ends .row --}
+
+</div> {!-- ends #main-section --}
+	
+{page_end}
+{/exp:stash:cache}

@@ -1,0 +1,70 @@
+{!--- stories/topics
+	Dynamic template that, based on URL segments, displays a list of topics
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{exp:stash:set name="site_section" type="snippet" parse_tags="yes"}stories{/exp:stash:set}
+
+{html_head}
+
+	<title>
+		Recent Stories | RJI
+	</title>
+
+	{head_content}
+
+{html_head_end}	
+
+<body>
+
+{embed="main/_navbar"}
+
+<ol class="breadcrumb" vocab="http://schema.org" typeof="BreadcrumbList">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path="stories/index"}" property="itemListElement" typeof="WebPage"><span property="name">Stories</span><meta property="position" content="1"></a></li>
+	<li class="active" property="itemListElement" typeof="WebPage"><span property="name">Recent</span><meta property="position" content="2"></li>
+</ol>
+
+
+<div id="main-section" class="container">
+
+	<div class="row">
+
+		<div id="primary-section" class="col-md-8 col-sm-12">
+		
+			<div class="page-header">
+			
+				<h2>Recent Stories</h2>
+			
+			</div>
+		
+			<div class="card-bg">
+
+				<ul id="recent-posts" class="media-list">
+
+					{exp:channel:entries channel="stories" sticky="no" status="open" limit="10" disable="categories|member_data|category_fields" cache="yes" refresh="100"}
+
+						{if no_results}<p>No Results</p>{/if}
+
+						{rji_media_list}
+
+						{pagination_snippet}
+
+					{/exp:channel:entries}
+
+				</ul>
+			
+			</div>
+		
+  		</div> {!-- ends primary section --}
+		
+        <div id="sidebar" class="col-md-4 hidden-sm hidden-xs"> 
+
+				{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="YES" tags="YES" section="stories"}
+
+ 		</div>
+
+	</div> {!-- ends .row --}
+
+</div> {!-- ends #main-section --}
+	
+{page_end}

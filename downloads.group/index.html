@@ -1,0 +1,232 @@
+{!--- downloads/index
+	The landing page for templates. Will give a link and a brief description to each subsection.
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{if segment_1 == "downloads" AND segment_2 == ""}
+{html_head}
+	<title>
+	Downloads | RJI
+	</title>
+	{head_content}
+{html_head_end}
+<body>
+
+{embed="main/_navbar"}
+
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li class="active">Downloads</li>
+</ol>
+
+<div id="main-section" class="container">
+<div class="row">
+
+	<div class="col-md-8 col-sm-12">
+
+		<div class="page-header">
+			<h1>Downloads</h1>
+		</div>
+
+		{!--Newsbooks--}
+		<h4 class="secondary">Newsbooks</h4>
+		<p>
+			RJI Digital Newsbooks are visually rich e-books designed to make investigative and long-form journalism easier to access and read on tablets, e-readers and other mobile devices.
+		</p>
+		<p><a href="/downloads/newsbooks">Click here to learn more!</a></p>
+
+		{!--Tipsheets--}
+		<h4 class="secondary">Tipsheets</h4>
+		<p>
+			RJI produces a series of free tip sheets that provide quick, concise information about topics relevant to you and your organization. Watch RJI Online, RJI's Twitter and Facebook feeds and email newsletters for new tip sheets and updates.
+		</p>
+		<p><a href="/downloads/tipsheets">See our catalog!</a></p>
+
+		{!--White Papers
+		<h4 class="secondary">White Papers</h4>
+		<p>
+			TO DO: About RJI White Papers.
+		</p>
+		<p><a href="/downloads/white-papers">See our catalog!</a></p>
+		--}
+
+		{!--Newsletters--
+		<h4 class="secondary">Newsletters</h4>
+		<p>
+			At RJI, we’ve been working to improve how we share information with our readers. Our regular email newsletters — Futures Lab update and RJI links — as well as our updates on events, the Reynolds Fellows and other news are now available through our new email system.
+		</p>
+		<p><a href="/newsletters">Click here to sign up!</a></p>
+		  --}
+
+		<div class="page-header"><h3>Recent downloads</h3></div>
+		<div class="card-bg">
+				<ul id="recent-posts" class="media-list">
+
+				{exp:channel:entries channel="downloads" sticky="no" status="open|featured" limit="7" disable="categories|member_data|category_fields" show_future_entries="yes" cache="yes" refresh="100"}
+
+					{if no_results}<p>No Results</p>{/if}
+
+					{rji_media_list}
+
+				{/exp:channel:entries}
+
+			  	</ul> {!-- ends .media-list --}
+
+		  	</div>
+
+    </div>
+
+    <div id="sidebar" class="col-md-4 hidden-sm hidden-xs nocontent">
+  		{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="NO" tags="NO" section="downloads"}
+    </div>
+
+</div>
+</div>
+
+{page_end}
+
+{if:else}
+
+{exp:channel:entries channel="downloads" dyanmic="yes" limit="1" require_entry="yes" disable="member_data|pagination"}
+{if no_results}
+	{redirect="404"}
+{/if}
+
+{exp:tracker:track entry_id="{entry_id}"}
+
+{html_head}
+	<title>
+	{title} | RJI
+	</title>
+
+	<script type="application/ld+json">
+	{
+	  "@context": "http://schema.org",
+	  "@type": "BreadcrumbList",
+	  "itemListElement": [{
+		"@type": "ListItem",
+		"position": 1,
+		"item": {
+		  "@id": "{path='downloads/index'}",
+		  "name": "Downloads"
+		}
+	  },{
+		"@type": "ListItem",
+		"position": 2,
+		"item": {
+		  "@id": "{comment_url_title_auto_path}",
+		  "name": "{title}"
+		}
+	  }]
+	}
+	</script>
+	<meta name="description" content="{doc_teaser}" /> {!-- Used when displaying text about this link --}
+	<link rel="publisher" href="https://plus.google.com/111709737662107424167" /> {!-- No surprise Google uses its own social network to identify publishers --}
+	{!-- Facebook/OpenGraph tags. Validated here: https://developers.facebook.com/tools/debug/ --}
+	<meta property="og:title" content="{title} | RJI" />
+	<meta property="og:image" content="{if doc_image}{doc_image:rect}{if:else}{default_img_src}{/if}" /> {!-- Use preview image or the default one --}
+	<meta property="og:url" content="{comment_url_title_auto_path}" /> {!-- Use default URL path from EE to consolidate URLs --}
+	<meta property="og:description" content="{doc_teaser}" /> {!-- Use the same value as our regular meta description --}
+	{!--<meta property="fb:admins" content="USER_ID" /> [[Need to find info]] https://developers.facebook.com/docs/platforminsights/domains--}
+	{!-- Twitter tags. Validated here: https://cards-dev.twitter.com/validator --}
+	<meta name="twitter:card" content="summary" /> {!-- Use the same value as our regular meta description --}
+	<meta name="twitter:url"  content="{comment_url_title_auto_path}" /> {!-- Use default URL path from EE to consolidate URLs --}
+	<meta name="twitter:site" content="@RJI" />
+	<meta name="twitter:title" content="{title} | RJI" />
+	<meta name="twitter:image" content="{if doc_image}{doc_image:rect}{if:else}{default_img_src}{/if}" /> {!-- Use preview image or the default one. Twitter wants a smaller, square image < 1mb --}
+	<meta name="twitter:description" content="{doc_teaser}" /> {!-- Use the same value as our regular meta description --}
+
+	{head_content}
+{html_head_end}
+<body>
+
+{embed="main/_navbar"}
+
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path='downloads/index'}">Downloads</a></li>
+	<li class="active visible-xs-inline-block">{exp:trunchtml chars="22" exact="yes" ending="..."}{title}{/exp:trunchtml}</li>
+	<li class="active visible-sm-inline-block">{exp:trunchtml chars="100" exact="yes" ending="..."}{title}{/exp:trunchtml}</li>
+	<li class="active visible-md-inline-block visible-lg-inline-block">{title}</li>
+</ol>
+
+<div id="main-section" class="container">
+<div class="row">
+
+	<div class="col-md-8 col-sm-12">
+
+            	{exp:store:product entry_id="{entry_id}" return="downloads/confirm" empty_cart="yes"}
+				{!--exp:channel:entries channel="tipsheets" limit="10" disable="categories|member_data|category_fields"--}
+
+					<div class="page-header">
+						{!-- Categories --}
+						{exp:gwcode_categories entry_id="{entry_id}" style="linear"}
+						{if results_total > 0 AND cat_count == 1}
+							<div class="row story-desc">
+								<div class="col-xs-12">
+						{/if}
+									<a href="/stories/categories/{cat_url_title}" class="label label-default">{cat_name}</a>&nbsp;
+						{if cat_count == results_total }
+								</div>
+							</div>
+						{/if}
+						{/exp:gwcode_categories}
+
+						<h1>{title}</h1>
+
+						<div class="row story-desc">
+							<div class="col-xs-12">{!-- {price} | --}{embed="stories/_author_list" entry_author="{author}" entry_id="{entry_id}"} | {entry_date format="%F %j, %Y"}</div>
+						</div>
+					</div>
+
+					{if doc_image}
+						<img src={doc_image} alt="{title}" class="img-responsive pull-right" style="max-width: 15%; margin-left: 10px;"/>
+					{/if}
+
+					{!--}{doc_image}
+						<img src={url} alt="{title}" class="img-responsive pull-right" style="max-width: 15%; margin-left: 10px;"/>
+					{/doc_image}--}
+
+					<p>{categories}{category_description}{/categories}</p>
+					{if doc_desc}{doc_desc}{if:else}<p>{doc_teaser}</p>{/if}
+
+					{if doc_file}
+						<input type="hidden" name="item_qty" value="1" />
+						<p><input type="submit" name="submit" value="Download" class="btn btn-lg btn-success"/></p>
+					{if:else}
+						<p><a href="{doc_link}" target="_blank" class="btn btn-block btn-success">View</a></p>
+					{/if}
+
+				{/exp:store:product}
+
+				{!-- Tags --}
+				{exp:tag:tags channel="downloads" websafe_separator="_"}
+					{if tag_count == 1}
+					<br>
+					<div class="row story-desc">
+						<div class="col-xs-12">
+							<strong>Tags</strong><br>
+					{/if}
+							<span class="badge tags"><a href="/stories/tag/{websafe_tag}">{tag_name}</a></span>&nbsp;
+
+					{if tag_count == tag_total_results}
+						</div>
+					</div>
+					{/if}
+				{/exp:tag:tags}
+
+				{disqus_comments} {!-- Snippet that calls all comments for this post and has comment form --}
+
+
+    </div>
+
+    <div id="sidebar" class="col-md-4 hidden-sm hidden-xs nocontent">
+  		{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="NO" tags="NO" section="downloads"}
+    </div>
+
+</div>
+</div>
+
+{page_end}
+
+{/exp:channel:entries}
+{/if}

@@ -1,0 +1,147 @@
+{!--- content/newsbooks
+	Gives information on RJI-DPA's newsbooks, a catalog of the newsbooks and the download instructions.
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+	<title>Newsbooks | RJI</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path="downloads/index"}">Downloads</a></li>
+	<li class="active">Newsbooks</li>
+</ol>
+<div id="main-section" class="container">
+<div class="row">
+    <div class="col-md-8 col-sm-12">
+	
+		<div class="page-header"><h1>RJI Newsbooks</h1></div>
+	
+		<ul class="nav nav-tabs nav-justified" role="tablist">
+			<li class="active"><a href="#newsbooks" role="tab" data-toggle="tab">Newsbooks</a></li>
+			<li><a href="#catalog" role="tab" data-toggle="tab">Catalog</a></li>
+			<li><a href="#instructions" role="tab" data-toggle="tab">Instructions</a></li>
+			<li><a href="/digital-publishing-alliance" role="tab">DPA <i class="fa fa-external-link">&nbsp;</i></a></li>
+		</ul>
+
+		<div class="tab-content" style="margin-top: 1em;">
+			<div class="tab-pane active" id="newsbooks">
+				<p class="lead">RJI Digital Newsbooks are visually rich e-books designed to make investigative and long-form journalism easier to access and read on tablets, e-readers and other mobile devices.</p>
+				<p>Since January 2007, Roger Fidler, RJI’s program director for digital publishing, and his graduate student assistants from the Missouri School of Journalism have designed and produced more than 40 Digital Newsbooks at no cost to members of the RJI Digital Publishing Alliance.</p>
+				<p>While most members use newsbooks to build audience loyalty or to attract donations, some are selling their RJI Digital Newsbooks or similar e-books they have created in-house through online bookstores.</p>
+				<p>In 2009, the RJI briefly hosted a pilot online store where Digital Newsbooks could be purchased and downloaded. While only a few hundred newsbooks were sold, the field test demonstrated the potential of e-book versions of investigative reports to generate revenue for news organizations even when the content could be freely accessed on their websites.</p>
+				<p>The news organizations that have participated in this project include The New York Times, Washington Post, Center for Public Integrity, International Consortium of Investigative Journalists, St. Petersburg Times, Commercial Appeal and Investigative Reporters and Editors.</p>
+				<p>Fidler began developing the Digital Newsbook concept in 2001, while he was a professor of journalism and information design at Kent State University in Ohio.</p>
+				<p>The Los Angeles Times commissioned Fidler to produce the first Digital Newsbooks — in English and Spanish — for a six-part series titled “Enrique’s Journey.” They debuted at the first Tablet PC Conference, sponsored by Microsoft, Adobe and the Open eBook Forum, in New York City on Dec. 5, 2002. The series earned Pulitzer Prizes for the reporter and photographer in the following year.</p>
+				<p>Between 2002 and 2004, Fidler produced several more Digital Newsbooks for the Los Angeles Times as well as for the Rocky Mountain News and Denver Post. All were made available to download from the newspapers’ websites.</p>
+				<p>In 2004, Fidler was named as the first Donald W. Reynolds Journalism Institute Fellow and relocated to Columbia. During his fellowship year, he worked with the Columbia Missourian and Missouri School of Journalism to field test a tablet newspaper model that built on a concept he had pursued at Knight-Ridder Inc. and Kent State University. He called the model “Electronic Media Print (eMprint)”.</p>
+				<p>Soon after founding the RJI Digital Publishing Alliance in January 2007, he began producing a new version of his Digital Newsbook model for DPA members.</p>
+			</div>
+			<div class="tab-pane" id="catalog">
+				<p>The Digital Newsbooks in this catalog are free to download unless otherwise noted. The cover images are hyperlinked directly to the newsbooks or to the participating news organization's Web pages where the newsbooks can be accessed. They can be opened and comfortably read within any PDF viewer; however, they are best read within PDF viewers that support hyperlinks. For Apple iPad owners we recommend the iBooks or Goodreader app.</p>
+				{!-- Templating for inserting newsbooks --}
+				{!--exp:channel:category_heading channel="categories"}
+					{category_description}
+				{/exp:channel:category_heading--}
+				<form method="POST" action="{path='downloads/newsbooks'}#tab_catalog" class="form-horizontal">
+					<input type="hidden" name="csrf_token" value="{csrf_token}">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="doc_category">Filter:</label>
+						<div class="col-sm-10">
+							<select class="form-control" name="category" id="doc_category">
+								<option value="">All</option>
+							{exp:channel:categories channel="downloads" style="linear"}
+								<option value="{category_id}">{category_name}</option>
+							{/exp:channel:categories}
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10 col-xs-12">
+							<input type="submit" class="btn btn-default hidden-xs" value="Apply Changes">
+							<input type="submit" class="btn btn-default visible-xs btn-block" value="Apply Changes">
+						</div>
+					</div>
+				</form>
+				<ul class="media-list">
+				
+				  {exp:store:search channel="downloads" orderby="doc_year" sort="desc" search:doc_type="Newsbook" dynamic_parameters="category"}
+					  {exp:store:product entry_id="{entry_id}" return="downloads/confirm" empty_cart="yes" disable_javascript="yes"}
+					  {!--exp:channel:entries channel="tipsheets" limit="10" disable="categories|member_data|category_fields"--}
+							<li class="media">
+
+							{doc_image}
+								<img src={url} alt="{title}" class="img-responsive pull-left" style="max-width: 10%;"/>
+							{/doc_image}
+
+							<div class="media-body">
+								<h4><a href="{post_path}">{title}</a> {!-- &nbsp;<small>{price}</small>--} </h4>
+								<p>{categories}{category_description}{/categories}</p>
+								<p>{doc_year}: {doc_teaser}</p>
+								{if doc_file}
+								<input type="hidden" name="item_qty" value="1" />
+								<p><input type="submit" name="submit" value="Download" class="btn btn-link" style="padding: 0;"/></p>
+								{if:else}
+								<p><a href="{doc_link}" target="_blank">View</a></p>
+								{/if}
+							</div>
+
+						</li> {!-- ends .media entry --}
+
+					  {!--/exp:channel:entries--}
+					  {/exp:store:product}
+					  {pagination_snippet}
+				  {/exp:store:search}
+
+				</ul> {!-- ends .media-list --} 
+				
+			</div>
+			<div class="tab-pane" id="instructions">
+				<p class="lead">RJI Digital Newsbooks are optimized for reading on personal computers and tablets. For the best reading experience, please follow the instructions below downloading.</p>
+				<h4>Apple iPad</h4>
+				<ol>
+				<li>When the newsbook is displayed, touch top-right corner of the cover to display the “Open in…” prompt.</li>
+				<li>Touch “Open in “iBooks” to save the newsbook in the iBooks PDFs Collections.</li>
+				</ol>
+				<p>Notes: “iBooks” is a free app from the Apple App Store that supports PDF e-books with embedded hyperlinks. Adobe Reader and Goodreader also support PDF e-books with embedded hyperlinks.</p>
+				<h4>Android-powered tablets</h4>
+				<ol>
+				<li>When the “Complete action using” prompt is displayed, touch “Adobe Reader”.</li>
+				<li>Touch the newsbook cover to display menu bar.</li>
+				<li>Touch the page icon and then touch “Single Page.”</li>
+				</ol>
+				<p>Note: “Adobe Reader” is a free app from the Google Play store that supports PDF e-books with embedded hyperlinks.</p>
+				<h4>Microsoft Surface tablets</h4>
+				<ol>
+				<li>When the download prompt is displayed, touch “Save and Open.” [The newsbook will be saved in the “downloads” folder unless you direct it to be saved in a different folder.]</li>
+				<li>The newsbook will open in the Microsoft Surface native PDF app that supports embedded hyperlinks.</li>
+				</ol>
+				<h4>Apple computers</h4>
+				<ol>
+				<li>When the newsbook opens in your Web browser, click on “Save As…” [newsbook title] to your desktop or folder where you save PDF e-books.</li>
+				<li>Close your Web browser</li>
+				<li>Click on the newsbook cover or title displayed on your desktop or in a folder. The newsbook will open in Preview or Adobe Reader.</li>
+				</ol>
+				<p>Note: RJI Digital Newsbooks are not designed for reading online within web browsers. Adobe Reader is a free download from Adobe.</p>
+				<h4>Microsoft Windows 8 computers</h4>
+				<ol>
+				<li>When the download prompt is displayed, click or touch “Save and Open.” [The newsbook will be saved in the “downloads” folder unless you direct it to be saved in a different folder.]</li>
+				<li>The newsbook will open in the Microsoft Windows native PDF app.</li>
+				</ol>
+				<p>Note: RJI Digital Newsbooks are not designed for reading online within Web browsers.</p>
+			</div>
+		</div>
+	
+	{social_share_buttons}
+	
+    </div>
+	
+    <div id="sidebar" class="col-md-4 hidden-sm hidden-xs"> 
+  		{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="NO" tags="NO"}
+    </div>
+</div>
+</div>
+
+{page_end}

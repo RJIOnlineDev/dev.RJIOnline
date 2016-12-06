@@ -1,0 +1,166 @@
+{!--- Base Template
+	This is the required base for creating a template. Fill in content for the new template's purpose!
+	*See template main/index for more template details; only details on this specific template will be documented --}
+{html_head}
+	<title>
+	Associates | RJI
+	</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "item": {
+      "@id": "{site_url}about",
+      "name": "About"
+    }
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "item": {
+      "@id": "{site_url}about/associates",
+      "name": "Associates"
+    }
+  }]
+}
+</script>
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path='about/index'}">About</a></li>
+	<li class="active">Associates</li>
+</ol>
+
+<div id="main-section" class="container">
+<div class="row">
+    
+	<div class="col-md-8 col-sm-12">
+     
+	 	<div class="page-header">
+			<h1>Associates</h1>
+		</div>
+	 
+	 	<div class="card-bg">
+			{!-- ASNE --}
+			<div class="card-lg">
+				<div class="card-lg-img" style="background-image: url('{site_url}images/uploads/ASNE.jpg');">&nbsp;</div>
+				<div class="card-lg-desc">
+					<h3>
+						<a href="/asne-reynolds-high-school-journalism-institute">ASNE Reynolds High School Journalism Institute</a><br />
+						<small>Each year 35 high school teachers from around the country travel to the Reynolds Journalism Institute for the ASNE Reynolds High School Journalism Institute. The two-week workshop teaches the core tenets of journalism and the skills needed to produce a top-notch online and paper publication.</small>
+					</h3>
+					<br />
+					<a href="/asne-reynolds-high-school-journalism-institute">Learn more</a>
+				</div>
+			</div>
+			
+			
+			
+			{!-- Digital Globe --}
+			<div class="card-lg">
+				<div class="card-lg-img" style="background-image: url('{site_url}images/uploads/cdig.jpg');">&nbsp;</div>
+				<div class="card-lg-desc">
+					<h3>
+						<a href="http://cdig.missouri.edu/" target="_blank">Center for the Digital Globe </a><br />
+						<small>The primary goals of the Center for the Digital Globe (CDiG) include interdisciplinary research, teaching and service to Missouri businesses. We also collaborate on research, teaching and service at the national and international levels.</small>
+					</h3>
+					<br />
+					<a href="http://cdig.missouri.edu/" target="_blank">Learn more</a>
+				</div>
+			</div>
+			
+			
+			
+			{!-- DPA --}
+			<div class="card-lg">
+				<div class="card-lg-img" style="background-image: url('{site_url}images/uploads/digital_publishing.png');">&nbsp;</div>
+				<div class="card-lg-desc">
+					<h3>
+						<a href="/digital-publishing-alliance">Digital Publishing Alliance</a><br />
+						<small>The Digital Publishing Alliance (DPA) is a member-supported initiative of the Reynolds Journalism Institute. Its mission is to bring together leaders and innovators from forward-thinking organizations to pursue new strategies, digital content products and business models for publishing and journalism, with an emphasis on news applications for media tablets and e-readers.</small>
+					</h3>
+					<br />
+					<a href="/digital-publishing-alliance">Learn more</a>
+				</div>
+			</div>
+			
+			
+			
+			{!-- Global Journalist --}
+			<div class="card-lg">
+				<div class="card-lg-img" style="background-image: url('{site_url}images/uploads/gj.png');">&nbsp;</div>
+				<div class="card-lg-desc">
+					<h3>
+						<a href="/global-journalist">Global Journalist</a><br />
+						<small>Global Journalist provides news and commentary on the state of press freedom, journalistic ethics and independent media in countries throughout the world. It also covers innovations in print, broadcast and online journalism.</small>
+					</h3>
+					<br />
+					<a href="/global-journalist">Learn more</a>
+				</div>
+			</div>
+			
+			
+			
+			{!-- IAE --}
+			<div class="card-lg">
+				<div class="card-lg-img" style="background-image: url('{site_url}images/uploads/iae.jpg');">&nbsp;</div>
+				<div class="card-lg-desc">
+					<h3>
+						<a href="/institute-for-advertising-ethics">Institute for Advertising Ethics</a><br />
+						<small>The Institute for Advertising Ethics (IAE) is administered by the American Advertising Federation (AAF) in partnership with the Reynolds Journalism Institute (RJI) and the Missouri School of Journalism. Its fundamental Purpose is to Inspire Advertising, Public Relations and Marketing Communications Professionals to Practice the Highest Personal Ethics in the Creation and Dissemination of Commercial Information to Consumers.</small>
+					</h3>
+					<br />
+					<a href="/institute-for-advertising-ethics">Learn more</a>
+				</div>
+			</div>
+
+
+
+			{!-- NFIC --}
+			<div class="card-lg">
+				<div class="card-lg-img" style="background-image: url('{site_url}images/uploads/nfoic.png');">&nbsp;</div>
+				<div class="card-lg-desc">
+					<h3>
+						<a href="http://www.nfoic.org/" target="_blank">National Freedom of Information Coalition </a><br />
+						<small>The National Freedom of Information Coalition protects our right to open government. We are a nonpartisan alliance of citizen-driven nonprofit freedom of information organizations, academic and First Amendment centers, journalistic societies and attorneys.</small>
+					</h3>
+					<br />
+					<a href="http://www.nfoic.org/" target="_blank">Learn more</a>
+				</div>
+			</div>
+			
+			
+			
+			{!-- JDNA --}
+			<div class="card-lg">
+				<div class="card-lg-img" style="background-image: url('{site_url}images/posts/jdnadata01.png');">&nbsp;</div>
+				<div class="card-lg-desc">
+					<h3>
+						<a href="/jdna">Journalism Digital News Archive</a><br />
+						<small>The Journalism Digital News Archive (JDNA) initiative&rsquo;s mission is to preserve news content originally produced in digital formats.</small>
+					</h3>
+					<br />
+					<a href="/jdna">Learn more</a>
+				</div>
+			</div>
+			
+			
+		</div>
+
+
+    
+    </div>
+    
+    <div id="sidebar" class="col-sm-12 col-md-4"> 
+		{about_sidebar}
+	</div>
+	
+</div>
+</div>
+
+{page_end}

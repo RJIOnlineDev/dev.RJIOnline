@@ -1,0 +1,108 @@
+{!--- research/scholars
+	Displays a list of RJI's research scholars
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+	<title>
+	Our research scholars | RJI
+	</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+
+<ol class="breadcrumb" vocab="http://schema.org" typeof="BreadcrumbList">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path="research/index"}" property="itemListElement" typeof="WebPage"><span property="name">Research</span><meta property="position" content="1"></a></li>
+	<li class="active"><span property="name">Scholars</span><meta property="position" content="2"></li>
+</ol>
+
+<div id="main-section" class="container">
+<div class="row">
+    
+	<div class="col-md-8 col-sm-12">
+	
+		<div class="page-header">
+			<h1>Research: Our scholars</h1>
+		</div>
+     			
+		{!-- 2015-2016 -----------------------------------}
+
+			<div class="profile-list">
+				<h3 class="secondary" id="2015">2015–2016 class</h3>
+
+					{exp:user:users orderby="sort_order" sort="asc" group_id="1|6|7|8" search:scholars_class="2015-2016"}
+					
+						{if (count % 2) == 1}
+							{if count != 1}
+							</div> {!-- Close the previous row, but there ins't one on the first pass... --}
+							{/if}
+							<div class="row"> {!-- Start the next row --}
+						{/if}
+
+							<div class="col-sm-6 profile-height">
+								<div class="media staff card">
+									<a class="pull-left" href="{path=account/profile}/{member_id}"><img class="media-object" src="{if avatar_filename}{avatar_url}{avatar_filename}{if:else}/images/avatars/uploads/avatar_1.png{/if}" title="{screen_name}" alt="{screen_name}" class="profile-avatar"></a>
+									<div class="media-body">
+										<h4 class="media-heading"><a href="{path=account/profile}/{member_id}">{screen_name}</a></h4>
+										<p class="user-info">
+											{position_1}<br>
+											{if phone}<a href="tel:{phone}">{phone}</a><br>{/if}
+											<a href="mailto:{email}" target="_blank">{email}</a>
+										</p>
+									</div>
+								</div>
+							</div>
+
+					{/exp:user:users}
+
+					</div>
+
+			</div>
+				    
+		{!-- 2014-2015 -----------------------------------}
+
+			<div class="profile-list">
+				<h3 class="secondary" id="2014">2014–2015 class</h3>
+
+					{exp:user:users orderby="sort_order" sort="asc" group_id="1|6|7|8"  search:scholars_class="2014-2015"}
+
+						{if (count % 2) == 1}
+							{if count != 1}
+							</div> {!-- Close the previous row, but there ins't one on the first pass... --}
+							{/if}
+							<div class="row"> {!-- Start the next row --}
+						{/if}
+
+							<div class="col-sm-6 profile-height">
+								<div class="media staff card">
+									<a class="pull-left" href="{path=account/profile}/{member_id}"><img class="media-object" src="{if avatar_filename}{avatar_url}{avatar_filename}{if:else}/images/avatars/uploads/avatar_1.png{/if}" title="{screen_name}" alt="{screen_name}" class="profile-avatar"></a>
+									<div class="media-body">
+										<h4 class="media-heading"><a href="{path=account/profile}/{member_id}">{screen_name}</a></h4>
+										<p class="user-info">
+											{position_1}<br>
+											{if phone}<a href="tel:{phone}">{phone}</a><br>{/if}
+											<a href="mailto:{email}" target="_blank">{email}</a>
+										</p>
+									</div>
+								</div>
+							</div>
+
+					{/exp:user:users}
+
+					</div>
+
+			</div>
+
+    </div>
+    
+    <div id="sidebar" class="hidden-xs hidden-sm col-md-4 nocontent"> 
+
+    	{embed="main/_sidebar" recent="YES" events="YES" categories="NO" tags="NO" section="research"}
+
+	</div>
+	
+</div>
+</div>
+
+{page_end}

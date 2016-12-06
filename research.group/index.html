@@ -1,0 +1,287 @@
+{!--- Research
+	Dynamic template that, based on URL segments, displays a post, list of research, or list of topics
+	*See template main/index for more template details; only details on this specific template will be documented --}
+{if segment_1 == "research" AND segment_2 == ""}
+{redirect="research/recent"}
+
+{!-- =============================================Individual Story=============================================
+	if there is something in segment 2 then we know that we are looking at a story, however, BWF puts index in the URL
+	so we have to check for that, too. 
+	=========================================================================================================== --}
+
+{if:else}
+{!-- SINGLE POST ------------------------------
+	Segment 2 is given but no segment 3; should be research/'post-title'
+	Displays a specific post
+	Dynamically pulls a post based off of URL. Tracks views. --}
+{!--stash:nocache--}
+{exp:channel:entries
+	channel="research"
+	limit="1"
+	require_entry="yes"
+	disable="member_data|category_fields|pagination"
+	show_expired="yes"
+	cache="no"
+	refresh="700"
+	status="closed|open|draft|submitted|preview"}
+
+{!-- Redirect to the 404 page if there are no results --}
+{if no_results}
+	{redirect="404"}
+{/if}
+
+{!-- Send info to tracker module --}
+{exp:tracker:track entry_id="{entry_id}"}
+
+{!-- Begin HTML creation --}
+{html_head}
+
+	{!-- Display story title in the browser tab --}
+	<title>{title} | RJI</title>
+	
+	{!-- Create meta tags for SEO and social media sharing. There are to keywords meta tag; that tag is no longer used. --}
+	<meta name="description" content="{proj_teaser}" /> {!-- Used when displaying text about this link --}
+	<link rel="publisher" href="https://plus.google.com/111709737662107424167" /> {!-- No surprise Google uses its own social network to identify publishers --}
+	{!-- Facebook/OpenGraph tags. Validated here: https://developers.facebook.com/tools/debug/ --}
+	<meta property="og:title" content="{title} | RJI" />
+	<meta property="og:image" content="{if proj_banner}{news_banner}{if:elseif proj_preview_image}{proj_preview_image:rect}{if:else}{default_img_src}{/if}" /> {!-- Use preview image or the default one --}
+	<meta property="og:url" content="{comment_url_title_auto_path}" /> {!-- Use default URL path from EE to consolidate URLs --}
+	<meta property="og:description" content="{proj_teaser}" /> {!-- Use the same value as our regular meta description --}
+	{!--<meta property="fb:admins" content="USER_ID" /> [[Need to find info]] https://developers.facebook.com/docs/platforminsights/domains--}
+	{!-- Twitter tags. Validated here: https://cards-dev.twitter.com/validator --}
+	<meta name="twitter:card" content="summary{if proj_banner}_large_image{/if}" /> {!-- Use the same value as our regular meta description --}
+	<meta name="twitter:url"  content="{comment_url_title_auto_path}" /> {!-- Use default URL path from EE to consolidate URLs --}
+	<meta name="twitter:site" content="@RJI" />
+	<meta name="twitter:title" content="{title} | RJI" />
+	<meta name="twitter:image" content="{if proj_banner}{news_banner}{if:elseif proj_preview_image}{proj_preview_image:rect}{if:else}{default_img_src}{/if}" /> {!-- Use preview image or the default one. Twitter wants a smaller, square image < 1mb --}
+	<meta name="twitter:description" content="{proj_teaser}" /> {!-- Use the same value as our regular meta description --}
+
+	{head_content}
+
+{html_head_end}
+
+<body>
+
+{embed="main/_navbar"}
+{newsletter_card}
+
+<ol class="breadcrumb" vocab="http://schema.org" typeof="BreadcrumbList">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path="research/index"}" property="itemListElement" typeof="WebPage"><span property="name">Research</span><meta property="position" content="1"></a></li>
+	<li class="active visible-xs-inline-block">{exp:trunchtml chars="22" exact="yes" ending="..."}{title}{/exp:trunchtml}</li>
+	<li class="active visible-sm-inline-block">{exp:trunchtml chars="100" exact="yes" ending="..."}{title}{/exp:trunchtml}</li>
+	<li class="active visible-md-inline-block visible-lg-inline-block" property="itemListElement" typeof="WebPage"><span property="name">{title}</span><meta property="position" content="2"></li>
+</ol>
+		
+<div id="main-section" class="container">
+	<div class="row">
+		<div id="primary-section" class="col-md-8 col-sm-12">
+			{!--  This used to give warnings during previews, but I removed it to simplify previews. This may come back
+			if status == "open" OR (status == "draft" AND (member_group == "1" OR member_group == "6" OR member_group == "7" OR member_group == "8"))--}
+			{!--if status == "open" OR (member_group == "1" OR member_group == "6" OR member_group == "7" OR member_group == "8")}
+			{if status != "open"}<div class="alert alert-warning">This entry is currently unpublished and is not visible to the public! ({status})</div>{/if} --}
+			
+			{!-- Banner --}
+			{if proj_banner}
+				<div class="banner-wrapper">
+					<img src="{proj_banner}" class="img-responsive banner"/>
+				</div>
+			{/if}		
+			
+			{!-- Begin story presentation --}
+			
+			{!-- Begin title section --}
+			<div class="page-header">
+			
+				{exp:gwcode_categories entry_id="{entry_id}" style="linear"}
+
+				{if results_total > 0 AND cat_count == 1}
+
+					<div class="row story-desc">
+
+						<div class="col-xs-12">
+
+				{/if}
+
+							<a href="/research/categories/{cat_url_title}" class="label label-default">{cat_name}</a>&nbsp;
+				{if cat_count == results_total }
+						</div>					
+
+					</div>
+
+				{/if}
+
+				{/exp:gwcode_categories}
+				<h1>{title}</h1>	
+				
+				<div class="row story-desc">
+					<div class="col-xs-12">{embed="stories/_author_list" entry_author="{author}" entry_id="{entry_id}"} | {entry_date format="%F %j, %Y"}</div>
+				</div>
+
+			</div> 
+			{!-- End title section --}
+
+			{proj_info_pages}
+			{if {proj_info_pages:count} == 1}
+			<div class="well well-sm">
+
+			  <dl class="dl-horizontal">
+				<dt>Pages</dt>
+				<dd>
+				  <ul class="list-unstyled">
+					{/if}
+					<li>
+					  <a href="{if proj_info_pages:page_url != ''}{proj_info_pages:page_url}{if:else}{proj_info_pages:comment_url_title_auto_path}{/if}">
+						{proj_info_pages:title}
+					  </a>
+					</li>
+					{if {proj_info_pages:count} == {proj_info_pages:total_results}}
+				  </ul>
+				</dd>
+			  </dl>
+			</div>
+			{/if}
+			{/proj_info_pages}
+					
+					
+			{proj_description}
+			
+			{!-- Author signature. Dependent on custom entry field that if checked places the author's signature --}
+			
+			{embed="stories/_author_signature" entry_id="{entry_id}"}
+			{related_events}
+				{if "{related_events:count}" == "1"}
+				<h3 class="secondary"> Events related to {title}</h3>
+				<div class="card-bg">
+					<ul class="media-list" id="related-events">
+						{/if}
+						<li class="media card">
+							<a href="{if related_events:page_url != ''}{related_events:page_url}{if:else}related_events:comment_url_title_auto_path}{/if}" class="pull-left">
+								<img src=
+									{if related_events:event_thumbnail}
+									"{related_events:event_thumbnail}"
+									{if:else}
+									"{default_img_src}"
+									{/if} alt="{related_events:title}" title="{related_events:title}" class="img-responsive"/>
+							</a>
+							<div class="media-body">
+								<h4 class="media-heading">{if related_events:post_series != ""}<span class="small capitalize">{related_events:post_series}</span><br>{/if}<a class="media-heading" href="{if related_events:page_url != ''}{related_events:page_url}{if:else}{related_events:comment_url_title_auto_path}{/if}">{related_events:title}</a>
+					  			{!-- If statement below checks if there is a start time (it is an event) and gives the event start/finish but if not (it is a post) and displays author and publish date --}
+					  			<br /><span class="small capitalize">
+					  				{related_events:entry_date format="%F %j, %Y"}
+					  			</span></h4>
+								<span>{related_events:event_teaser}</span>
+				  			</div> {!-- ends .media-body --}
+
+						</li> {!-- ends .media entry --}
+
+						{if "{related_events:count}" == "{related_events:total_results}"}
+			  		</ul>
+				</div>
+			{/if}
+			{/related_events}
+			{related_downloads}
+				{if "{related_downloads:count}" == "1"}
+				<h3 class="secondary"> Downloads related to {title}</h3>
+				<div class="card-bg">
+					<ul class="media-list" id="related-downloads">
+						{/if}
+						<li class="media card">
+							<a href="{if related_downloads:page_url != ''}{related_downloads:page_url}{if:else}related_downloads:comment_url_title_auto_path}{/if}" class="pull-left">
+								<img src=
+									{if related_downloads:doc_image}
+									"{related_downloads:doc_image}"
+									{if:else}
+									"{default_img_src}"
+									{/if} alt="{related_downloads:title}" title="{related_downloads:title}" class="img-responsive"/>
+							</a>
+							<div class="media-body">
+								<h4 class="media-heading">{if related_downloads:post_series != ""}<span class="small capitalize">{related_downloads:post_series}</span><br>{/if}<a class="media-heading" href="{if related_downloads:page_url != ''}{related_downloads:page_url}{if:else}{related_downloads:comment_url_title_auto_path}{/if}">{related_downloads:title}</a>
+					  			{!-- If statement below checks if there is a start time (it is an event) and gives the event start/finish but if not (it is a post) and displays author and publish date --}
+					  			<br /><span class="small capitalize">
+					  				{related_downloads:entry_date format="%F %j, %Y"}
+					  			</span></h4>
+								<span>{related_downloads:doc_teaser}</span>
+				  			</div> {!-- ends .media-body --}
+
+						</li> {!-- ends .media entry --}
+
+						{if "{related_downloads:count}" == "{related_downloads:total_results}"}
+			  		</ul>
+				</div>
+			{/if}
+			{/related_downloads}
+			{proj_related_stories}
+			{if "{proj_related_stories:count}" == "1"}
+			<h3 class="secondary">Stories about {title}</h3>
+			<div class="card-bg">
+			  <ul class="media-list" id="recent-posts">
+				{/if}
+				<li class="media card">
+
+				  <a href="{if proj_related_stories:page_url != ''}{proj_related_stories:page_url}{if:else}{proj_related_stories:comment_url_title_auto_path}{/if}" class="pull-left">
+
+					{!-- If there is a news image, use that, else maybe it's an event so if there is an event image use that, else there is no given image, use default image --}
+					<img src=
+						 {if proj_related_stories:news_image}
+
+						 "{proj_related_stories:news_image}"
+						 {!--"{url:rect}"
+						 {/proj_related_stories:news_image}--}
+						 {if:else}
+						 "{default_img_src}"
+						 {/if} alt="{proj_related_stories:title}" title="{proj_related_stories:title}" class="img-responsive"/>
+
+				  </a>
+
+				  <div class="media-body">
+					<h4 class="media-heading">{if proj_related_stories:post_series != ""}<span class="small capitalize">{proj_related_stories:post_series}</span><br>{/if}<a class="media-heading" href="{if proj_related_stories:page_url != ''}{proj_related_stories:page_url}{if:else}{proj_related_stories:comment_url_title_auto_path}{/if}">{proj_related_stories:title}</a>
+					  {!-- If statement below checks if there is a start time (it is an event) and gives the event start/finish but if not (it is a post) and displays author and publish date --}
+					  <br /><span class="small capitalize">
+					  {proj_related_stories:entry_date format="%F %j, %Y"}
+					  </span></h4>
+					<span>{proj_related_stories:teaser}</span> {!-- Only appears if it is from Event channel --}
+				  </div> {!-- ends .media-body --}
+
+				</li> {!-- ends .media entry --}
+
+				{if "{proj_related_stories:count}" == "{proj_related_stories:total_results}"}
+			  </ul>
+			</div>
+			{/if}
+			{/proj_related_stories}
+				
+		<br>
+		<div class="row story-desc visible-xs">
+				<div class="col-xs-12">
+					<strong>Share</strong><br>
+				</div>
+		</div>
+		<div class="visible-xs">	
+			{social_share_buttons}
+		</div>
+		
+		{if !is_bwf_preview}
+		{disqus_comments} {!-- Snippet that calls all comments for this post and has comment form --}
+		{/if}
+
+{/exp:channel:entries}
+{!--/stash:nocache--}
+
+</div> {!-- ends primary section --}
+
+        <div id="sidebar" class="col-md-4 hidden-sm hidden-xs nocontent">
+
+			{!-- If we are looking at a single post, show related, and if we are listing topics, we don't need to show them again --}
+
+			{embed="main/_sidebar" recent="YES" events="YES" related="YES" categories="YES" tags="YES" section="research"}
+
+ 		</div>
+
+	</div> {!-- ends .row --}
+
+</div> {!-- ends #main-section --}
+
+{page_end}
+
+{/if} {!-- End single entry view --}

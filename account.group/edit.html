@@ -1,0 +1,361 @@
+{!--- account/edit
+	Allows the user to edit his/her account/profile
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+	<title>
+	Edit Profile
+	</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path='account/index'}">Account</a></li>
+	<li class="active">Edit</li>
+</ol>
+
+<div id="main-section" class="container">
+{if !logged_in AND segment_3 == ''}{redirect="account/login"}{if:else}
+
+{exp:user:edit dynamic="off" error_page="account/error" override_return="account/edit" }
+	<input type="hidden" name="first_name" value="{first_name}" />
+	<input type="hidden" name="last_name" value="{last_name}" />
+	
+	<div class="row" style="margin-top: 2em;">
+	
+		<h4>Profile Completion</h4>
+		<div class="progress" style="margin-bottom: 2em;">
+		
+			{if group_id == "1" OR group_id == "6" OR group_id == "7" OR signature}
+			<div class="progress-bar" style="width: 10%; background-color: #1F879C;"><span class="sr-only">Signature Completion</span></div>
+			{/if}
+			{if avatar_filename}
+			<div class="progress-bar" style="width: 15%; background-color: #1F879C;"><span class="sr-only">Avatar Completion</span></div>
+			{/if}
+			{if photo_filename}
+			<div class="progress-bar" style="width: 15%; background-color: #1F879C;"><span class="sr-only">Header Completion</span></div>
+			{/if}
+			{if occupation}
+			<div class="progress-bar" style="width: 5%; background-color: #1F879C;"><span class="sr-only">Occupation Completion</span></div>
+			{/if}
+			{if bio}
+			<div class="progress-bar" style="width: 20%; background-color: #1F879C;"><span class="sr-only">Bio Completion</span></div>
+			{/if}
+			{if location}
+			<div class="progress-bar" style="width: 2%; background-color: #1F879C;"><span class="sr-only">Location Completion</span></div>
+			{/if}
+			{if address}
+			<div class="progress-bar" style="width: 2%; background-color: #1F879C;"><span class="sr-only">Address Completion</span></div>
+			{/if}
+			{if city}
+			<div class="progress-bar" style="width: 2%; background-color: #1F879C;"><span class="sr-only">City Completion</span></div>
+			{/if}
+			{if state}
+			<div class="progress-bar" style="width: 2%; background-color: #1F879C;"><span class="sr-only">State Completion</span></div>
+			{/if}
+			{if phone}
+			<div class="progress-bar" style="width: 2%; background-color: #1F879C;"><span class="sr-only">Phone Number Completion</span></div>
+			{/if}
+			{if url}
+			<div class="progress-bar" style="width: 2%; background-color: #1F879C;"><span class="sr-only">Website Completion</span></div>
+			{/if}
+			{if interests}
+			<div class="progress-bar" style="width: 2%; background-color: #1F879C;"><span class="sr-only">Interests Completion</span></div>
+			{/if}
+			{if facebook}
+			<div class="progress-bar" style="width: 2%; background-color: #1F879C;"><span class="sr-only">Facebook Completion</span></div>
+			{/if}
+			{if twitter}
+			<div class="progress-bar" style="width: 2%; background-color: #1F879C;"><span class="sr-only">Twitter Completion</span></div>
+			{/if}
+			{if linkedin}
+			<div class="progress-bar" style="width: 2%; background-color: #1F879C;"><span class="sr-only">LinkedIn Completion</span></div>
+			{/if}
+			{if project}
+			<div class="progress-bar" style="width: 15%; background-color: #1F879C;"><span class="sr-only">Project Completion</span></div>
+			{/if}
+		
+		</div>
+		
+		<div class="col-sm-9 col-offset-sm-3 col-xs-12" style="background-image: url('{photo_url}{photo_filename}'); padding-bottom: 20%; background-size:cover;"></div>
+		
+		<div class="col-sm-3 col-xs-12">
+		  <p class="visible-xs"></p>
+		  <div class="form-group">
+			<input class="btn btn-warning btn-block" type="submit" name="remove_photo" value="Remove Current Header?" />
+		  </div>
+		  <div class="form-group">
+			<label for="photo">Upload a New Header:</label>
+			<input id="photo" type="file" class="btn btn-default btn-block" name="photo_filename" />
+		  </div>
+		  <div class="form-group">
+			<input class="btn btn-success" type="submit" value="Update" />
+		  </div>
+		</div>
+		
+	</div>
+{/exp:user:edit}<br><br>
+
+<div class="row">
+    
+	<div class="col-sm-3 col-xs-12">
+	
+		{exp:user:edit dynamic="off" error_page="account/error" override_return="account/edit" password_required="no"}
+			<input type="hidden" name="first_name" value="{first_name}" />
+			<input type="hidden" name="last_name" value="{last_name}" />
+			<img src="{avatar_url}{avatar_filename}" class="img-responisve img-thumbnail" alt="Your avatar" title="Your avatar"/>
+			<hr>
+			<div class="form-group">
+				<input type="submit" class="btn btn-warning btn-block" name="remove_avatar" value="Remove Current Avatar?" />
+			</div>
+			<div class="form-group">
+			  <label for="avatar-pic">Upload a New Avatar: </label>
+			  <input id="avatar-pic" class="btn btn-default btn-block" type="file" name="avatar_filename" />
+			</div>
+			<p><input type="submit" class="btn btn-success" value="Update" /></p>
+		{/exp:user:edit}
+		
+			<hr>
+			<a href="/account/profile" class="btn btn-default btn-block">Return to your profile</a>
+			<p class="help-block">Remember to submit your changes first!</p>
+		
+	
+	</div>
+		
+	<div class="col-sm-9 col-xs-12">
+	
+		<ul class="nav nav-tabs" role="tablist">
+			<li class="active"><a href="#account" role="tab" data-toggle="tab">Account</a></li>
+			<li><a href="#personal" role="tab" data-toggle="tab">Personal</a></li>
+			{if group_id == "5"}<li><a href="#delete" role="tab" data-toggle="tab">Delete</a></li>{/if}
+		</ul>
+		
+		<div class="tab-content" style="margin-top: 1em;">
+		
+  			<div class="tab-pane active" id="account">
+	
+			{exp:user:edit dynamic="off" error_page="account/error" group_id="5|6|7|8" 3override_return="account/edit" form:class="form-horizontal" secure_action="yes" password_required="yes" username_override="yes" }
+	
+				<div class="form-group">
+					<label for="email" class="col-sm-3 control-label">Email</label>
+					<div class="col-sm-9">
+						<input id="email" name="email" class="form-control" value="{email}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="first-name" class="col-sm-3 control-label">First Name</label>
+					<div class="col-sm-9">
+						<input id="first-name" name="first_name" class="form-control" value="{first_name}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="last-name" class="col-sm-3 control-label">Last Name</label>
+				  	<div class="col-sm-9">
+						<input id="last-name" name="last_name" class="form-control" value="{last_name}" />
+				  	</div>
+			 	</div>
+				{if group_id == "1"}
+				<div class="form-group">
+					<label for="category" class="col-sm-3 control-label">Member Category</label>
+					<div class="col-sm-9">
+					  <select name="category[]" class="form-control">
+					  {categories}
+						  {category_selected}
+							  selected="selected"
+						  {/category_selected}
+						  {category_body}
+							  <option value="{category_id}" {selected}>
+								  {category_name}
+							  </option>
+						  {/category_body}
+					  {/categories}
+					  </select>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="sig-edit" class="col-sm-3 control-label">Signature</label>
+				  	<div class="col-sm-9">
+						<textarea id="sig-edit" rows="2" name="signature" class="form-control">{signature}</textarea>
+				  	</div>
+			 	</div>
+				{/if}
+				<div class="form-group">
+					<label for="password" class="col-sm-3 control-label">Create a New Password?</label>
+					<div class="col-sm-9">
+						<input id="password" name="password" class="form-control" type="password" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="password-confirm" class="col-sm-3 control-label">Password Confirm</label>
+					<div class="col-sm-9">
+						<input id="password-confirm" name="password_confirm" class="form-control" type="password" />
+					</div>
+				</div>
+				<hr>
+				<div class="form-group">
+					<label for="password-current" class="col-sm-3 control-label">Current Password</label>
+					<div class="col-sm-9">
+						<input id="password-current" name="password_current" class="form-control" type="password" required/>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-9 col-sm-offset-3">
+						<input type="submit" class="btn btn-success" value="Update" />
+					</div>
+				</div>
+		  	{/exp:user:edit}
+		
+			</div>
+		
+			<div id="personal" class="tab-pane">
+			{exp:user:edit dynamic="off" group_id="1|5|6|7" error_page="account/error" override_return="account/edit" form:class="form-horizontal"}
+			
+				<div class="form-group">
+					<label for="occupation" class="col-sm-3 control-label">Occupation</label>
+					<div class="col-sm-9">
+						<p class="help-block">Separate multiple occupations with a comma (ie. Residential Fellow,News Editor)</p>
+						<input id="occupation" name="occupation" class="form-control" value="{occupation}" />
+				  	</div>
+			 	</div>
+				<div class="form-group">
+					<label for="location" class="col-sm-3 control-label">Location</label>
+				  	<div class="col-sm-9">
+						<input id="location" name="location" class="form-control" value="{location}" />
+				  	</div>
+			 	</div>
+				<div class="form-group">
+					<label for="address" class="col-sm-3 control-label">Address</label>
+				  	<div class="col-sm-9">
+						<input id="address" name="address" class="form-control" value="{address}" />
+				  	</div>
+			 	</div>
+				<div class="form-group">
+					<label for="city" class="col-sm-3 control-label">City</label>
+				  	<div class="col-sm-9">
+						<input id="city" name="city" class="form-control" value="{city}" />
+				  	</div>
+			 	</div>
+				<div class="form-group">
+					<label for="state" class="col-sm-3 control-label">State</label>
+				  	<div class="col-sm-9">
+						<input id="state" name="state" class="form-control" value="{state}" />
+				  	</div>
+			 	</div>
+				<div class="form-group">
+					<label for="zip" class="col-sm-3 control-label">Zip</label>
+				  	<div class="col-sm-9">
+						<input id="zip" name="zip" class="form-control" type="number" value="{zip}" />
+				  	</div>
+			 	</div>
+				<div class="form-group">
+					<label for="phone" class="col-sm-3 control-label">Phone Number</label>
+				  	<div class="col-sm-9">
+						<input id="phone" name="phone" class="form-control" value="{phone}" />
+				  	</div>
+			 	</div>
+				<div class="form-group">
+					<label for="url" class="col-sm-3 control-label">Website</label>
+				  	<div class="col-sm-9">
+						<input id="url" name="url" class="form-control" type="url" value="{url}" />
+				  	</div>
+			 	</div>
+				<div class="form-group">
+					<label for="bio" class="col-sm-3 control-label">Bio</label>
+				  	<div class="col-sm-9">
+						<textarea id="bio" rows="5" name="bio" class="form-control">{bio}</textarea>
+				  	</div>
+			 	</div>
+				<div class="form-group">
+					<label for="interests" class="col-sm-3 control-label">Interests</label>
+				  	<div class="col-sm-9">
+						<input id="interests" name="interests" class="form-control" value="{interests}" />
+				  	</div>
+			 	</div>
+				<div class="form-group">
+					<label for="project" class="col-sm-3 control-label">Project</label>
+				  	<div class="col-sm-9">
+						<textarea id="project" rows="5" name="project" class="form-control">{project}</textarea>
+				  	</div>
+			 	</div>
+				<div class="form-group">
+					<label for="timezone" class="col-sm-3 control-label">Timezone</label>
+					  {user:timezone_menu
+						  id="timezone"
+						  class="col-sm-9"
+						  country:class="form-control"
+						  timezone:class="form-control"
+					  }
+				</div>
+				<div class="form-group">
+					<label for="facebook" class="col-sm-3 control-label">Facebook URL</label>
+				  	<div class="col-sm-9">
+						<input id="facebook" name="facebook" class="form-control" type="url" value="{facebook}" />
+				  	</div>
+			 	</div>
+				<div class="form-group">
+					<label for="twitter" class="col-sm-3 control-label">Twitter URL</label>
+				  	<div class="col-sm-9">
+						<input id="twitter" name="twitter" class="form-control" type="url" value="{twitter}" />
+				  	</div>
+			 	</div>
+				<div class="form-group">
+					<label for="linkedin" class="col-sm-3 control-label">LinkedIn URL</label>
+				  	<div class="col-sm-9">
+						<input id="linkedin" name="linkedin" class="form-control" type="url" value="{linkedin}" />
+				  	</div>
+			 	</div>
+
+				<div class="form-group">
+				  <div class="col-sm-9 col-sm-offset-3">
+					  <input type="submit" class="btn btn-success" value="Update" />
+				  </div>
+			  </div>
+				
+		  	{/exp:user:edit}
+		
+			</div>
+			
+			{if group_id == "5"}			
+			<div class="tab-pane" id="delete">
+				
+				{exp:user:delete_form error_page="account/_error" form:class="form-horizontal" return="account/success" }
+				
+				<h3>Delete Account?</h3>
+				
+				<p class="help-block">You must enter your password to confirm this action</p>
+				
+				<div class="form-group has-error">
+					<div class="col-sm-9 col-sm-offset-3">
+						<p class="help-block">WARNING! This action cannot be undone!</p>
+					</div>
+					<label for="password-confirm" class="col-sm-3 control-label">Password Confirm</label>
+					<div class="col-sm-9">
+						<input id="password-confirm" name="password" class="form-control" type="password" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-9 col-sm-offset-3">
+						<input type="submit" class="btn btn-warning" value="Delete" />
+					</div>
+				</div>
+				
+				{/exp:user:delete_form}
+				{exp:stash:set scope="user" name="success" save="yes"}
+                	Your account has been succesfully deleted. All user data has been removed from our database.
+            	{/exp:stash:set}
+				
+			</div>
+			{/if}
+		</div>
+	
+    </div>
+{/if}
+	
+</div>
+</div>
+
+{page_end}

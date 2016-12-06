@@ -1,0 +1,36 @@
+{!--- account/success
+	Account forms will send the user here if they successfully complete something. Content will check for post data.
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+	<title>
+	Success
+	</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path='account/index'}">Account</a></li>
+	<li class="active">Success</li>
+</ol>
+<div id="main-section" class="container">
+<div class="row">
+    
+	<div class="col-md-12 col-sm-12">
+	
+		<div class="page-header"><h2>Success</h2></div>
+		
+		{if {exp:stash:not_empty name="success"}}
+			<div class="alert alert-success" role="alert">{exp:stash:get name="success"}</div>
+		{if:else}
+			<p>Your action was successful!</p>
+		{/if}
+    
+    </div>
+	
+</div>
+</div>
+
+{page_end}

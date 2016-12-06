@@ -1,0 +1,53 @@
+{exp:rss:feed channel="stories"}<?xml version="1.0" encoding="{encoding}"?>
+<rss version="2.0"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+    xmlns:admin="http://webns.net/mvcb/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:media="http://search.yahoo.com/mrss/">
+
+    <channel>
+    
+    <title><![CDATA[JDNA Stories]]></title>
+    <link>{path="jdna/stories"}</link>
+    <description>{channel_description}</description>
+    <dc:language>{channel_language}</dc:language>
+    <dc:creator>{email}</dc:creator>
+    <dc:rights>Copyright {gmt_date format="%Y"}</dc:rights>
+    <dc:date>{gmt_date format="%Y-%m-%dT%H:%i:%s%Q"}</dc:date>
+    <admin:generatorAgent rdf:resource="http://expressionengine.com/" />
+    <image>
+      <url>{site_url}images/favicons/apple-touch-icon-144x144.png</url>
+      <height>144</height>
+      <width>144</width>
+      <link>{site_url}</link>
+      <title>Donald W. Reynolds Journalism Institute</title>
+   	</image>
+    
+{exp:channel:entries
+  channel="stories"
+  category="150"
+  status="open"
+  limit="99"
+  disable="member_data"
+}
+    <item>
+      <title><![CDATA[{title}]]></title>
+      <link>{title_permalink='stories/index'}</link>
+      <guid>{title_permalink='stories/index'}</guid>
+      {!--if news_image}{news_image}<enclosure url="http://www.rjionline.org/images/posts/jdna01t.png" length="{file_size}" type="image/{extension}" />{/news_image}{/if--}
+      {if news_image}{news_image}<media:content
+  		url="{url}"
+  		fileSize="{file_size}"
+  		type="image/{extension}"
+  		medium="image"
+  		height="{height}"
+  		width="{width}" />{/news_image}{/if}
+      <description><![CDATA[{teaser}]]></description>
+      <dc:subject><![CDATA[{categories backspace="1"}{category_name}, {/categories}]]></dc:subject>
+      <dc:date>{gmt_entry_date format="%Y-%m-%dT%H:%i:%s%Q"}</dc:date>
+      
+    </item>{/exp:channel:entries}
+    </channel>
+</rss>{/exp:rss:feed}

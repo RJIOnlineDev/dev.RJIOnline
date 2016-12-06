@@ -1,0 +1,278 @@
+{!-- RJI Online Homepage --}
+{!--exp:stash:cache name="home" refresh="700"--}
+{html_head}
+	<meta name="msvalidate.01" content="F57D427A90A6F9EA2696ECD3E9BB0573" />
+	<meta name="description" content="The Reynolds Journalism Institute (RJI) is a center for researching and testing new models of journalism in an era of technological advances. RJI makes the most of its location at the Missouri School of Journalism and the extensive resources at the university. It also takes advantage of the collective creativity of visiting professionals and researchers." /> {!-- Used when displaying text about this link --}
+	<link rel="publisher" href="https://plus.google.com/111709737662107424167" /> {!-- No surprise Google uses its own social network to identify publishers --}
+	{!-- Facebook/OpenGraph tags. Validated here: https://developers.facebook.com/tools/debug/ --}
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="RJI | Donald W. Reynolds Journalism Institute" />
+	{!-- <meta property="og:image" content="" /> Use logos as OG image --}
+	<meta property="og:image" content="{site_url}/images/posts/rji-post.jpg" />
+	<meta property="og:url" content="https://dev.rjionline.net" /> {!-- Use default URL path from EE to consolidate URLs --}
+	<meta property="og:description" content="The Reynolds Journalism Institute (RJI) is a center for researching and testing new models of journalism in an era of technological advances. RJI makes the most of its location at the Missouri School of Journalism and the extensive resources at the university. It also takes advantage of the collective creativity of visiting professionals and researchers." /> {!-- Use the same value as our regular meta description --}
+	<meta property="fb:admins" content="1044972625" /> {!-- Nick Cappo FB ID --}
+	<meta property="fb:admins" content="1647969006" /> {!-- Nathan Brown FB ID --}
+	{!-- Twitter tags. Validated here: https://cards-dev.twitter.com/validator --}
+	<meta name="twitter:card" content="summary{if news_banner}_large_image{/if}" /> {!-- Use the same value as our regular meta description --}
+	<meta name="twitter:url"  content="https://www.rjionline.org" /> {!-- Use default URL path from EE to consolidate URLs --}
+	<meta name="twitter:site" content="@RJI" />
+	<meta name="twitter:title" content="RJI | Donald W. Reynolds Journalism Institute" />
+	<meta name="twitter:image" content="{site_url}/images/posts/rji-post.jpg" /> {!-- Use preview image or the default one. Twitter wants a smaller, square image < 1mb --}
+	<meta name="twitter:description" content="The Reynolds Journalism Institute (RJI) is a center for researching and testing new models of journalism in an era of technological advances. RJI makes the most of its location at the Missouri School of Journalism and the extensive resources at the university. It also takes advantage of the collective creativity of visiting professionals and researchers." /> {!-- Use the same value as our regular meta description --}
+	<title>
+	RJI | Donald W. Reynolds Journalism Institute
+	</title>
+	{head_content}
+	{!-- Structured Data for Google Knowledge Graph
+	 	See schema.org and https://developers.google.com/structured-data/ --}
+	<link rel="canonical" href="{site_url}" />
+	<script type="application/ld+json">
+	[
+	{rji_org_json},
+	{
+	  "@context" : "http://schema.org",
+	  "@type" : "WebSite",
+	  "name" : "RJI Online",
+	  "alternateName" : "RJI",
+	  "url" : "{site_url}",
+	  "potentialAction": {
+	  		"@type": "SearchAction",
+			"target": "{site_url}search/results?q={search_term_string}",
+			"query-input": "required name=search_term_string"
+	  }
+	}
+	]
+	</script>
+{html_head_end}
+<body>	
+{embed="main/_navbar"}
+
+		  {!-- Carousel Bootstrap JS works with classes as outlined below:
+			  ====================
+			  div.carousel#'carousel id'
+				  ol.carousel-indicators
+					  li data-target='carousel id'
+				  div.carousel-inner
+					  img
+					  div.carousel-caption
+				  a.carousel-control href='carousel id'
+			  ====================
+		  --}
+		  {!-- Pulls from front_page_slider channel to get the latest limit number of slides created --}
+		  <div id="carousel" class="carousel slide hidden-xs" data-ride="carousel">
+		  
+		  {exp:channel:entries channel="slider_images" limit="4" category="70" disable="categories|member_data|category_fields|pagination" cache="yes" refresh="500"}
+		  
+		  		{if count == 1 AND total_results > 1}
+		  		<ol class="carousel-indicators">
+					{exp:for_loop start="1" end="{total_results}" increment="1"}
+					<li data-target="#carousel" data-slide-to"{exp:index}{index}{/exp:index}"{if {index} == 1} class="active"{/if}></li>
+					{/exp:for_loop}
+				</ol>
+				{/if}
+		  
+		  {if count == 1}
+			  <div class="carousel-inner">
+		  {/if}
+		  
+				  {!-- We need an active item to make the carousel work so check if it's the first post --}
+				  <div class="item {if count == 1}active{/if}">
+					  <a href="{image_link}"><img src="{image}"></a>
+					  <div class="carousel-caption">
+						  {text}
+					  </div>
+				  </div>
+				  
+				
+		  {if count == total_results}
+			  </div> {!-- ends .carousel-inner --}
+		  {/if}
+
+			  {!-- Carousel controls that appear on the sides: only used for phone sizes (.visible-xs), the rest have tabs underneath for navigation --}
+			  {if count == total_results AND total_results > 1}
+			  <a class="left carousel-control" href="#carousel" data-slide="prev">
+				  <span class="fa fa-chevron-left fa-2x"></span>
+			  </a>
+			  <a class="right carousel-control" href="#carousel" data-slide="next">
+				  <span class="fa fa-chevron-right fa-2x"></span>
+			  </a>
+			  {/if}
+
+		  {/exp:channel:entries}
+		  
+		  </div> {!-- Ends .carousel --}
+		  
+		  {!-- main-section is a container that will hold all content below navbar and above footer container sets size and centers content on page --}
+<div id="main-section" class="container">
+	
+	 {!-- Class row (see Bootstrap documentation) holds up to 12 columns.
+			We have 2 columns: primary-section and sidebar --}
+	<div class="row">
+
+	{!-- primary-section is left row that holds most dynamic content on site
+			Bootstrap CSS works with classes to create columns in a row as outlined below:
+			====================
+			col-sm-12: col (column) - sm (small/mobile) - 12 (all 12 column spots)
+			col-md-8:  col (column) - md (medium/laptop) - 8 (only 8 column spots; leaves 4 for sidebar)
+			====================
+			Bootstrap takes smallest column configuration until next given class is reached in screen size 
+	--}
+		<div id="primary-section" class="col-md-8 col-sm-12">
+
+		  {!-- page-header automatically puts an hr (bottom border) after the title 
+			  featured-header only visible on mobile (custom CSS) --}
+		  <div class="page-header visible-xs" id="featured-header"><h3>Trending stories</h3></div>
+        
+		  {!-- Another row (see above for details) to hold featured stories --}
+			<div class="card-bg container-fluid" id="thumbnails">
+			
+			  <div class="row">
+			
+				
+				{!-- Grabs latest featured stories to be put on top --}
+				{!--exp:channel:entries channel="stories|calendar_events" status="featured" limit="3" disable="categories|member_data|category_fields|pagination" show_future_entries="yes"--}
+				
+				{exp:tracker:rank
+					channel="stories"
+					status="open|featured"
+					limit="3"
+					tracker_timeframe_start="2 weeks ago"
+					tracker_timeframe_end="today"
+					tracker_views=">=0"
+					cache="yes"
+					refresh="1500"
+					search:post_series="not rji in the news"
+				}
+				
+				
+				<div class="col-sm-4 col-xs-12">
+				  <div class="thumbnail card">
+				  
+					  <a href="{post_path}">
+						{!-- If there is a news image, use that, else maybe it's an event so if there is an event image use that, else there is no given image, use default image --}
+						<img src=
+							{if news_image}
+								{news_image}
+									{url:rect}
+								{/news_image}
+							{if:else}
+									"{site_url}/images/posts/rji-post.jpg" 
+							{/if}
+							alt="{title}" title="{title}" class="img-responsive"/>
+					  </a>
+					  
+					  <div class="caption">
+						  {if channel_name == "calendar_events"}
+							  {exp:calendar:events event_id="{entry_id}"}
+									<h4>{if event_stories != ""}<span class="small capitalize">{event_stories}</span><br>{/if}<a class="media-heading" href="{post_path}">{title}</a>&nbsp;<span class="badge">Event</span>
+										<br /><span class="small capitalize"> 
+											{if {event_start_date format='%m%d%Y'} == {event_end_date format='%m%d%Y'} }
+												{!-- Event is a one day event, start date and end date are the same --}
+												{event_start_date format="%g:%i%a"} - {event_end_date format="%g:%i%a &#124; %F %j, %Y"}
+											{if:else}
+												{event_start_date format="%F %d, %Y"} | {event_end_date format="%F %d, %Y"}
+											{/if}
+										</span></h4>
+									{exp:trunchtml chars="90" exact="yes" ending="..."}{exp:low_replace find="<p>|</p>" replace="|" multiple="yes"}{event_teaser}{/exp:low_replace}{/exp:trunchtml}
+							  {/exp:calendar:events}
+						{if:else}
+							<h4>{if post_series != ""}<span class="small capitalize">{post_series}</span><br>{/if}<a class="media-heading" href="{post_path}">{title}</a>
+							{!-- If statement below checks if there is a start time (it is an event) and gives the event start/finish but if not (it is a post) and displays author and publish date --}
+							<br /><span class="small capitalize">
+								{entry_date format="%F %j, %Y"}
+							</span></h4>
+							<span>
+							  {exp:trunchtml chars="90" exact="yes" ending="..."}
+							  	{exp:low_replace find="<p>|</p>" replace="|" multiple="yes"}
+									{teaser}{doc_teaser}{proj_teaser}
+								{/exp:low_replace}
+							  {/exp:trunchtml}
+							</span>
+						{/if}
+					  </div>
+					  
+				  </div>
+				</div>
+				
+				{/exp:tracker:rank}
+			
+			  </div>
+			
+			</div> {!-- ends featured .row --}
+
+			{!-- .page-header adds a border to the bottom of the head and adds significant spacing --}
+			<div class="page-header">
+				<h3>
+					Recent stories
+					{rss_link}
+				</h3>
+			</div>
+			
+			{!-- Recent stories uses Bootstrap's media-list to create a list of stories with images on the side 
+				====================
+				ul.media-list (repeat below li to populate list)
+					li.media
+						a.pull-left (or .pull-right)
+							img.img-responsive
+						div.media-body
+							h(#).media-heading
+							p
+				====================
+			--}
+			<div class="card-bg">
+			
+				<div class="card media visible-xs">
+					<a href="/newsletters" alt="RJI Newsletters">
+						<img src="/images/uploads/rjinewsletters.png" class="img-responsive">
+					</a>
+					<div class="media-body">
+					<p>At RJI, we’ve been working to improve how we share information with our readers.</p>
+					<p><a {!--href="#" class="btn btn-block btn-success" data-toggle="modal" data-target="#newsletter-modal"--} href="/newsletters" class="btn btn-block btn-success">Subscribe</a></p>
+					</div>
+				</div>
+				
+				<ul id="recent-posts" class="media-list">
+
+{!--stash:nocache--}			
+			
+				{exp:channel:entries 
+						channel="stories" 
+						sticky="no" status="open|featured" 
+						limit="10" 
+						disable="categories|member_data|category_fields" 
+						cache="yes" 
+						refresh="700"}
+					
+					{if no_results}<p>No Results</p>{/if}
+					
+					{if hidden != "Yes"}{rji_media_list}{/if}
+
+					{pagination_snippet}
+
+				{/exp:channel:entries}
+				
+{!--/stash:nocache--}
+
+			  	</ul> {!-- ends .media-list --} 
+
+		  	</div>
+			
+  		</div> {!-- Ends primary-section column --}
+
+		{!-- sidebar embeds sidebar template found in main 
+			see sidebar template notes for details
+			Again, uses Bootstrap classes to fill the last 4 columns in laptop size
+			.hidden-xs means it is hidden on tablet and mobile --}
+        <div id="sidebar" class="col-md-4 hidden-sm hidden-xs nocontent"> 
+			{embed="main/_sidebar" recent="NO" events="YES"}
+ 		</div>
+		
+	</div> {!-- ends main .row that contains primary-section and sidebar columns --}
+	
+</div> {!-- ends #main-section --}
+
+{!-- page_end 
+	Snippet: adds in JavaScript, footers and closes out body and html tags --}
+{page_end}
+{!--/exp:stash:cache--}

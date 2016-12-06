@@ -1,0 +1,235 @@
+{!--- Events/Calendar
+	This template is used as a larger version of the mini calendar on the sidebar (when segment 1 is events). This one allows you to click through different months to see all of our events.
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+	<title>
+	Events calendar | RJI
+	</title>
+	{head_content}
+{html_head_end}	
+<body>
+{embed="main/_navbar"}
+<ol class="breadcrumb" vocab="http://schema.org" typeof="BreadcrumbList">
+	<li><a href="{site_url}">Home</a></li>
+	<li><a href="{path="events/index"}" property="itemListElement" typeof="WebPage"><span property="name">Events</span><meta property="position" content="1"></a></li>
+	<li class="active" property="itemListElement" typeof="WebPage"><span property="name">Calendar</span><meta property="position" content="2"></li>
+</ol>
+<div id="main-section" class="container">
+<div class="row">
+    
+	<div class="col-md-8 col-sm-12">
+	{if segment_5 == ""}	<div id="mc_wrap" style="margin-top: 1em;">
+
+	{exp:calendar:cal
+		{if segment_3 == ''}
+			date_range_start="year-month-01"
+			date_range_end="year-month-last"
+		{/if}
+		{if segment_3 != ''}
+			date_range_start="{segment_3}-{segment_4}-01"
+			date_range_end="{segment_3}-{segment_4}-last"
+		{/if}
+		{if logged_in_group_id == "1" || logged_in_group_id == "7"}
+			calendar_id="100|101|115"
+		{if:else}
+			calendar_id="100|101"
+		{/if}
+    }
+            <div id="mini-cal">
+                {display_each_month}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="h2">
+                            <th colspan="1">
+                                <a
+                                    id="mc_prev_month"
+                                    href="{path='events/calendar'}/{prev_month format='%Y/%m'}/">
+									<i class="fa fa-chevron-left"></i>
+									</a>
+                            </th>
+                            <th colspan="5" class="text-center">
+                                {!--<a href="{path='events/calendar'}/{month format='%Y/%m'}/">--}
+                                    {date format="%F %Y"}
+                                {!--</a>--}
+                            </th>
+                            <th colspan="1" class="text-right">
+                                <a
+                                    id="mc_next_month"
+                                    href="{path='events/calendar'}/{next_month format='%Y/%m'}/">
+                                    <i class="fa fa-chevron-right"></i>
+                                </a>
+                            </th>
+                        </tr>
+                        <tr id="mc_days">
+                        {display_each_day_of_week}
+                            <th class="{if day_of_week_is_weekend}active{/if} text-center">
+                                {day_of_week_one}
+                            </th>
+                        {/display_each_day_of_week}
+                    </tr>
+                </thead>
+                <tbody>
+                    {display_each_week}
+                    <tr style="height: 100px;">
+                        {display_each_day}
+                        <td class="
+                            {if day_in_current_month == FALSE}active{/if}
+                            {if day_event_total > 0}info{/if}
+                            {if count == 7}danger{/if}
+                            {if day_is_today}success{/if}
+                            {if day_is_weekend}active{/if}
+                            {if day_is_weekday}weekday{/if}
+							text-left
+                        " style="width:100px;"><div class="mc_date">{if day_in_current_month}
+ 						<span class="hidden-xs">{day}
+                        {if day_event_total}
+						 - <a href="{path='events/calendar'}/{date format='%Y/%m/%d'}" class="hidden-xs">view</a>
+                        		<ul class="list-unstyled small hidden-xs" >
+									{events}
+										<li style="border-top: 1px solid  #ffffff;"><a href='{site_url}events/{event_url_title}' class="hidden-xs">{event_title}<br>
+										{if (logged_in_group_id == "1" || logged_in_group_id == "7")}
+											{event_start_date format="%g:%i"}-{event_end_date format="%g:%i"} in
+											<b>
+											{if room_requested}
+												{room_requested}
+											{if:elseif "{event_location:title}" != ""}
+												{event_location:title}
+											{if:elseif "{foreign_location}" != ""}
+												{foreign_location}
+											{/if}
+											</b>
+										{/if}
+										</a></li>
+									{/events}
+                                </ul>
+						{/if}
+                        </span>
+                        {if day_event_total}
+                        <a href="{path='events/calendar'}/{date format='%Y/%m/%d'}" class="visible-xs">
+						{day}
+                        </a>
+                        {if:else}
+                        <span class="visible-xs">{day}</span>
+                        {/if}
+                        {if:else}
+                            <strong class="middot"></strong>
+                        {/if}</div></td>
+                        {/display_each_day}
+                    </tr>
+                    {/display_each_week}
+                </tbody>
+            </table>
+            {/display_each_month}
+            </div>
+        {/exp:calendar:cal}
+    </div>
+    {if:else}
+    {!-- segment_5 != "" and we must specify a day --}
+    
+      {exp:calendar:cal 
+		  calendar_id="100|101"
+		  pad_short_weeks="n"
+			  date_range_start="{segment_3}-{segment_4}-({segment_5}-1)"
+			  date_range_end="{segment_3}-{segment_4}-{segment_5}"
+		 }
+		{display_each_day}
+			<div class="page-header">
+				<div>
+					<table class="table">
+						<thead>
+							<tr class="h2">
+								<td colspan="1">
+									<a href="{site_url}events/calendar/{prev_day format='%Y/%m/%d'}"><i class="fa fa-chevron-left"></i></a>
+								</td>
+								<td colspan="5" class="text-center">
+									{date format="%l, %F %d, %Y"}
+								</td>
+								<td colspan="1" class="text-right">
+									<a href="{site_url}events/calendar/{next_day format='%Y/%m/%d'}"><i class="fa fa-chevron-right"></i></a>
+								</td>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-xs-2">
+					<div style="height: 50px; padding: 10px;">
+						<strong>All day</strong>
+					</div>
+					{exp:for_loop start="8" end="11" increment="1"} 
+			  		<div style="height: 50px; padding: 10px;">
+						{index}:00 am
+					</div>
+					{/exp:for_loop}
+					<div style="height: 50px; padding: 10px;">
+						12:00 pm
+					</div>
+					{exp:for_loop start="1" end="11" increment="1"} 
+			  		<div style="height: 50px; padding: 10px;">
+						{index}:00 pm
+					</div>
+					{/exp:for_loop}
+			</div>
+			<div class="col-xs-10">
+			  
+			  {!-- Have open reservation buttons that lead to a URL with a form that you can then add to the reservation space
+			       these get covered by reservations (heigher z-index values) --}
+			  	{exp:for_loop start="50" end="800" increment="50"} 
+			  	<div class="space-reserved" 
+					style="height: 50px; top: {index}px;">
+					---
+				</div>
+			  {/exp:for_loop}
+			  
+			  {display_each_hour}
+				  {events}
+				  {if event_all_day OR event_has_rules}
+				    <span style="margin-top: 10px"><strong style="padding: 5px;">{if event_count > 1}|&nbsp;&nbsp;&nbsp;&nbsp;{/if}<a class="alert-link" href="{path='events/index'}/{event_url_title}/">{event_title}</a></strong></span>
+				  {if:else}
+				  <div class="space-reserved alert-info" 
+				  	style="height: {exp:math formula='50*[1]' params='{event_duration_hours}' thousands_seperator=""}px; top: {exp:math formula='50*[1]-350' params='{event_start_date format="%G"}'}px;">
+				  
+					  <div class="head">
+						  <h4>
+						  	<a class="alert-link" href="{path='events/index'}/{event_url_title}/">{event_title}</a>
+						  </h4> 
+					  {if event_all_day}
+						  <p>
+							  All day! | {event_location:title}
+						  </p>
+					  {if:else}
+						  <p>
+							  {event_start_date format="%g:%i %a"}
+							  {if event_end_date}
+								  - {event_end_date format="%g:%i %a"}
+							  {/if} | {event_location:title}
+						  </p>
+					  {/if}
+						  <p>
+							  {event_teaser}
+						  </p>
+					  </div>
+				  </div>
+				  {/if}
+				  {/events}
+			  {/display_each_hour}
+			  </div>
+			  </div>
+		  {/display_each_day}
+	  {/exp:calendar:cal}
+    
+    {/if}
+    
+    </div>
+    
+    <div id="sidebar" class="col-md-4 hidden-sm hidden-xs"> 
+  		{embed="main/_sidebar" recent="YES" events="YES" related="NO" topics="NO" tags="NO" section="calendar_events"}
+    </div>
+	
+</div>
+</div>
+
+{page_end}
