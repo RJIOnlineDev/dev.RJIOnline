@@ -45,8 +45,9 @@
 	]
 	</script>
 {html_head_end}
-<body>	
+<body>
 {embed="main/_navbar"}
+
 
 		  {!-- Carousel Bootstrap JS works with classes as outlined below:
 			  ====================
@@ -61,9 +62,9 @@
 		  --}
 		  {!-- Pulls from front_page_slider channel to get the latest limit number of slides created --}
 		  <div id="carousel" class="carousel slide hidden-xs" data-ride="carousel">
-		  
+
 		  {exp:channel:entries channel="slider_images" limit="4" category="70" disable="categories|member_data|category_fields|pagination" cache="yes" refresh="500"}
-		  
+
 		  		{if count == 1 AND total_results > 1}
 		  		<ol class="carousel-indicators">
 					{exp:for_loop start="1" end="{total_results}" increment="1"}
@@ -71,11 +72,11 @@
 					{/exp:for_loop}
 				</ol>
 				{/if}
-		  
+
 		  {if count == 1}
 			  <div class="carousel-inner">
 		  {/if}
-		  
+
 				  {!-- We need an active item to make the carousel work so check if it's the first post --}
 				  <div class="item {if count == 1}active{/if}">
 					  <a href="{image_link}"><img src="{image}"></a>
@@ -83,8 +84,8 @@
 						  {text}
 					  </div>
 				  </div>
-				  
-				
+
+
 		  {if count == total_results}
 			  </div> {!-- ends .carousel-inner --}
 		  {/if}
@@ -100,12 +101,12 @@
 			  {/if}
 
 		  {/exp:channel:entries}
-		  
+
 		  </div> {!-- Ends .carousel --}
-		  
+
 		  {!-- main-section is a container that will hold all content below navbar and above footer container sets size and centers content on page --}
 <div id="main-section" class="container">
-	
+
 	 {!-- Class row (see Bootstrap documentation) holds up to 12 columns.
 			We have 2 columns: primary-section and sidebar --}
 	<div class="row">
@@ -116,23 +117,23 @@
 			col-sm-12: col (column) - sm (small/mobile) - 12 (all 12 column spots)
 			col-md-8:  col (column) - md (medium/laptop) - 8 (only 8 column spots; leaves 4 for sidebar)
 			====================
-			Bootstrap takes smallest column configuration until next given class is reached in screen size 
+			Bootstrap takes smallest column configuration until next given class is reached in screen size
 	--}
 		<div id="primary-section" class="col-md-8 col-sm-12">
 
-		  {!-- page-header automatically puts an hr (bottom border) after the title 
+		  {!-- page-header automatically puts an hr (bottom border) after the title
 			  featured-header only visible on mobile (custom CSS) --}
 		  <div class="page-header visible-xs" id="featured-header"><h3>Trending stories</h3></div>
-        
+
 		  {!-- Another row (see above for details) to hold featured stories --}
 			<div class="card-bg container-fluid" id="thumbnails">
-			
+
 			  <div class="row">
-			
-				
+
+
 				{!-- Grabs latest featured stories to be put on top --}
 				{!--exp:channel:entries channel="stories|calendar_events" status="featured" limit="3" disable="categories|member_data|category_fields|pagination" show_future_entries="yes"--}
-				
+
 				{exp:tracker:rank
 					channel="stories"
 					status="open|featured"
@@ -144,11 +145,11 @@
 					refresh="1500"
 					search:post_series="not rji in the news"
 				}
-				
-				
+
+
 				<div class="col-sm-4 col-xs-12">
 				  <div class="thumbnail card">
-				  
+
 					  <a href="{post_path}">
 						{!-- If there is a news image, use that, else maybe it's an event so if there is an event image use that, else there is no given image, use default image --}
 						<img src=
@@ -157,16 +158,16 @@
 									{url:rect}
 								{/news_image}
 							{if:else}
-									"{site_url}/images/posts/rji-post.jpg" 
+									"{site_url}/images/posts/rji-post.jpg"
 							{/if}
 							alt="{title}" title="{title}" class="img-responsive"/>
 					  </a>
-					  
+
 					  <div class="caption">
 						  {if channel_name == "calendar_events"}
 							  {exp:calendar:events event_id="{entry_id}"}
 									<h4>{if event_stories != ""}<span class="small capitalize">{event_stories}</span><br>{/if}<a class="media-heading" href="{post_path}">{title}</a>&nbsp;<span class="badge">Event</span>
-										<br /><span class="small capitalize"> 
+										<br /><span class="small capitalize">
 											{if {event_start_date format='%m%d%Y'} == {event_end_date format='%m%d%Y'} }
 												{!-- Event is a one day event, start date and end date are the same --}
 												{event_start_date format="%g:%i%a"} - {event_end_date format="%g:%i%a &#124; %F %j, %Y"}
@@ -191,14 +192,14 @@
 							</span>
 						{/if}
 					  </div>
-					  
+
 				  </div>
 				</div>
-				
+
 				{/exp:tracker:rank}
-			
+
 			  </div>
-			
+
 			</div> {!-- ends featured .row --}
 
 			{!-- .page-header adds a border to the bottom of the head and adds significant spacing --}
@@ -208,8 +209,8 @@
 					{rss_link}
 				</h3>
 			</div>
-			
-			{!-- Recent stories uses Bootstrap's media-list to create a list of stories with images on the side 
+
+			{!-- Recent stories uses Bootstrap's media-list to create a list of stories with images on the side
 				====================
 				ul.media-list (repeat below li to populate list)
 					li.media
@@ -221,7 +222,7 @@
 				====================
 			--}
 			<div class="card-bg">
-			
+
 				<div class="card media visible-xs">
 					<a href="/newsletters" alt="RJI Newsletters">
 						<img src="/images/uploads/rjinewsletters.png" class="img-responsive">
@@ -231,48 +232,48 @@
 					<p><a {!--href="#" class="btn btn-block btn-success" data-toggle="modal" data-target="#newsletter-modal"--} href="/newsletters" class="btn btn-block btn-success">Subscribe</a></p>
 					</div>
 				</div>
-				
+
 				<ul id="recent-posts" class="media-list">
 
-{!--stash:nocache--}			
-			
-				{exp:channel:entries 
-						channel="stories" 
-						sticky="no" status="open|featured" 
-						limit="10" 
-						disable="categories|member_data|category_fields" 
-						cache="yes" 
+{!--stash:nocache--}
+
+				{exp:channel:entries
+						channel="stories"
+						sticky="no" status="open|featured"
+						limit="10"
+						disable="categories|member_data|category_fields"
+						cache="yes"
 						refresh="700"}
-					
+
 					{if no_results}<p>No Results</p>{/if}
-					
+
 					{if hidden != "Yes"}{rji_media_list}{/if}
 
 					{pagination_snippet}
 
 				{/exp:channel:entries}
-				
+
 {!--/stash:nocache--}
 
-			  	</ul> {!-- ends .media-list --} 
+			  	</ul> {!-- ends .media-list --}
 
 		  	</div>
-			
+
   		</div> {!-- Ends primary-section column --}
 
-		{!-- sidebar embeds sidebar template found in main 
+		{!-- sidebar embeds sidebar template found in main
 			see sidebar template notes for details
 			Again, uses Bootstrap classes to fill the last 4 columns in laptop size
 			.hidden-xs means it is hidden on tablet and mobile --}
-        <div id="sidebar" class="col-md-4 hidden-sm hidden-xs nocontent"> 
+        <div id="sidebar" class="col-md-4 hidden-sm hidden-xs nocontent">
 			{embed="main/_sidebar" recent="NO" events="YES"}
  		</div>
-		
+
 	</div> {!-- ends main .row that contains primary-section and sidebar columns --}
-	
+
 </div> {!-- ends #main-section --}
 
-{!-- page_end 
+{!-- page_end
 	Snippet: adds in JavaScript, footers and closes out body and html tags --}
 {page_end}
 {!--/exp:stash:cache--}
