@@ -7,7 +7,7 @@
 	Events calendar | RJI
 	</title>
 	{head_content}
-{html_head_end}	
+{html_head_end}
 <body>
 {embed="main/_navbar"}
 <ol class="breadcrumb" vocab="http://schema.org" typeof="BreadcrumbList">
@@ -17,7 +17,7 @@
 </ol>
 <div id="main-section" class="container">
 <div class="row">
-    
+
 	<div class="col-md-8 col-sm-12">
 	{if segment_5 == ""}	<div id="mc_wrap" style="margin-top: 1em;">
 
@@ -126,9 +126,13 @@
     </div>
     {if:else}
     {!-- segment_5 != "" and we must specify a day --}
-    
-      {exp:calendar:cal 
-		  calendar_id="100|101"
+
+      {exp:calendar:cal
+				{if logged_in_group_id == "1" || logged_in_group_id == "7"}
+					calendar_id="100|101|115"
+				{if:else}
+					calendar_id="100|101"
+				{/if}
 		  pad_short_weeks="n"
 			  date_range_start="{segment_3}-{segment_4}-({segment_5}-1)"
 			  date_range_end="{segment_3}-{segment_4}-{segment_5}"
@@ -159,7 +163,7 @@
 					<div style="height: 50px; padding: 10px;">
 						<strong>All day</strong>
 					</div>
-					{exp:for_loop start="8" end="11" increment="1"} 
+					{exp:for_loop start="8" end="11" increment="1"}
 			  		<div style="height: 50px; padding: 10px;">
 						{index}:00 am
 					</div>
@@ -167,35 +171,35 @@
 					<div style="height: 50px; padding: 10px;">
 						12:00 pm
 					</div>
-					{exp:for_loop start="1" end="11" increment="1"} 
+					{exp:for_loop start="1" end="11" increment="1"}
 			  		<div style="height: 50px; padding: 10px;">
 						{index}:00 pm
 					</div>
 					{/exp:for_loop}
 			</div>
 			<div class="col-xs-10">
-			  
+
 			  {!-- Have open reservation buttons that lead to a URL with a form that you can then add to the reservation space
 			       these get covered by reservations (heigher z-index values) --}
-			  	{exp:for_loop start="50" end="800" increment="50"} 
-			  	<div class="space-reserved" 
+			  	{exp:for_loop start="50" end="800" increment="50"}
+			  	<div class="space-reserved"
 					style="height: 50px; top: {index}px;">
 					---
 				</div>
 			  {/exp:for_loop}
-			  
+
 			  {display_each_hour}
 				  {events}
 				  {if event_all_day OR event_has_rules}
 				    <span style="margin-top: 10px"><strong style="padding: 5px;">{if event_count > 1}|&nbsp;&nbsp;&nbsp;&nbsp;{/if}<a class="alert-link" href="{path='events/index'}/{event_url_title}/">{event_title}</a></strong></span>
 				  {if:else}
-				  <div class="space-reserved alert-info" 
+				  <div class="space-reserved alert-info"
 				  	style="height: {exp:math formula='50*[1]' params='{event_duration_hours}' thousands_seperator=""}px; top: {exp:math formula='50*[1]-350' params='{event_start_date format="%G"}'}px;">
-				  
+
 					  <div class="head">
 						  <h4>
 						  	<a class="alert-link" href="{path='events/index'}/{event_url_title}/">{event_title}</a>
-						  </h4> 
+						  </h4>
 					  {if event_all_day}
 						  <p>
 							  All day! | {event_location:title}
@@ -220,15 +224,15 @@
 			  </div>
 		  {/display_each_day}
 	  {/exp:calendar:cal}
-    
+
     {/if}
-    
+
     </div>
-    
-    <div id="sidebar" class="col-md-4 hidden-sm hidden-xs"> 
+
+    <div id="sidebar" class="col-md-4 hidden-sm hidden-xs">
   		{embed="main/_sidebar" recent="YES" events="YES" related="NO" topics="NO" tags="NO" section="calendar_events"}
     </div>
-	
+
 </div>
 </div>
 
