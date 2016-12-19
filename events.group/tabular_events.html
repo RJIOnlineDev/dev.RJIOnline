@@ -70,13 +70,15 @@
           orderby="date"
           search:room_requested="211"
           limit="20"}
-            <a href=""<tr>
+          <a href="{comment_url_title_auto_path}">
+            <tr>
               <td>{title}</td>
               <td>{start_time}</td>
               <td>{end_time}</td>
               <td>{contact_name}</td>
               <td>{contact_email}</td>
             </tr>
+          </a>
         {/exp:channel:entries}
       </tbody>
     </table>
@@ -191,6 +193,7 @@
           search:room_requested="Smith"
           limit="20"}
             <tr>
+              {!--<a href="{if page_url != ''}{page_url}{if:else}{comment_url_title_auto_path}{/if}">--}
               <td>{title}</td>
               <td>{start_time}</td>
               <td>{end_time}</td>
