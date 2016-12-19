@@ -33,9 +33,9 @@
     search:room_requested="211"
     limit="30"--}-->
 
-{!--if logged_in_group_id != "1" || logged_in_group_id != "7"}
+{if logged_in_group_id != "1" && logged_in_group_id != "7"}
   {redirect="404"}
-{/if--}
+{/if}
 
 {html_head}
 	<title>Tabular Events | RJI</title>
