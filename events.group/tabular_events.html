@@ -1,0 +1,219 @@
+<!--{if logged_in_group_id != "1" || logged_in_group_id != "7"}
+  {redirect="404"}
+{/if}
+{!--exp:channel:entries channel="calendar_events" disable="pagination"}
+  {if room == "Room 211"}
+    {exp:stash:append_list name="room_211"}
+      {all the room info}
+    {/exp:stash:append_list}
+  {if:elseif room == "Spencer Room 200B"}
+    {exp:stash:append_list name="spencer"}
+      {all the room info}
+    {/exp:stash:append_list}
+  {if:elseif room == "Lambert Room 200A"}
+    {exp:stash:append_list name="lambert"}
+      {all the room info}
+    {/exp:stash:append_list}
+  {if:elseif room == "Palmer Room 100A"}
+    {exp:stash:append_list name="palmer"}
+      {all the room info}
+    {/exp:stash:append_list}
+  {if:elseif room == "Smith Forum 200"}
+    {exp:stash:append_list name="smith"}
+      {all the room info}
+    {/exp:stash:append_list}
+  {/if}
+{/exp:channel:entries--}
+
+{!--exp:stash:set_list name="room_211" match="#^ROOM_NAME_HERE#" against="{room_requested}"}
+{exp:channel:entries
+    channel="calendar_events"
+    orderby="date"
+    disable="member_data|custom_fields|categories"
+    search:room_requested="211"
+    limit="30"--}-->
+
+{!--if logged_in_group_id != "1" || logged_in_group_id != "7"}
+  {redirect="404"}
+{/if--}
+
+{html_head}
+	<title>Tabular Events | RJI</title>
+  	{head_content}
+{html_head_end}
+
+
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#room_211">Room 211</a></li>
+  <li><a data-toggle="tab" href="#spencer">Spencer Room 200B</a></li>
+  <li><a data-toggle="tab" href="#lambert">Lambert Room 200A</a></li>
+  <li><a data-toggle="tab" href="#palmer">Palmer Room 100A</a></li>
+  <li><a data-toggle="tab" href="#smith">Smith Room 200</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="room_211" class="tab-pane fade in active">
+    <h2>Room 211</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Contact Name</th>
+          <th>Contact Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Continuity</td>
+          <td>December 25, 2016 5:00A.M.</td>
+          <td>December 25, 2016 7:00A.M.</td>
+          <td>Errors</td>
+          <td>are@weird.com</td>
+        </tr>
+        {exp:channel:entries
+          channel="calendar_events"
+          orderby="date"
+          search:room_requested="211"
+          limit="20"}
+            <tr>
+              <td>{title}</td>
+              <td>{start_time}</td>
+              <td>{end_time}</td>
+              <td>{contact_name}</td>
+              <td>{contact_email}</td>
+            </tr>
+        {/exp:channel:entries}
+      </tbody>
+    </table>
+  </div>
+
+  <div id="spencer" class="tab-pane fade">
+    <h2>Spencer Room 200B</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Contact Name</th>
+          <th>Contact Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>nuity</td>
+          <td>September 25, 2016 5:00A.M.</td>
+          <td>September 25, 2016 7:00A.M.</td>
+          <td>Errors</td>
+          <td>are@Strange.com</td>
+        </tr>
+        {exp:channel:entries
+          channel="calendar_events"
+          orderby="date"
+          search:room_requested="Spencer"
+          limit="20"}
+            <tr>
+              <td>{title}</td>
+              <td>{start_time}</td>
+              <td>{end_time}</td>
+              <td>{contact_name}</td>
+              <td>{contact_email}</td>
+            </tr>
+        {/exp:channel:entries}
+      </tbody>
+    </table>
+  </div>
+
+  <div id="lambert" class="tab-pane fade">
+    <h2>Lambert Room 200A</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Contact Name</th>
+          <th>Contact Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {exp:channel:entries
+          channel="calendar_events"
+          orderby="date"
+          search:room_requested="Lambert"
+          limit="20"}
+            <tr>
+              <td>{title}</td>
+              <td>{start_time}</td>
+              <td>{end_time}</td>
+              <td>{contact_name}</td>
+              <td>{contact_email}</td>
+            </tr>
+        {/exp:channel:entries}
+      </tbody>
+    </table>
+  </div>
+
+  <div id="palmer" class="tab-pane fade">
+    <h2>Palmer Room 100A</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Contact Name</th>
+          <th>Contact Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {exp:channel:entries
+          channel="calendar_events"
+          orderby="date"
+          search:room_requested="Palmer"
+          limit="20"}
+            <tr>
+              <td>{title}</td>
+              <td>{start_time}</td>
+              <td>{end_time}</td>
+              <td>{contact_name}</td>
+              <td>{contact_email}</td>
+            </tr>
+        {/exp:channel:entries}
+      </tbody>
+    </table>
+  </div>
+
+  <div id="smith" class="tab-pane fade">
+    <h2>Smith Room 200</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Contact Name</th>
+          <th>Contact Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {exp:channel:entries
+          channel="calendar_events"
+          orderby="date"
+          search:room_requested="Smith"
+          limit="20"}
+            <tr>
+              <td>{title}</td>
+              <td>{start_time}</td>
+              <td>{end_time}</td>
+              <td>{contact_name}</td>
+              <td>{contact_email}</td>
+            </tr>
+        {/exp:channel:entries}
+      </tbody>
+    </table>
+  </div>
+</div>
+{page_end}
