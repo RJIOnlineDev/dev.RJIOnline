@@ -1,11 +1,9 @@
-{!--- Base Template
-	This is the required base for creating a template. Fill in content for the new template's purpose!
+{!--- Fellowship
+	Placeholder for fellowships/index template.
 	*See template main/index for more template details; only details on this specific template will be documented --}
 
 {html_head}
-	<title>
-	Our fellows | RJI
-	</title>
+	<title>RJI Fellowships</title>
 	{head_content}
 {html_head_end}
 <body>
@@ -22,413 +20,116 @@
       "@id": "{site_url}fellowships",
       "name": "Fellowships"
     }
-  },{
-    "@type": "ListItem",
-    "position": 2,
-    "item": {
-      "@id": "{site_url}fellowships/fellows",
-      "name": "Our Fellows"
-    }
   }]
 }
 </script>
 <ol class="breadcrumb">
 	<li><a href="{site_url}">Home</a></li>
-	<li><a href="/fellowships">RJI Fellowships</a></li>
-	<li class="active">Fellows</li>
+	<li class="active">Fellowships</li>
 </ol>
-
 <div id="main-section" class="container">
-<div class="row">
+	<div class="row">
+		<div id="primary-section" class="col-md-8 col-sm-12">
 
-	<div class="col-md-8 col-sm-12">
-
-		<div class="page-header">
-			<h2>RJI Fellowships: Our fellows</h2>
-		</div>
-
-		{!-- 2016-2017 -----------------------------------}
-
-			<div class="profile-list">
-				<h3 class="secondary" id="2016">2016–2017 class</h3>
-
-					<div class="">
-
-					{exp:user:users orderby="sort_order" sort="asc" group_id="1|6|7|8" search:fellows_class="2016-2017"}
-
-						{if (count % 2) == 1}
-							{if count != 1}
-							</div> {!-- Close the previous row, but there ins't one on the first pass... --}
-							{/if}
-							<div class="row"> {!-- Start the next row --}
-						{/if}
-
-						<div class="col-sm-6 profile-height">
-								<div class="media staff card">
-									<a class="pull-left" href="{path=account/profile}/{member_id}"><img class="media-object" src="{if avatar_filename}{avatar_url}{avatar_filename}{if:else}/images/avatars/uploads/avatar_1.png{/if}" title="{screen_name}" alt="{screen_name}" class="profile-avatar"></a>
-									<div class="media-body">
-										<h4 class="media-heading"><a href="{path=account/profile}/{member_id}">{screen_name}</a></h4>
-										<p class="user-info">
-											{position_1}<br>
-											{if phone}<a href="tel:{phone}">{phone}</a><br>{/if}
-											<a href="mailto:{email}" target="_blank">{email}</a>
-										</p>
-									</div>
-								</div>
-							</div>
-
-					{/exp:user:users}
-
-						</div> {!-- Leave this to close the last row --}
-					</div>
-
+			<div class="page-header">
+				<h2>Fellowships: About</h2>
 			</div>
 
-		{!-- 2015-2016 -----------------------------------}
+			{!--<p><a href="/fellowships">Go to RJI Fellowships</a></p>		--}
+			<div class="about-block embed-responsive-16by9"><iframe allowfullscreen="" class="embed-responsive-item" frameborder="0" height="480" src="//www.youtube.com/embed/MD3YIn0YsQA?rel=0" width="853"></iframe></div>
 
-			<div class="profile-list">
-				<h3 class="secondary" id="2015">2015–2016 class</h3>
+			<div class="about-block about-block-text">
+			  <p>The Donald W. Reynolds Journalism Institute invites proposals from people and institutions to collaborate with us on innovative ideas and projects to improve the practice or understanding of journalism. We’re giving special consideration this year to ideas and projects focused on solving problems created by filter bubbles, fake news and mistrust of the news media; however, we also invite submission of other ideas and projects that could strengthen democracy through better journalism.</p>
 
-					<div class="">
+			  <p>Successful collaborations are often in one of three categories but are not limited to the following:</p>
 
-					{exp:user:users orderby="sort_order" sort="asc" group_id="1|6|7|8" search:fellows_class="2015-2016"}
+			  <ul>
+				<li>Transformation of an idea into a market-tested prototype.</li>
+				<li>Development and deployment of a prototyped product or service into a substantial market test to prepare it for angel or venture investment or a full product launch.</li>
+				<li>Scholarly research that leads to publication of new understandings about the practice of journalism.</li>
+			  </ul>
 
-						{if (count % 2) == 1}
-							{if count != 1}
-							</div> {!-- Close the previous row, but there ins't one on the first pass... --}
-							{/if}
-							<div class="row"> {!-- Start the next row --}
-						{/if}
+			  <p>We have three formats for RJI Fellowships:<a href="{path='fellowships/matrix'}"><img alt="" class="img-responsive" src="/images/posts/fellowsmatrix2015.png" style="width: 400px; height: 328px; margin: 10px; float: right;" /></a></p>
 
-						<div class="col-sm-6 profile-height">
-								<div class="media staff card">
-									<a class="pull-left" href="{path=account/profile}/{member_id}"><img class="media-object" src="{if avatar_filename}{avatar_url}{avatar_filename}{if:else}/images/avatars/uploads/avatar_1.png{/if}" title="{screen_name}" alt="{screen_name}" class="profile-avatar"></a>
-									<div class="media-body">
-										<h4 class="media-heading"><a href="{path=account/profile}/{member_id}">{screen_name}</a></h4>
-										<p class="user-info">
-											{position_1}<br>
-											{if phone}<a href="tel:{phone}">{phone}</a><br>{/if}
-											<a href="mailto:{email}" target="_blank">{email}</a>
-										</p>
-									</div>
-								</div>
-							</div>
+			  <h3 id="residential">1. Residential</h3>
 
-					{/exp:user:users}
+			  <p>Residential fellowships are designed for persons, inside and outside media industries, who want to collaborate with RJI in the pursuit of solutions to a particular journalism problem. Residential fellows spend eight months on campus at the Missouri School of Journalism, taking advantage of the intellectual and technological resources of RJI and the school and interacting with Missouri faculty and students. Resource examples include access to programmers and app developers, financial support to conduct market research, and paid students to produce multimedia content.</p>
 
-						</div> {!-- Leave this to close the last row --}
-					</div>
+			  <p>Solutions — in the form of strategies, products or services — developed from these ideas would be shared with many news and news-related organizations. You must reside in Columbia, Missouri, for the duration of this fellowship.</p>
 
+			  <dl class="dl-horizontal">
+				<dt>WHO:</dt>
+				<dd>Anyone above the age of 18</dd>
+				<dt>WHEN:</dt>
+				<dd>Sept. 1, 2017</dd>
+				<dt>HOW LONG:</dt>
+				<dd>8 months (two academic semesters)</dd>
+				<dt>HOW MUCH:</dt>
+				<dd>Fellows receive a $10,000 a month stipend and a one-time $10,000 allowance to use for relocation or housing.</dd>
+				<dt>APPLICATION DEADLINE:</dt>
+				<dd>Feb. 1, 2017</dd>
+			  </dl>
+
+			  <h3 id="non-residential">2. Nonresidential</h3>
+
+			  <p>Nonresidential fellowships are designed for entrepreneurial individuals with a strong interest in journalism and issues related to digital communications. Your fellowship can be about something you are interested in pursuing on your own or something that could benefit a current employer. Successful ideas, products or strategies should serve as a model for the news industry or help the industry get smarter, faster and nimbler. You do not need to live in Columbia but you will need to make occasional visits to consult with RJI leadership and staff.</p>
+
+			  <dl class="dl-horizontal">
+				<dt>WHO:</dt>
+				<dd>Anyone above the age of 18</dd>
+				<dt>WHEN:</dt>
+				<dd>Starting date is negotiable</dd>
+				<dt>HOW LONG:</dt>
+				<dd>8 months</dd>
+				<dt>HOW MUCH:</dt>
+				<dd>Fellows receive a $20,000 stipend, payable monthly for eight months at $2,500 per month, plus some research and travel support.</dd>
+				<dt>APPLICATION DEADLINE:</dt>
+				<dd>Feb. 1, 2017</dd>
+			  </dl>
+
+			  <h3 id="institutional">3. Institutional</h3>
+
+			  <p>Institutional fellowships are designed to unlock some of the thoughtful, meaningful ideas inside newsrooms, ad departments, boardrooms and break rooms that for various reasons can’t get any traction. RJI will collaborate with a leader at a company or institution who will identify an employee who can develop an idea or lead a team that could do it. The employee will be named an RJI Fellow but will continue working at his or her job. The stipend for this fellowship will be paid to the company or institution to be used for salary relief for the part-time fellow, or for another purpose that the company or institution determines will best ensure the success of the fellowship project.</p>
+
+			  <dl class="dl-horizontal">
+				<dt>WHO:</dt>
+				<dd>Managers and executives from institutions or companies</dd>
+				<dt>WHEN:</dt>
+				<dd>Starting date is negotiable</dd>
+				<dt>HOW LONG:</dt>
+				<dd>8 months</dd>
+				<dt>HOW MUCH:</dt>
+				<dd>$20,000 payable to the company or institution, in four $5,000 payments</dd>
+				<dt>APPLICATION DEADLINE:</dt>
+				<dd>Feb. 1, 2017</dd>
+			  </dl>
+
+			  <h3 id="apply">How to apply</h3>
+
+			  <p>Open the application form at this link.</p>
+
+			  <p><a class="btn btn-success" href="https://app.wizehive.com/apps/rjifellowshipapp17" role="button">https://app.wizehive.com/apps/rjifellowshipapp17</a></p>
+
+			  <p>We will ask you to describe the collaboration project you’re proposing. Once you answer all questions, click Apply. We will acknowledge the receipt of your application.</p>
+
+			  <p>For proposals we advance to the next stage of consideration, we will ask you to answer a second, more detailed set of questions about the project, its deliverables, your qualifications to collaborate with us, what your team will contribute to that collaboration and what you may need from RJI in the collaboration. After that, we may interview some of those who submit second-stage applications.</p>
+
+			  <p>We plan to make our selection of fellows in the early spring. The materials you submit in this application process become the property of RJI to use as part of our mission to advance the practice of journalism. We will notify you at the e-mail address you supply of our final decision regarding your application.</p>
+
+			  <p>If you have questions about this process, contact <a href="https://www.rjionline.org/account/profile/593">Roger Gafke</a> RJI’s selection committee chairman, at <a href="mailto:rjifellows2017@rjionline.org">rjifellows2017@rjionline.org</a>.</p>
+
+			  <p>For more information about us, <a href="/about">please start here</a>.</p>
+
+			  <p>This Fellowship application service is adapted from the <a href="http://www.wizehive.com/applicant">Scholarship Management System</a> provided by WizeHive.</p>
 			</div>
 
-		{!-- 2014-2015 -----------------------------------}
-
-			<div class="profile-list">
-				<h3 class="secondary" id="2014">2014–2015 class</h3>
-
-					<div class="">
-
-					{exp:user:users orderby="sort_order" sort="asc" group_id="1|6|7|8" search:fellows_class="2014-2015"}
-
-						{if (count % 2) == 1}
-							{if count != 1}
-							</div> {!-- Close the previous row, but there ins't one on the first pass... --}
-							{/if}
-							<div class="row"> {!-- Start the next row --}
-						{/if}
-
-							<div class="col-sm-6 profile-height">
-								<div class="media staff card">
-									<a class="pull-left" href="{path=account/profile}/{member_id}"><img class="media-object" src="{if avatar_filename}{avatar_url}{avatar_filename}{if:else}/images/avatars/uploads/avatar_1.png{/if}" title="{screen_name}" alt="{screen_name}" class="profile-avatar"></a>
-									<div class="media-body">
-										<h4 class="media-heading"><a href="{path=account/profile}/{member_id}">{screen_name}</a></h4>
-										<p class="user-info">
-											{position_1}<br>
-											{if phone}<a href="tel:{phone}">{phone}</a><br>{/if}
-											<a href="mailto:{email}" target="_blank">{email}</a>
-										</p>
-									</div>
-								</div>
-							</div>
-
-
-					{/exp:user:users}
-
-						</div>
-					</div>
-
-			</div>
-
-		{!-- 2013-2014 -----------------------------------}
-
-			<div class="profile-list">
-				<h3 class="secondary" id="2013">2013–2014 class</h3>
-
-					<div class=" ">
-
-					{exp:user:users orderby="sort_order" sort="asc" group_id="1|6|7|8" search:fellows_class="2013-2014"}
-
-						{if (count % 2) == 1}
-							{if count != 1}
-							</div> {!-- Close the previous row, but there ins't one on the first pass... --}
-							{/if}
-							<div class="row"> {!-- Start the next row --}
-						{/if}
-
-							<div class="col-sm-6 profile-height">
-								<div class="media staff card">
-									<a class="pull-left" href="{path=account/profile}/{member_id}"><img class="media-object" src="{if avatar_filename}{avatar_url}{avatar_filename}{if:else}/images/avatars/uploads/avatar_1.png{/if}" title="{screen_name}" alt="{screen_name}" class="profile-avatar"></a>
-									<div class="media-body">
-										<h4 class="media-heading"><a href="{path=account/profile}/{member_id}">{screen_name}</a></h4>
-										<p class="user-info">
-											{position_1}<br>
-											{if phone}<a href="tel:{phone}">{phone}</a><br>{/if}
-											<a href="mailto:{email}" target="_blank">{email}</a>
-										</p>
-									</div>
-								</div>
-							</div>
-
-
-					{/exp:user:users}
-
-						</div>
-					</div>
-
-			</div>
-
-		{!-- 2012-2013 -----------------------------------}
-
-			<div class="profile-list">
-				<h3 class="secondary" id="2012">2012–2013 class</h3>
-
-					<div class="">
-
-					{exp:user:users orderby="sort_order" sort="asc" group_id="1|6|7|8" search:fellows_class="2012-2013"}
-
-						{if (count % 2) == 1}
-							{if count != 1}
-							</div> {!-- Close the previous row, but there ins't one on the first pass... --}
-							{/if}
-							<div class="row"> {!-- Start the next row --}
-						{/if}
-
-							<div class="col-sm-6 profile-height">
-								<div class="media staff card">
-									<a class="pull-left" href="{path=account/profile}/{member_id}"><img class="media-object" src="{if avatar_filename}{avatar_url}{avatar_filename}{if:else}/images/avatars/uploads/avatar_1.png{/if}" title="{screen_name}" alt="{screen_name}" class="profile-avatar"></a>
-									<div class="media-body">
-										<h4 class="media-heading"><a href="{path=account/profile}/{member_id}">{screen_name}</a></h4>
-										<p class="user-info">
-											{position_1}<br>
-											{if phone}<a href="tel:{phone}">{phone}</a><br>{/if}
-											<a href="mailto:{email}" target="_blank">{email}</a>
-										</p>
-									</div>
-								</div>
-							</div>
-
-					{/exp:user:users}
-
-						</div>
-					</div>
-
-			</div>
-
-		{!-- 2011-2012 -----------------------------------}
-
-			<div class="profile-list">
-				<h3 class="secondary" id="2011">2011–2012 class</h3>
-
-					<div class="">
-
-					{exp:user:users orderby="sort_order" sort="asc" group_id="1|6|7|8" search:fellows_class="2011-2012"}
-
-						{if (count % 2) == 1}
-							{if count != 1}
-							</div> {!-- Close the previous row, but there ins't one on the first pass... --}
-							{/if}
-							<div class="row"> {!-- Start the next row --}
-						{/if}
-
-							<div class="col-sm-6 profile-height">
-								<div class="media staff card">
-									<a class="pull-left" href="{path=account/profile}/{member_id}"><img class="media-object" src="{if avatar_filename}{avatar_url}{avatar_filename}{if:else}/images/avatars/uploads/avatar_1.png{/if}" title="{screen_name}" alt="{screen_name}" class="profile-avatar"></a>
-									<div class="media-body">
-										<h4 class="media-heading"><a href="{path=account/profile}/{member_id}">{screen_name}</a></h4>
-										<p class="user-info">
-											{position_1}<br>
-											{if phone}<a href="tel:{phone}">{phone}</a><br>{/if}
-											<a href="mailto:{email}" target="_blank">{email}</a>
-										</p>
-									</div>
-								</div>
-							</div>
-
-					{/exp:user:users}
-
-						</div>
-					</div>
-
-			</div>
-
-		{!-- 2010-2011 -----------------------------------}
-
-			<div class="profile-list">
-				<h3 class="secondary" id="2010">2010–2011 class</h3>
-
-					<div class="">
-
-					{exp:user:users orderby="sort_order" sort="asc" group_id="1|6|7|8" search:fellows_class="2010-2011"}
-
-						{if (count % 2) == 1}
-							{if count != 1}
-							</div> {!-- Close the previous row, but there ins't one on the first pass... --}
-							{/if}
-							<div class="row"> {!-- Start the next row --}
-						{/if}
-
-							<div class="col-sm-6 profile-height">
-								<div class="media staff card">
-									<a class="pull-left" href="{path=account/profile}/{member_id}"><img class="media-object" src="{if avatar_filename}{avatar_url}{avatar_filename}{if:else}/images/avatars/uploads/avatar_1.png{/if}" title="{screen_name}" alt="{screen_name}" class="profile-avatar"></a>
-									<div class="media-body">
-										<h4 class="media-heading"><a href="{path=account/profile}/{member_id}">{screen_name}</a></h4>
-										<p class="user-info">
-											{position_1}<br>
-											{if phone}<a href="tel:{phone}">{phone}</a><br>{/if}
-											<a href="mailto:{email}" target="_blank">{email}</a>
-										</p>
-									</div>
-								</div>
-							</div>
-
-					{/exp:user:users}
-
-						</div>
-					</div>
-
-			</div>
-
-		{!-- 2009-2010 -----------------------------------}
-
-			<div class="profile-list">
-				<h3 class="secondary" id="2009">2009–2010 class</h3>
-
-					<div class="">
-
-					{exp:user:users orderby="sort_order" sort="asc" group_id="1|6|7|8" search:fellows_class="2009-2010"}
-
-						{if (count % 2) == 1}
-							{if count != 1}
-							</div> {!-- Close the previous row, but there ins't one on the first pass... --}
-							{/if}
-							<div class="row"> {!-- Start the next row --}
-						{/if}
-
-							<div class="col-sm-6 profile-height">
-								<div class="media staff card">
-									<a class="pull-left" href="{path=account/profile}/{member_id}"><img class="media-object" src="{if avatar_filename}{avatar_url}{avatar_filename}{if:else}/images/avatars/uploads/avatar_1.png{/if}" title="{screen_name}" alt="{screen_name}" class="profile-avatar"></a>
-									<div class="media-body">
-										<h4 class="media-heading"><a href="{path=account/profile}/{member_id}">{screen_name}</a></h4>
-										<p class="user-info">
-											{position_1}<br>
-											{if phone}<a href="tel:{phone}">{phone}</a><br>{/if}
-											<a href="mailto:{email}" target="_blank">{email}</a>
-										</p>
-									</div>
-								</div>
-							</div>
-
-					{/exp:user:users}
-
-						</div>
-					</div>
-
-			</div>
-
-		{!-- 2008-2009 -----------------------------------}
-
-			<div class="profile-list">
-				<h3 class="secondary" id="2008">2008–2009 class</h3>
-
-					<div class="">
-
-					{exp:user:users orderby="sort_order" sort="asc" group_id="1|6|7|8" search:fellows_class="2008-2009"}
-
-						{if (count % 2) == 1}
-							{if count != 1}
-							</div> {!-- Close the previous row, but there ins't one on the first pass... --}
-							{/if}
-							<div class="row"> {!-- Start the next row --}
-						{/if}
-
-							<div class="col-sm-6 profile-height">
-								<div class="media staff card">
-									<a class="pull-left" href="{path=account/profile}/{member_id}"><img class="media-object" src="{if avatar_filename}{avatar_url}{avatar_filename}{if:else}/images/avatars/uploads/avatar_1.png{/if}" title="{screen_name}" alt="{screen_name}" class="profile-avatar"></a>
-									<div class="media-body">
-										<h4 class="media-heading"><a href="{path=account/profile}/{member_id}">{screen_name}</a></h4>
-										<p class="user-info">
-											{position_1}<br>
-											{if phone}<a href="tel:{phone}">{phone}</a><br>{/if}
-											<a href="mailto:{email}" target="_blank">{email}</a>
-										</p>
-									</div>
-								</div>
-							</div>
-
-					{/exp:user:users}
-
-						</div>
-					</div>
-
-			</div>
-
-		{!-- 2004 -----------------------------------}
-
-			<div class="profile-list">
-				<h3 class="secondary" id="2004">2004 class</h3>
-
-					<div class="">
-
-					{exp:user:users orderby="sort_order" sort="asc" group_id="1|6|7|8" search:fellows_class="2004"}
-
-						{if (count % 2) == 1}
-							{if count != 1}
-							</div> {!-- Close the previous row, but there ins't one on the first pass... --}
-							{/if}
-							<div class="row"> {!-- Start the next row --}
-						{/if}
-
-							<div class="col-sm-6 profile-height">
-								<div class="media staff card">
-									<a class="pull-left" href="{path=account/profile}/{member_id}"><img class="media-object" src="{if avatar_filename}{avatar_url}{avatar_filename}{if:else}/images/avatars/uploads/avatar_1.png{/if}" title="{screen_name}" alt="{screen_name}" class="profile-avatar"></a>
-									<div class="media-body">
-										<h4 class="media-heading"><a href="{path=account/profile}/{member_id}">{screen_name}</a></h4>
-										<p class="user-info">
-											{position_1}<br>
-											{if phone}<a href="tel:{phone}">{phone}</a><br>{/if}
-											<a href="mailto:{email}" target="_blank">{email}</a>
-										</p>
-									</div>
-								</div>
-							</div>
-
-					{/exp:user:users}
-
-						</div>
-					</div>
-
-			</div>
-
-    </div>
-
-    <div id="sidebar" class="col-sm-12 col-md-4">
-
-    	{!--countdown_timer--}
-		{fellowships_sidebar}
-
-	</div>
-
-</div>
-</div>
+  		</div> {!-- ends primary section --}
+
+        <div id="sidebar" class="col-sm-12 col-md-4">
+			{!--countdown_timer--}
+			{fellowships_sidebar}
+ 		</div>
+	</div> {!-- ends .row --}
+	</div> {!-- ends #main-section --}
 
 {page_end}
