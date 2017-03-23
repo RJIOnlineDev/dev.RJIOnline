@@ -6,7 +6,7 @@
 
 {!-- =============================================Individual Story=============================================
 	if there is something in segment 2 then we know that we are looking at a story, however, BWF puts index in the URL
-	so we have to check for that, too. 
+	so we have to check for that, too.
 	=========================================================================================================== --}
 
 {if:else}
@@ -38,7 +38,7 @@
 
 	{!-- Display story title in the browser tab --}
 	<title>{title} | RJI</title>
-	
+
 	{!-- Create meta tags for SEO and social media sharing. There are to keywords meta tag; that tag is no longer used. --}
 	<meta name="description" content="{proj_teaser}" /> {!-- Used when displaying text about this link --}
 	<link rel="publisher" href="https://plus.google.com/111709737662107424167" /> {!-- No surprise Google uses its own social network to identify publishers --}
@@ -72,7 +72,7 @@
 	<li class="active visible-sm-inline-block">{exp:trunchtml chars="100" exact="yes" ending="..."}{title}{/exp:trunchtml}</li>
 	<li class="active visible-md-inline-block visible-lg-inline-block" property="itemListElement" typeof="WebPage"><span property="name">{title}</span><meta property="position" content="2"></li>
 </ol>
-		
+
 <div id="main-section" class="container">
 	<div class="row">
 		<div id="primary-section" class="col-md-8 col-sm-12">
@@ -80,19 +80,19 @@
 			if status == "open" OR (status == "draft" AND (member_group == "1" OR member_group == "6" OR member_group == "7" OR member_group == "8"))--}
 			{!--if status == "open" OR (member_group == "1" OR member_group == "6" OR member_group == "7" OR member_group == "8")}
 			{if status != "open"}<div class="alert alert-warning">This entry is currently unpublished and is not visible to the public! ({status})</div>{/if} --}
-			
+
 			{!-- Banner --}
 			{if proj_banner}
 				<div class="banner-wrapper">
 					<img src="{proj_banner}" class="img-responsive banner"/>
 				</div>
-			{/if}		
-			
+			{/if}
+
 			{!-- Begin story presentation --}
-			
+
 			{!-- Begin title section --}
 			<div class="page-header">
-			
+
 				{exp:gwcode_categories entry_id="{entry_id}" style="linear"}
 
 				{if results_total > 0 AND cat_count == 1}
@@ -105,20 +105,20 @@
 
 							<a href="/research/categories/{cat_url_title}" class="label label-default">{cat_name}</a>&nbsp;
 				{if cat_count == results_total }
-						</div>					
+						</div>
 
 					</div>
 
 				{/if}
 
 				{/exp:gwcode_categories}
-				<h1>{title}</h1>	
-				
+				<h1>{title}</h1>
+
 				<div class="row story-desc">
 					<div class="col-xs-12">{embed="stories/_author_list" entry_author="{author}" entry_id="{entry_id}"} | {entry_date format="%F %j, %Y"}</div>
 				</div>
 
-			</div> 
+			</div>
 			{!-- End title section --}
 
 			{proj_info_pages}
@@ -142,12 +142,12 @@
 			</div>
 			{/if}
 			{/proj_info_pages}
-					
-					
+
+
 			{proj_description}
-			
+
 			{!-- Author signature. Dependent on custom entry field that if checked places the author's signature --}
-			
+
 			{embed="stories/_author_signature" entry_id="{entry_id}"}
 			{related_events}
 				{if "{related_events:count}" == "1"}
@@ -250,17 +250,17 @@
 			</div>
 			{/if}
 			{/proj_related_stories}
-				
+
 		<br>
 		<div class="row story-desc visible-xs">
 				<div class="col-xs-12">
 					<strong>Share</strong><br>
 				</div>
 		</div>
-		<div class="visible-xs">	
+		<div class="visible-xs">
 			{social_share_buttons}
 		</div>
-		
+
 		{if !is_bwf_preview}
 		{disqus_comments} {!-- Snippet that calls all comments for this post and has comment form --}
 		{/if}

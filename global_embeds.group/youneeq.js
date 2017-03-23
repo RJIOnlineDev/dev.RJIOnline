@@ -13,7 +13,7 @@
  *         data-yq-features="google-analytics|gigya"></div>
  *
  * Recognized parameters include:
- * 
+ *
  * suggest-count: Number of articles to display.
  * suggest-function: Name of a function that gathers suggest parameters and returns it as an object.
  *     Either suggest-function or suggest-count must be defined in order for recommendations to be returned.
@@ -336,7 +336,7 @@ YouneeqHandler.prototype = {
                 else if ('suggest_panel_custom' in args) {
                     this.suggest.panel_custom = args.suggest_panel_custom.split('|');
                 }
-                
+
                 if ('panel_type' in data) {
                     this.suggest.panel_type = data.panel_type;
                 }

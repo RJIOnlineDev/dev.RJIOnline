@@ -55,7 +55,25 @@
 	<meta name="twitter:title" content="{title} | RJI" />
 	<meta name="twitter:image" content="{if proj_banner}{news_banner}{if:elseif proj_preview_image}{proj_preview_image:rect}{if:else}{default_img_src}{/if}" /> {!-- Use preview image or the default one. Twitter wants a smaller, square image < 1mb --}
 	<meta name="twitter:description" content="{proj_teaser}" /> {!-- Use the same value as our regular meta description --}
+<!-- <<<<<<< HEAD
 
+=======
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+			$(".pager li a").click(function(e){
+				console.log("It was clicked");
+				e.preventDefault();
+				var href = $(this).attr("href");
+				$.get(href, {}, function(data){
+					$("#articles").empty();
+					$("#articles").append(data);
+				});
+			});
+		});
+	</script>
+>>>>>>> d17f34418afa3dc7c7beca2d22ed3a8cfa3eb713 -->
 	{head_content}
 
 {html_head_end}
@@ -149,8 +167,24 @@
 			{!-- Author signature. Dependent on custom entry field that if checked places the author's signature --}
 
 			{embed="stories/_author_signature" entry_id="{entry_id}"}
+<!-- <<<<<<< HEAD -->
 			{related_events}
 				{if "{related_events:count}" == "1"}
+<!-- =======
+			{exp:stash:set_list name="related_events" parse_tags="yes"}
+				{related_events}
+					{stash:events_title}{related_events:title}{/stash:events_title}
+					{if related_events:page_url != ''}{stash:events_page_url}{related_events:page_url}{/stash:events_page_url}{if:else}{stash:events_page_url}{related_events:comment_url_title_auto_path}{/stash:events_page_url}{/if}
+					{if related_events:event_thumbnail}{stash:events_news_image}{related_events:event_thumbnail}{/stash:events_news_image}{if:else}{stash:events_news_image}{default_img_src}{/stash:events_news_image}{/if}
+					{stash:events_post_series}{related_events:post_series}{/stash:events_post_series}
+					{stash:events_entry_date}{related_events:entry_date format="%F %j, %Y"}{/stash:events_entry_date}
+					{stash:events_teaser}{related_events:teaser}{/stash:events_teaser}
+				{/related_events}
+			{/exp:stash:set_list}
+			{exp:stash:parse}
+			{exp:stash:get_list name="related_events" prefix="related_events" parse_conditionals="yes" parse_tags="yes" paginate="bottom" limit="10"}
+				{if related_events:count == 1}
+>>>>>>> d17f34418afa3dc7c7beca2d22ed3a8cfa3eb713 -->
 				<h3 class="secondary"> Events related to {title}</h3>
 				<div class="card-bg">
 					<ul class="media-list" id="related-events">
@@ -175,11 +209,33 @@
 
 						</li> {!-- ends .media entry --}
 
+<!-- <<<<<<< HEAD -->
 						{if "{related_events:count}" == "{related_events:total_results}"}
 			  		</ul>
 				</div>
 			{/if}
 			{/related_events}
+<!-- =======
+						{if {related_events:count} == {related_events:total_results}}
+			  		</ul>
+				</div>
+			{related_stories:paginate}
+				{pagination_links}
+				<ul class="pager">
+					{previous_page}
+							<li class="previous"><a href="{pagination_url}">&larr; Previous Stories</a></li>
+					{/previous_page}
+
+					{next_page}
+							<li class="next"><a href="{pagination_url}">Next Stories &rarr;</a></li>
+					{/next_page}
+				</ul>
+				{/pagination_links}
+			{/related_stories:paginate}
+			{/if}
+			{/exp:stash:get_list}
+			{/exp:stash:parse}
+>>>>>>> d17f34418afa3dc7c7beca2d22ed3a8cfa3eb713 -->
 			{related_downloads}
 				{if "{related_downloads:count}" == "1"}
 				<h3 class="secondary"> Downloads related to {title}</h3>
@@ -250,7 +306,6 @@
 			</div>
 			{/if}
 			{/proj_related_stories}
-
 		<br>
 		<div class="row story-desc visible-xs">
 				<div class="col-xs-12">

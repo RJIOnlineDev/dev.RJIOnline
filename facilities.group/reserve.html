@@ -11,7 +11,7 @@
 	</title>
 	{head_content}
     {exp:calendar:datepicker_css}
-{html_head_end}	
+{html_head_end}
 <body>
 {embed="main/_navbar"}
 
@@ -24,12 +24,12 @@
 <div id="main-section" class="container">
 <div class="row">
 	<div class="col-md-8 col-sm-12">
-	
+
 	{if segment_4 == "" AND segment_7 == ""}
 		<div class="page-header">
 			<h2>Request a room</h2>
 		</div>
-		
+
 		<form onsubmit="return go();">
 		<div class="row">
 			<div class="form-group col-sm-6">
@@ -78,7 +78,7 @@
 			<input type="submit" class="btn btn-default" name="submit" value="Continue">
 		</form>
 	{if:else}
-	
+
 		{if segment_6 == ""}
 		<div class="header">
 		  <div class="page-header">
@@ -89,7 +89,7 @@
 		<p>
 			There are currently reservations for this room on days shaded yellow. Click on 'view' to see detailed availability.
 		</p>
-		
+
 		  <div id="mc_wrap" style="margin-top: 1em;">
 			  {exp:calendar:cal
 				  {if segment_4 == ''}
@@ -158,7 +158,7 @@
 								  {/events}
 								{/if}
 							</div>
-								
+
 								  </td>
 							  {/display_each_day}
 						  </tr>
@@ -169,42 +169,42 @@
 				  </div>
 			  {/exp:calendar:cal}
 		  </div>
-		  
+
 		  {if:else}
-	
+
 		{if segment_7 != ""}
-		
+
 			<div class="page-header">
 				<h2>Room request form</h2>
 			</div>
-		
-			You are requesting to reserve the 
-				{exp:channel:entries 
-					channel="rooms" 
+
+			You are requesting to reserve the
+				{exp:channel:entries
+					channel="rooms"
 					entry_id="{segment_3}"
 					dynamic="no"
 					disable="categories|category_fields|member_data|pagination"}
-					
+
 					<strong>{title}</strong>
-				
-				
-				on <strong>{segment_5}/{segment_6}/{segment_4}</strong> 
-				at 
+
+
+				on <strong>{segment_5}/{segment_6}/{segment_4}</strong>
+				at
 				<strong>
 				{if {exp:math formula="[1]/100" params="{segment_7}" round="down" decimals="0"} > 12}{exp:math formula="[1]/100-12" params="{segment_7}" round="down" decimals="0"}{if:else}{exp:math formula="[1]/100" params="{segment_7}" round="down" decimals="0"}{/if}{if {segment_7} % 100 == 0}:00{if:else}:30{/if}{if {exp:math formula="[1]/100" params="{segment_7}" round="down" decimals="0"} > 11} p.m.{if:else} a.m.{/if}
 				</strong>
-				
+
 				<a href="{site_url}facilities/reserve/{segment_3}/{segment_4}/{segment_5}">Pick another time.</a>
-			
+
 			{embed="facilities/_email_form" room="{title}" room_number="{room_number}" year="{segment_4}" month="{segment_5}" day="{segment_6}" time="{segment_7}"}
-			
-			{/exp:channel:entries} 
-		
+
+			{/exp:channel:entries}
+
 		{if:else}
 
-		{exp:calendar:cal 
+		{exp:calendar:cal
 		  calendar_id="100|115"
-		  pad_short_weeks="n" 
+		  pad_short_weeks="n"
 		  {if segment_4 == ''}
 			  date_range_start="today"
 			  date_range_end="today"
@@ -214,7 +214,7 @@
 			  date_range_end="{segment_4}-{segment_5}-{segment_6}"
 		  {/if}
 		 }
-		 
+
 		  {display_each_day}
 			  <div class="header">
 				  <div class="page-header">
@@ -231,7 +231,7 @@
 				<div style="height: 50px; padding: 10px;">
 					12:30 am
 				</div>
-			  	{exp:for_loop start="1" end="11" increment="1"} 
+			  	{exp:for_loop start="1" end="11" increment="1"}
 			  	<div style="height: 50px; padding: 10px;">
 					{index}:00 am
 				</div>
@@ -245,7 +245,7 @@
 				<div style="height: 50px; padding: 10px;">
 					12:30 pm
 				</div>
-				{exp:for_loop start="1" end="11" increment="1"} 
+				{exp:for_loop start="1" end="11" increment="1"}
 			  	<div style="height: 50px; padding: 10px;">
 					{index}:00 pm
 				</div>
@@ -255,36 +255,36 @@
 				{/exp:for_loop}
 			  </div>
 			  <div class="col-xs-10">
-			  
+
 			  {!-- Have open reservation buttons that lead to a URL with a form that you can then add to the reservation space
 			       these get covered by reservations (heigher z-index values) --}
-			  {exp:for_loop start="0" end="2350" increment="50"} 
-			  	<div class="space-available alert-success" 
+			  {exp:for_loop start="0" end="2350" increment="50"}
+			  	<div class="space-available alert-success"
 					style="height: 50px; top: {index}px;">
-					
+
 					<a href="{site_url}facilities/reserve/{segment_3}/{segment_4}/{segment_5}/{segment_6}/{index}" class="alert-link">Request this space</a>
-					 
+
 				</div>
 			  {/exp:for_loop}
-			  
+
 			  {display_each_hour}
 				  {events}
 				  {if "{event_location:entry_id}" == "{segment_3}"}
 				  {if event_all_day OR event_has_rules}
-				   <div class="space-reserved alert-warning" 
+				   <div class="space-reserved alert-warning"
 				  	style="height: {exp:math formula='50*48' thousands_seperator=''}px; top:0px;">
 				  {!-- if:elseif {exp:math formula='50*[1]+50*[2]' params='{event_duration_hours}|{event_start_date format="%G"}' thousands_seperator=""} > 1200 }
 				  	{!-- The is a multi-day event and needs to be cut -}
 					<div class="space-reserved alert-warning"
 					 style="height: {exp:math formula='1200-50*[1]' params='{event_start_date format="%G"}'}px; top: {exp:math formula='50*[1]' params='{event_start_date format="%G"}'}px;">
 				  --}{if:else}
-				  <div class="space-reserved alert-warning" 
+				  <div class="space-reserved alert-warning"
 				  	style="height: {exp:math formula='100*[1]+50*([2]/30)' params='{event_duration_hours}|{event_duration_minutes}' thousands_seperator=""}px; top: {exp:math formula='100*[1]+[2]*(5/3)' params='{event_start_date format="%G"}|{event_start_date format="%i"}' thousands_seperator=""}px;">
 				  {/if}
 					  <div class="head">
 						  <h4>
 						  	Room reserved
-						  </h4> 
+						  </h4>
 					  {if event_all_day}
 						  <p>
 							  All day! | {event_location:title}
@@ -312,17 +312,17 @@
 		  {/display_each_day}
 	  {/exp:calendar:cal}
 	  {/if}
-	  
+
 	  {/if}
-	  
+
 	{/if}
-	
-    </div>	
-	
-    <div id="sidebar" class="col-md-4 hidden-sm hidden-xs nocontent"> 
+
+    </div>
+
+    <div id="sidebar" class="col-md-4 hidden-sm hidden-xs nocontent">
   		{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="NO" tags="NO" section="stories"}
     </div>
-	
+
 </div>
 </div>
 

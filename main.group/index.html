@@ -45,7 +45,7 @@
 	]
 	</script>
 {html_head_end}
-<body> 
+<body>
 {embed="main/_navbar"}
 
 		  {!-- Carousel Bootstrap JS works with classes as outlined below:
@@ -63,7 +63,6 @@
 		  <div id="carousel" class="carousel slide hidden-xs" data-ride="carousel">
 
 		  {exp:channel:entries channel="slider_images" limit="4" category="70" disable="categories|member_data|category_fields|pagination" cache="yes" refresh="500"}
-
 		  		{if count == 1 AND total_results > 1}
 		  		<ol class="carousel-indicators">
 					{exp:for_loop start="1" end="{total_results}" increment="1"}
@@ -75,7 +74,6 @@
 		  {if count == 1}
 			  <div class="carousel-inner">
 		  {/if}
-
 				  {!-- We need an active item to make the carousel work so check if it's the first post --}
 				  <div class="item {if count == 1}active{/if}">
 					  <a href="{image_link}"><img src="{image}"></a>
@@ -83,7 +81,6 @@
 						  {text}
 					  </div>
 				  </div>
-
 
 		  {if count == total_results}
 			  </div> {!-- ends .carousel-inner --}
@@ -105,7 +102,6 @@
 
 		  {!-- main-section is a container that will hold all content below navbar and above footer container sets size and centers content on page --}
 <div id="main-section" class="container">
-
 	 {!-- Class row (see Bootstrap documentation) holds up to 12 columns.
 			We have 2 columns: primary-section and sidebar --}
 	<div class="row">
@@ -132,7 +128,6 @@
 
 				{!-- Grabs latest featured stories to be put on top --}
 				{!--exp:channel:entries channel="stories|calendar_events" status="featured" limit="3" disable="categories|member_data|category_fields|pagination" show_future_entries="yes"--}
-
 				{exp:tracker:rank
 					channel="stories"
 					status="open|featured"
@@ -145,10 +140,8 @@
 					search:post_series="not rji in the news"
 				}
 
-
 				<div class="col-sm-4 col-xs-12">
 				  <div class="thumbnail card">
-
 					  <a href="{post_path}">
 						{!-- If there is a news image, use that, else maybe it's an event so if there is an event image use that, else there is no given image, use default image --}
 						<img src=
@@ -161,7 +154,6 @@
 							{/if}
 							alt="{title}" title="{title}" class="img-responsive"/>
 					  </a>
-
 					  <div class="caption">
 						  {if channel_name == "calendar_events"}
 							  {exp:calendar:events event_id="{entry_id}"}
@@ -198,7 +190,6 @@
 				{/exp:tracker:rank}
 
 			  </div>
-
 			</div> {!-- ends featured .row --}
 
 			{!-- .page-header adds a border to the bottom of the head and adds significant spacing --}
@@ -210,6 +201,7 @@
 			</div>
 
 			{!-- Recent stories uses Bootstrap's media-list to create a list of stories with images on the side
+
 				====================
 				ul.media-list (repeat below li to populate list)
 					li.media
@@ -221,7 +213,6 @@
 				====================
 			--}
 			<div class="card-bg">
-
 				<div class="card media visible-xs">
 					<a href="/newsletters" alt="RJI Newsletters">
 						<img src="/images/uploads/rjinewsletters.png" class="img-responsive">
@@ -231,7 +222,6 @@
 					<p><a {!--href="#" class="btn btn-block btn-success" data-toggle="modal" data-target="#newsletter-modal"--} href="/newsletters" class="btn btn-block btn-success">Subscribe</a></p>
 					</div>
 				</div>
-
 				<ul id="recent-posts" class="media-list">
 
 {!--stash:nocache--}
@@ -245,7 +235,6 @@
 						refresh="700"}
 
 					{if no_results}<p>No Results</p>{/if}
-
 					{if hidden != "Yes"}{rji_media_list}{/if}
 
 					{pagination_snippet}

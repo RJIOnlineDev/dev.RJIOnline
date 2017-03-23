@@ -1,21 +1,21 @@
 {!-- Header and navbar found at the top of each page --}
-{exp:stash:set 
-	name="navbar" 
-    refresh="700" 
-    scope="site" 
-    unprefix="esc_cache" 
-    save="yes" 
-    replace="no" 
+{exp:stash:set
+	name="navbar"
+    refresh="700"
+    scope="site"
+    unprefix="esc_cache"
+    save="yes"
+    replace="no"
     parse="yes"
     parse_stage="both"
     parse_conditionals="no"
     output="yes"}
-    
+
 {letterhead}
-{!-- Navbar uses Bootstrap components to collapse on mobile and to be stuck to the top 
+{!-- Navbar uses Bootstrap components to collapse on mobile and to be stuck to the top
         On mobile, header is not visible and JS tells it to stick to the top always
         On tablet and larger, JS tells navbar to stick to top except for the top few pixels (size of header)
-        More on this JS in the global_embed/my_js 
+        More on this JS in the global_embed/my_js
         Bootstrap configures like so:
         ====================
         div.navbar (.navbar-'type')
@@ -31,7 +31,7 @@
       <div class="container-fluid">
        {!-- .navbar-header contains RJI logo and login/logout buttons for mobile --}
         <div class="navbar-header">
-          
+
           {!-- This button is the button that toggles dropdown on mobile --}
           <button type="button" class="navbar-toggle btn-lg" data-toggle="collapse" data-target=".navbar-collapse"
           			style="color: white; background-color: #006983; border-color: #006983; padding: 0px; font-size: 24px;">
@@ -42,10 +42,10 @@
           {!-- RJI logo --}
           <a class="navbar-brand rjiicon01" href="{site_url}">RJI</a>
           <!--<a class="navbar-brand" href="{site_url}"><img src="{site_url}images/uploads/logo-small.png"></a>-->
-    
+
           {!-- login/logout buttons visible only on mobile (are in the navbar on larger) --}
           {stash:nocache}
-          {if logged_out}<button class="btn navbar-btn btn-default visible-xs" data-toggle="modal" data-target="#loginModal">LOGIN</button>{/if}{if logged_in}<span class="visible-xs"><a class="btn navbar-btn btn-danger" href="{exp:freemember:logout_url}">LOGOUT</a></span>{/if}     
+          {if logged_out}<button class="btn navbar-btn btn-default visible-xs" data-toggle="modal" data-target="#loginModal">LOGIN</button>{/if}{if logged_in}<span class="visible-xs"><a class="btn navbar-btn btn-danger" href="{exp:freemember:logout_url}">LOGOUT</a></span>{/if}
           {/stash:nocache}
         </div> {!-- end .navbar-header --}
 
@@ -437,7 +437,7 @@
             <li class="visible-xs-inline-block {if "{exp:stash:get name='segment_1' type='global'}" == 'rji-links-live'}active{/if}"><a href="/rji-links-live"><i class="visible-xs fa fa-external-link-square fa-lg" ></i>RJI Links</a></li>
             <li class="visible-xs-inline-block {if "{exp:stash:get name='segment_1' type='global'}" == 'live'}active{/if}"><a href="/live"><i class="visible-xs fa fa-video-camera fa-lg" ></i>Live</a></li>
  			{/stash:nocache}
- 
+
             {!-- This dropdown list is only visible on tablet to save space on navbar so right and left lists don't overlap. Uses Bootstrap:
                  ====================
                  li.dropdown
@@ -453,7 +453,7 @@
                     <li class="{if segment_2 == 'documents'}active{/if}"><a href="{path='documents/index'}">Documents</a></li>
                 </ul>
             </li>--}
-            
+
             <li class="visible-sm dropdown yamm-fw">
             	<a href="#" class="dropdown-toggle" data-toggle="dropdown">More  <b class="caret"></b></a>
             	<ul class="dropdown-menu">
@@ -524,13 +524,13 @@
                                 	<ul class="list-unstyled text-right">
                                     {stash:nocache}
                                     	<li {if "{exp:stash:get name='segment_1' type='global'}" == "about" AND "{exp:stash:get name='segment_2' type='global'}" == ""}class="active"{/if}><a href="/about"><h4>About RJI</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "stories" AND "{exp:stash:get name='segment_2' type='global'}" == "stories" AND "{exp:stash:get name='segment_3' type='global'}" =="rji_in_the_news"}class="active"{/if}><a href="/stories/series/rji-in-the-news"><h4>RJI in the news</h4></a></li>                
+                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "stories" AND "{exp:stash:get name='segment_2' type='global'}" == "stories" AND "{exp:stash:get name='segment_3' type='global'}" =="rji_in_the_news"}class="active"{/if}><a href="/stories/series/rji-in-the-news"><h4>RJI in the news</h4></a></li>
                                         <li {if "{exp:stash:get name='segment_1' type='global'}" == "about" AND "{exp:stash:get name='segment_2' type='global'}" == "staff"}class="active"{/if}><a href="/about/staff"><h4>Staff</h4></a></li>
                                         <li {if "{exp:stash:get name='segment_1' type='global'}" == "newsletters"}class="active"{/if}><a href="/newsletters"><h4>Newsletters</h4></a></li>
                                         <li {if "{exp:stash:get name='segment_1' type='global'}" == "facilities"}class="active"{/if}><a href="/facilities"><h4>Facilities</h4></a></li>
                                         <li {if "{exp:stash:get name='segment_1' type='global'}" == "about" AND "{exp:stash:get name='segment_2' type='global'}" == "partners"}class="active"{/if}><a href="/about/partners"><h4>Partners</h4></a></li>
                                         <li {if "{exp:stash:get name='segment_1' type='global'}" == "about" AND "{exp:stash:get name='segment_2' type='global'}" == "associates"}class="active"{/if}><a href="/about/associates"><h4>Associates</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "about" AND "{exp:stash:get name='segment_2' type='global'}" == "resources"}class="active"{/if}><a href="/about/resources"><h4>Resources</h4></a></li>                   
+                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "about" AND "{exp:stash:get name='segment_2' type='global'}" == "resources"}class="active"{/if}><a href="/about/resources"><h4>Resources</h4></a></li>
                                   	{/stash:nocache}
                                   	</ul>
                                 </div>

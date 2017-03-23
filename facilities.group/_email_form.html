@@ -1,23 +1,24 @@
 {!-- Contact form --}
 <hr>
+<div>yo</div>
 {!--exp:email:contact_form user_recipients="no" recipients="rooms@rjionline.org" charset="utf-8"--}
 {exp:channel:form channel="calendar_events"}
   <div class="form-group">
 	<label for="subject">Subject:</label>
 	<input type="text" class="form-control" id="subject" name="subject" value="Room Request - {embed:room} {embed:room_number} - {embed:month}/{embed:day}/{embed:year}" readonly/>
   </div>
-  
+
   <div class="form-group">
 	<label for="name"><em class="required">&ast;</em>Contact name:</label>
     <p class="help-block">First and last name.</p>
 	<input type="text" id="name" name="contact_name" class="form-control" required/>
   </div>
-  
+
   <div class="form-group">
 	<label for="from"><em class="required">&ast;</em>Contact email:</label>
 	<input type="email" id="from" name="contact_email" class="form-control" value="" required/>
   </div>
-    
+
   {!--<div class="form-group">
 	<label for="from">Other rooms needed: {title}</label>
     {exp:channel:entries channel="rooms" dynamic="no" disable="categories|category_fields|member_data|pagination" entry_id="not {segment_3}"}
@@ -29,7 +30,7 @@
       </div>
     {/exp:channel:entries}
   </div>--}
-    
+
   <div class="form-group">
 	<label for="from">Other rooms needed:</label>
     <?php $i=0;?>{!-- This is used to distinguish between the different rooms. --}
@@ -39,9 +40,9 @@
       			<input type="checkbox" name="rooms[]" id="rooms<?php echo $i++;?>" value="{option_value}"><div>{option_value}</div>
     		</label>
   		</div>
-	{/options:rooms}  
+	{/options:rooms}
   </div>
-  
+
   <div class="row">
       <div class="form-group col-sm-6">
         <label class="control-label" for="subject">Meeting start time:</label>
@@ -59,9 +60,9 @@
             <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
             <input type="text" class="form-control" id="endTime" name="end_time" value="{embed:month}/{embed:day}/{embed:year} {if {exp:math formula="[1]/100+1" params="{segment_7}" round="down" decimals="0"} > 12}{exp:math formula="[1]/100-12+1" params="{segment_7}" round="down" decimals="0"}{if:else}{exp:math formula="[1]/100+1" params="{segment_7}" round="down" decimals="0"}{/if}{if {segment_7} % 100 == 0}:00{if:else}:30{/if}{if {exp:math formula="[1]/100+1" params="{segment_7}" round="down" decimals="0"} > 11} p.m.{if:else} a.m.{/if}" required/>
         </div>
-      </div> 
+      </div>
   </div>
-      
+
   <div class="row">
   <div class="form-group col-sm-6">
 	<label class="control-label" for="subject">Setup time:</label>
@@ -71,7 +72,7 @@
 		<input type="text" class="form-control" id="setupTime" name="setup_time" value="" />
   	</div>
   </div>
-      
+
   <div class="form-group col-sm-6">
 	<label for="subject">Cleanup time:</label>
     <p class="help-block">15 min., 1 hour, etc.</p>
@@ -81,7 +82,7 @@
   	</div>
   </div>
   </div>
-    
+
   <div class="row">
   <div class="form-group col-sm-6">
 	<label for="subject"><em class="required">&ast;</em>Telephone:</label>
@@ -90,7 +91,7 @@
 		<input type="text" class="form-control" id="phoneNumber" name="phone_number" value="" required/>
     </div>
   </div>
-      
+
   <div class="form-group col-sm-6">
 	<label for="subject"><em class="required">&ast;</em>Organization:</label>
     <div class="input-group">
@@ -99,7 +100,7 @@
     </div>
   </div>
   </div>
-   
+
   <div class="row">
       <div class="form-group col-sm-6">
         <label for="subject"><em class="required">&ast;</em>Name of event:</label>
@@ -117,13 +118,13 @@
         </div>
       </div>
   </div>
-    
+
   <div class="form-group">
 	<label for="message"><em class="required">&ast;</em>Summary:</label>
     <p class="help-block">Please give us a short description of the event you would like to hold at this time.</p>
 	<textarea id="message" name="event_about" class="form-control" rows="7" required value="{event_about}"></textarea>
   </div>
-      
+
   <div class="well well-lg">
       <div class="checkbox">
         <label>
@@ -151,5 +152,5 @@
   <input type="hidden" name="searchable" id="searchable" value="No" />
   <input type="hidden" name="is_live_streamed" id="is_live_streamed" value="No" />
   <button id="submit" name="submit" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-send"></span> Send request</button>
-    
+
 {/exp:channel:form}

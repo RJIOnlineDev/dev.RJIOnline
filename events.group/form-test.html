@@ -1,0 +1,159 @@
+{html_head}
+	<title>
+	Request a facility | RJI
+	</title>
+	{head_content}
+{html_head_end}	
+<body>
+{exp:channel:form channel="calendar_events" datepicker="yes"}
+{!--status_menu}
+  <p>Status<br>
+    <select name="status">
+      {select_options}
+    </select>
+  </p>
+{/status_menu--}
+<!--select type="hidden" name="status" value="draft"/-->
+<label for="title">Title</label>
+{!--<input type="text" name="title" id="title" value="{title}">--}
+<div class="form-group">
+	<label for="name"><em class="required">&ast;</em>Contact name:</label>
+    <p class="help-block">First and last name.</p>
+	<input type="text" id="name" name="contact_name" class="form-control" required/>
+</div>
+<div class="form-group">
+	<label for="from"><em class="required">&ast;</em>Contact email:</label>
+	<input type="email" id="from" name="contact_email" class="form-control" required/>
+</div>
+<div class="form-group">
+	<label for="from">Other rooms needed:</label>
+  	{options:rooms}
+  		<div class="checkbox">
+    		<label>
+      			<input type="checkbox" name="rooms[]" id="rooms"><div>{option_value}</div>
+    		</label>
+  		</div>
+	{/options:rooms}  
+</div>
+{!--
+  <div class="form-group">
+	<label for="from">Other rooms needed: {title}</label>
+    {exp:channel:entries channel="rooms" dynamic="no" disable="categories|category_fields|member_data|pagination"}
+      <div class="checkbox">
+      	<label>
+          <input type="checkbox" name="rooms[]" id="room-{room_number}" value="{entries:title} {room_number}">
+          {title} {room_number}
+        </label>
+      </div>
+    {/exp:channel:entries}
+  </div>
+ --}
+{!--
+<div>
+	<p>SOMETHING SHOULD APPEAR BETWEEN THIS</p>
+        {exp:calendar:date_widget}
+        {field:event_time}
+	<p>AND THIS</p>
+</div>--}
+<div class="row">
+  <div class="form-group col-sm-6">
+	<label class="control-label" for="subject">Meeting start time:</label>
+	<p class="help-block"><a href="/facilities">Click here</a> to pick another time.</p>
+	<div class="input-group">
+	  <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+	  <input type="text" class="form-control" id="startTime" name="start_time" value="11/17/2016 11:30 a.m." required/>
+	</div>
+  </div>
+  <div class="form-group col-sm-6">
+	<label for="subject"><em class="required">&ast;</em>Meeting end time:</label>
+    <p class="help-block">Please change the date and time.</p>
+    <div class="input-group">
+		<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+    	<input type="text" class="form-control" id="endTime" name="end_time" value="11/17/2016 11:59 a.m." required/>
+  	</div>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm-6">
+	<label class="control-label" for="subject">Setup time:</label>
+    <p class="help-block">15 min., 1 hour, etc.</p>
+    <div class="input-group">
+    	<span class="input-group-addon"><i class="fa fa-cubes"></i></span>
+		<input type="text" class="form-control" id="setupTime" name="setup_time" value="" required/>
+  	</div>
+  </div>
+  <div class="form-group col-sm-6">
+	<label for="subject">Cleanup time:</label>
+    <p class="help-block">15 min., 1 hour, etc.</p>
+    <div class="input-group">
+		<span class="input-group-addon"><i class="fa fa-trash-o"></i></span>
+    	<input type="text" class="form-control" id="cleanupTime" name="cleanup_time" value="" />
+  	</div>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm-6">
+	<label for="subject"><em class="required">&ast;</em>Telephone:</label>
+    <div class="input-group">
+    	<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+		<input type="text" class="form-control" id="phoneNumber" name="phone_number" value="" required/>
+    </div>
+  </div>
+  <div class="form-group col-sm-6">
+	<label for="subject"><em class="required">&ast;</em>Organization:</label>
+    <div class="input-group">
+    	<span class="input-group-addon"><i class="fa fa-building-o"></i></span>
+		<input type="text" class="form-control" id="organization" name="organization" value="" required/>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm-6">
+	<label for="subject"><em class="required">&ast;</em>Name of event:</label>
+    <div class="input-group">
+    	<span class="input-group-addon"><i class="fa fa-newspaper-o"></i></span>
+		<input type="text" class="form-control" id="eventName" name="title" value="" required/>
+    </div>
+  </div>
+  <div class="form-group col-sm-6">
+	<label for="subject"><em class="required">&ast;</em>Number of people attending:</label>
+    <div class="input-group">
+    	<span class="input-group-addon"><i class="fa fa-users"></i></span>
+		<input type="number" class="form-control" id="people" name="people" value="" required/>
+    </div>
+  </div>
+</div>
+<div class="form-group">
+	<label for="event_about"><em class="required">&ast;</em>Summary:</label>
+    <p class="help-block">Please give us a short description of the event you would like to hold at this time.</p>
+    {!--field:event_about--}
+	<textarea name="event_about" class="form-control" rows="7" required></textarea>
+</div>
+<div class="well well-lg">
+  <div class="checkbox">
+  	<label>
+    	<input type="checkbox" name="foodYes" id="foodYes" value="Yes"/>
+        I will be serving food at this event and will obtain a <a href="http://ehs.missouri.edu/food/permits.html" target="_blank" name="Temporary food permit">temporary food permit</a>.
+    </label>
+  </div>
+  <div class="checkbox">
+  	<label>
+    	<input type="checkbox" name="alcYes" id="alcYes" value="Yes"/>
+        I will be serving alcohol at this event and will obtain a temporary use of <a href="http://businessservices.missouri.edu/services/alcohol-use.html" target="_blank" name="Alcoholic beverages permit">alcoholic beverages permit</a>.
+    </label>
+  </div>
+  <div class="checkbox">
+  	<label>
+    	<input type="checkbox" name="readYes" id="readYes" value="Yes" required/>
+        <em class="required">&ast;</em>I have read and understand the <a href="{site_url}uploads/room_policies.pdf" target="_blank">RJI room reservations policies</a>.
+    </label>
+  </div>
+</div>
+{event_teaser}
+<input type="hidden" name="event_teaser" id="event_teaser" value="Default" />
+<input type="hidden" name="searchable" id="searchable" value="No" />
+<input type="hidden" name="is_live_streamed" id="is_live_streamed" value="No" />
+<!--input type="hidden" name="event_about" id="event_about" value="Default" /-->
+<button id="submit" name="submit" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-send"></span> Send request</button>
+{/exp:channel:form}
+{page_end}
