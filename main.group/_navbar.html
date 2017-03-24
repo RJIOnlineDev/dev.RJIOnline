@@ -430,6 +430,39 @@
                     </li>
                 </ul>
             </li>
+				{!--<li class="dropdown yamm-fw{stash:nocache}{if segment_1 == "resources"} active{/if}{/stash:nocache}">--}
+            {stash:nocache}<li class="dropdown yamm-fw {if "{exp:stash:get name='segment_1' type='global'}" == "resources"}active{/if}">{/stash:nocache}
+            	<a href="/downloads" class="visible-xs-inline-block {stash:nocache}{if segment_1 == 'resources'}active{/if}{/stash:nocache}"><i class="visible-xs fa fa-lg fa-file-text"></i>Resources</a>
+            	<a href="/resources" class="dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">Resources  <b class="caret"></b></a>
+            	<ul class="dropdown-menu">
+                	<li>
+                    	<div class="yamm-content">
+                        	<div class="row-fluid">
+                            	<div class="col-sm-12">
+                                	<ul class="list-unstyled text-left" style="margin-top: 1em;">
+                                    {stash:nocache}
+                                    	<li><a href="https://accountablejournalism.org/">Accountable Journalism</a></li>
+                                        <li><a href="/facilities">Conference and event facilities</a></li>
+                                        <li><a href="/frank-lee-martin-journalism-library">Frank Lee Martin Journalism Library</a></li>
+													 <li><a href="/futures-lab">Futures Lab</a></li>
+													 <li><a href="http://herstory.rjionline.org/">Herstory</a></li>
+													 <li><a href="https://ilab.rjionline.org/">iLab 3-D database</a></li>
+													 <li><a href="/microsoft-lab">Microsoft Application Development Lab</a></li>
+													 <li><a href="">MobileVideoDIY</a></li>
+													 <li><a href="/stories/powerful-tools-for-smart-pricing-decisions">Pricing Optimizer</li>
+													 <li><a href="http://reportingonclimateadaptation.org/">Reporting on Climate Adaptation</a></li>
+													 <li><a href="http://reportinghiddenstories.org/">Reporting Stories Hidden in Plain Sight</a></li>
+													 <li><a href="/stories/do-you-really-know-where-to-invest-cut">Resource Allocator</a></li>
+													 <li><a href="https://trustingnews.org/">Trusting News</a></li>
+													 <li><a href="https://potter.rjionline.org/">Walter B. Potter Sr. Conferences</a></li>
+                                    {/stash:nocache}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
             {!--<li class="visible-xs-inline-block {if segment_3 == 'codes-of-ethics'}active{/if}"><a href="/documents/references/codes-of-ethics"><i class="visible-xs fa fa-balance-scale fa-lg"></i>Ethics</a></li>--}
             {stash:nocache}
             <li class="visible-xs-inline-block {if "{exp:stash:get name='segment_1' type='global'}" == 'galleries'}active{/if}"><a href="{path='galleries/index'}"><i class="visible-xs fa fa-picture-o fa-lg" ></i>Galleries</a></li>
