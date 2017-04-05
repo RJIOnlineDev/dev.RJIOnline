@@ -1,0 +1,63 @@
+
+   {if count == "1"}
+   <ul class="media-list">
+   {/if}
+
+      <li class="media">
+         <a href="{if page_url != ''}{page_url}{if:else}{comment_url_title_auto_path}{/if}" class="pull-right hidden-md">
+         <img src=
+            {if news_image}
+               {news_image}
+                  {url:rect}
+               {/news_image}
+            {if:elseif proj_preview_image}
+               {proj_preview_image}
+                  {url:rect}
+               {/proj_preview_image}
+            {if:elseif event_thumbnail}
+               {event_thumbnail}
+                  {url:rect}
+               {/event_thumbnail}
+            {if:elseif event_banner}
+               {event_banner}
+                  {url:rect}
+               {/event_banner}
+            {if:elseif doc_image}
+               {doc_image}
+                  {url:rect}
+               {/doc_image}
+            {if:else}
+                  "{site_url}/images/posts/rji-post.jpg"
+            {/if}
+            alt="{title}" title="{title}" class="img-responsive"/>
+         </a>
+
+         <div class="media-body">
+            <h5>{if post_series != ""}<span class="small capitalize">{post_series}</span><br>{/if}<a class="media-heading" href="{if page_url != ''}{page_url}{if:else}{comment_url_title_auto_path}{/if}">{title}</a>
+               {if event_start_date != ""}
+               <br>
+             {!--if start_time}<span class="label label-default">Event</span>{/if--}
+                <span class="small capitalize">
+                   {if {event_start_date format='%m%d%Y'} == {event_end_date format='%m%d%Y'} }
+                      {!-- Event is a one day event, start date and end date are the same --}
+                      {event_start_date format="%g:%i %a"} – {event_end_date format="%g:%i %a &#124; %F %j, %Y"}
+                   {if:else}
+                      {event_start_date format="%F %j, %Y"} | {event_end_date format="%F %j, %Y"}
+                   {/if}
+                </span>
+                {if:else}
+                {/if}
+            </h5>
+             <p>
+                {exp:trunchtml chars="128" exact="yes" ending="..."}
+                   {exp:low_replace find="<p>|</p>" replace="|" multiple="yes"}
+                      {teaser}{doc_teaser}{event_teaser}
+                   {/exp:low_replace}
+                {/exp:trunchtml}
+             </p>
+         </div>
+
+      </li>
+
+      {!--if count != 5} <hr> {/if--}
+      {if count == total_results}</ul>{/if}

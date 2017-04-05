@@ -1,16 +1,4 @@
 {!-- Header and navbar found at the top of each page --}
-{exp:stash:set
-	name="navbar"
-    refresh="700"
-    scope="site"
-    unprefix="esc_cache"
-    save="yes"
-    replace="no"
-    parse="yes"
-    parse_stage="both"
-    parse_conditionals="no"
-    output="yes"}
-
 {letterhead}
 {!-- Navbar uses Bootstrap components to collapse on mobile and to be stuck to the top
         On mobile, header is not visible and JS tells it to stick to the top always
@@ -26,7 +14,7 @@
                                     ul.nav navbar-nav (.navbar-right)
                                                     li
        ==================== --}
-    <div id="nav-wrapper" class="nocontent">
+    <div id="nav-wrapper" class="nocontent fardsnarb">
     <div class="navbar navbar-default yamm" role="navigation" id="nav">
       <div class="container-fluid">
        {!-- .navbar-header contains RJI logo and login/logout buttons for mobile --}
@@ -44,17 +32,14 @@
           <!--<a class="navbar-brand" href="{site_url}"><img src="{site_url}images/uploads/logo-small.png"></a>-->
 
           {!-- login/logout buttons visible only on mobile (are in the navbar on larger) --}
-          {stash:nocache}
           {if logged_out}<button class="btn navbar-btn btn-default visible-xs" data-toggle="modal" data-target="#loginModal">LOGIN</button>{/if}{if logged_in}<span class="visible-xs"><a class="btn navbar-btn btn-danger" href="{exp:freemember:logout_url}">LOGOUT</a></span>{/if}
-          {/stash:nocache}
         </div> {!-- end .navbar-header --}
 
         {!-- .navbar-collapse is what part collapses on mobile. Note: .collapse is put so it is automatically collapsed on mobile --}
         <div class="navbar-collapse collapse text-center">
           <ul class="nav navbar-nav">
            {!-- each list item must check first segment to know where in the site it is and add .active if it passes --}
-            {!--stash:nocache}<li class="dropdown yamm-fw {if segment_1 == "stories" OR segment_1 == "galleries"}active{/if}"> {/stash:nocache--}
-            {stash:nocache}<li class="dropdown yamm-fw {if "{exp:stash:get name='segment_1' type='global'}" == "stories" OR "{exp:stash:get name='segment_1' type='global'}" == "galleries"}active{/if}">{/stash:nocache}
+            <li class="dropdown yamm-fw{if segment_1 == "stories" OR segment_1 == "galleries"} active{/if}">
             	<a href="/stories" class="visible-xs-inline-block"><i class="visible-xs fa fa-newspaper-o fa-lg"></i>Stories</a>
             	<a href="/stories" class="dropdown-toggle hidden-xs" data-toggle="dropdown">Stories  <b class="caret"></b></a>
             	<ul class="dropdown-menu">
@@ -63,30 +48,19 @@
                         	<div class="row-fluid">
                             	<div class="col-sm-2">
                                 	<ul class="list-unstyled text-right">
-                                    {!--stash:nocache}
-                                    	<li {if segment_1 == "stories" AND "{exp:stash:get name='segment_2' type='global'}"""}class="active"{/if}><a href="{site_url}stories"><h4>Recent</h4></a></li>
-                                        <li {if segment_1 == "stories" AND "{exp:stash:get name='segment_2' type='global'}""series"}class="active"{/if}><a href="{site_url}stories/series"><h4>Series</h4></a></li>
-                                        <li {if segment_1 == "stories" AND "{exp:stash:get name='segment_2' type='global'}""popular"}class="active"{/if}><a href="{site_url}stories/popular"><h4>Popular</h4></a></li>
-                                        <li {if segment_1 == "stories" AND "{exp:stash:get name='segment_2' type='global'}""categories"}class="active"{/if}><a href="{site_url}stories/categories"><h4>Categories</h4></a></li>
-                                        <li {if segment_1 == "stories" AND "{exp:stash:get name='segment_2' type='global'}""tag"}class="active"{/if}><a href="{site_url}stories/tag"><h4>Tags</h4></a></li>
+                                    	<li {if segment_1 == "stories" AND segment_2 ==""}class="active"{/if}><a href="{site_url}stories"><h4>Recent</h4></a></li>
+                                        <li {if segment_1 == "stories" AND segment_2 =="series"}class="active"{/if}><a href="{site_url}stories/series"><h4>Series</h4></a></li>
+                                        <li {if segment_1 == "stories" AND segment_2 =="popular"}class="active"{/if}><a href="{site_url}stories/popular"><h4>Popular</h4></a></li>
+                                        <li {if segment_1 == "stories" AND segment_2 =="categories"}class="active"{/if}><a href="{site_url}stories/categories"><h4>Categories</h4></a></li>
+                                        <li {if segment_1 == "stories" AND segment_2 =="tag"}class="active"{/if}><a href="{site_url}stories/tag"><h4>Tags</h4></a></li>
                                         <li {if segment_1 == "galleries"}class="active"{/if}><a href="{path='galleries/index'}"><h4>Galleries</h4></a></li>
-                                    {/stash:nocache--}
-                                    {stash:nocache}
-                                    	<li {if "{exp:stash:get name='segment_1' type='global'}" == "stories" AND "{exp:stash:get name='segment_2' type='global'}" == ""}class="active"{/if}><a href="{site_url}stories"><h4>Recent</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "stories" AND "{exp:stash:get name='segment_2' type='global'}" == "series"}class="active"{/if}><a href="{site_url}stories/series"><h4>Series</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "stories" AND "{exp:stash:get name='segment_2' type='global'}" == "popular"}class="active"{/if}><a href="{site_url}stories/popular"><h4>Popular</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "stories" AND "{exp:stash:get name='segment_2' type='global'}" == "categories"}class="active"{/if}><a href="{site_url}stories/categories"><h4>Categories</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "stories" AND "{exp:stash:get name='segment_2' type='global'}" == "tag"}class="active"{/if}><a href="{site_url}stories/tag"><h4>Tags</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "galleries"}class="active"{/if}><a href="{path='galleries/index'}"><h4>Galleries</h4></a></li>
-                                    {/stash:nocache}
                                     </ul>
                                 </div>
                                 <div class="col-sm-10">
                                 	<div class="row" id="thumbnails">
-                                    	{!--if {ress} > 767--}
-                                        {exp:channel:entries channel="stories" cache="yes" refresh="1500" dynamic="no" sticky="no" status="open|featured" limit="4" disable="categories|member_data|category_fields|pagination"}
+                                    	{if {ress} > 767}
+										{exp:channel:entries channel="stories" cache="yes" refresh="1500" dynamic="no" sticky="no" status="open|featured" limit="6" disable="categories|member_data|category_fields|pagination" show_future_entries="yes"}
                                     	<div class="col-sm-4 col-md-3 col-xl-2 hidden-xs {if count >= 4}hidden-sm{/if} {if count >= 5}hidden-md hidden-lg{/if}">
-                                        {!--<div class="col-sm-4 col-md-3 col-xl-2 hidden-xs {stash:nocache}{if "{exp:stash:get name='count' type='global'}" >= 4}hidden-sm{/if} {if "{exp:stash:get name='count' type='global'}" >= 5}hidden-md hidden-lg{/if}{/stash:nocache}">--}
                                             <div class="thumbnail card">
 
                                                 <a href="{post_path}">
@@ -95,7 +69,7 @@
                                                   {if news_image}
                                                       {news_image}
                                                           {!-- we use this custom template code to ensure we grab the square cut of the image that is done automatically when an image is uploaded --}
-                                                          "{path}_rect/{filename}.{extension}"
+                                                          "{path}/_rect/{filename}.{extension}"
                                                       {/news_image}
                                                    {if:else}
                                                           "{site_url}/images/posts/_rect/rji-post.jpg"
@@ -113,7 +87,7 @@
                                             </div>
                                           </div>
                                         {/exp:channel:entries}
-										{!--/if--}
+										{/if}
                                     </div>
                                 </div>
                             </div>
@@ -125,9 +99,7 @@
             <li class="visible-xs-inline-block"><a href="/stories/popular"><i class="visible-xs fa fa-fire fa-lg"></i>Popular</a></li>
             <li class="visible-xs-inline-block"><a href="/stories/categories"><i class="visible-xs fa fa-comments fa-lg" ></i>Categories</a></li>
             <li class="visible-xs-inline-block"><a href="/stories/tag"><i class="visible-xs fa fa-tags fa-lg" ></i>Tags</a></li>
-            {!--<li class="dropdown yamm-fw{stash:nocache}{if segment_1 == 'events'} active{/if}{/stash:nocache}">--}
-            {stash:nocache}<li class="dropdown yamm-fw {if "{exp:stash:get name='segment_1' type='global'}" == "events"}active{/if}">{/stash:nocache}
-
+            <li class="dropdown yamm-fw{if segment_1 == 'events'} active{/if}">
             	<a href="/events" class="visible-xs-inline-block"><i class="visible-xs fa fa-lg fa-calendar-o"></i>Events</a>
             	<a href="/events" class="dropdown-toggle hidden-xs" data-toggle="dropdown">Events  <b class="caret"></b></a>
               	<ul class="dropdown-menu">
@@ -136,28 +108,18 @@
                               <div class="row-fluid">
                                   <div class="col-sm-2">
                                       <ul class="list-unstyled text-right">
-                                      {!--stash:nocache}
-                                          <li {if "{exp:stash:get name='segment_1' type='global'}" "events" AND "{exp:stash:get name='segment_2' type='global'}""upcoming"}class="active"{/if}><a href="/events/upcoming"><h4>RJI events</h4></a></li>
-                                          <li {if "{exp:stash:get name='segment_1' type='global'}" "events" AND "{exp:stash:get name='segment_2' type='global'}""past"}class="active"{/if}><a href="/events/past"><h4>Past events</h4></a></li>
-                                          <li {if "{exp:stash:get name='segment_1' type='global'}" "events" AND "{exp:stash:get name='segment_2' type='global'}""industry"}class="active"{/if}><a href="/events/industry"><h4>Industry events</h4></a></li>
-                                          <li {if "{exp:stash:get name='segment_1' type='global'}" "events" AND "{exp:stash:get name='segment_2' type='global'}""calendar"}class="active"{/if}><a href="/events/calendar"><h4>Calendar</h4></a></li>
-                                          <li {if "{exp:stash:get name='segment_1' type='global'}" "live"}class="active"{/if}><a href="/live"><h4>Watch live</h4></a></li>
-                                          <li {if "{exp:stash:get name='segment_1' type='global'}" "events" AND "{exp:stash:get name='segment_2' type='global'}""categories"}class="active"{/if}><a href="/events/categories"><h4>Categories</h4></a></li>
-                                      {/stash:nocache--}
-                                      {stash:nocache}
-                                          <li {if "{exp:stash:get name='segment_1' type='global'}" == "events" AND "{exp:stash:get name='segment_2' type='global'}" == "upcoming"}class="active"{/if}><a href="/events/upcoming"><h4>RJI events</h4></a></li>
-                                          <li {if "{exp:stash:get name='segment_1' type='global'}" == "events" AND "{exp:stash:get name='segment_2' type='global'}" == "past"}class="active"{/if}><a href="/events/past"><h4>Past events</h4></a></li>
-                                          <li {if "{exp:stash:get name='segment_1' type='global'}" == "events" AND "{exp:stash:get name='segment_2' type='global'}" == "industry"}class="active"{/if}><a href="/events/industry"><h4>Industry events</h4></a></li>
-                                          <li {if "{exp:stash:get name='segment_1' type='global'}" == "events" AND "{exp:stash:get name='segment_2' type='global'}" == "calendar"}class="active"{/if}><a href="/events/calendar"><h4>Calendar</h4></a></li>
-                                          <li {if "{exp:stash:get name='segment_1' type='global'}" == "live"}class="active"{/if}><a href="/live"><h4>Watch live</h4></a></li>
-                                          <li {if "{exp:stash:get name='segment_1' type='global'}" == "events" AND "{exp:stash:get name='segment_2' type='global'}" == "categories"}class="active"{/if}><a href="/events/categories"><h4>Categories</h4></a></li>
-                                      {/stash:nocache}
+                                          <li {if segment_1 == "events" AND segment_2 =="upcoming"}class="active"{/if}><a href="/events/upcoming"><h4>RJI events</h4></a></li>
+                                          <li {if segment_1 == "events" AND segment_2 =="past"}class="active"{/if}><a href="/events/past"><h4>Past events</h4></a></li>
+                                          <li {if segment_1 == "events" AND segment_2 =="industry"}class="active"{/if}><a href="/events/industry"><h4>Industry events</h4></a></li>
+                                          <li {if segment_1 == "events" AND segment_2 =="calendar"}class="active"{/if}><a href="/events/calendar"><h4>Calendar</h4></a></li>
+                                          <li {if segment_1 == "live"}class="active"{/if}><a href="/live"><h4>Watch live</h4></a></li>
+                                          <li {if segment_1 == "events" AND segment_2 =="categories"}class="active"{/if}><a href="/events/categories"><h4>Categories</h4></a></li>
                                       </ul>
                                   </div>
                                   <div class="col-sm-10">
                                       <div class="row" id="thumbnails">
-                                      	  {!--if {ress} > 767--}
-                                          {exp:calendar:events calendar_id="100" cache="yes" refresh="1500" dynamic="no" event_limit="6" date_range_start="1 year ago" show_months="24" orderby="event_start_date" sort="desc" pad_short_weeks="n" dynamic="off" enable="custom_fields"}
+                                      	  {if {ress} > 767}
+                                          {exp:calendar:events calendar_id="100|101" cache="yes" refresh="1500" dynamic="no" event_limit="6" date_range_start="1 year ago" show_years="2" orderby="event_start_date" sort="desc" pad_short_weeks="n" dynamic="off" enable="custom_fields"}
                                           <div class="col-sm-4 col-md-3 col-xl-2 hidden-xs {if count >= 4}hidden-sm{/if} {if count >= 5}hidden-md hidden-lg{/if}">
                                               <div class="thumbnail card">
 
@@ -176,6 +138,7 @@
                                                            "{site_url}/images/posts/_rect/rji-post.jpg"
                                                   {/if} alt="{title}" title="{title}" class="img-responsive"/>
                                                   </a>
+
                                                   <div class="caption">
                                                                 <h5>{if event_stories != ""}<span class="small capitalize">{event_stories}</span><br>{/if}<a class="media-heading" href="{post_path}">{title}</a>
                                                                     <br /><span class="small capitalize">
@@ -186,7 +149,7 @@
                                               </div>
                                             </div>
                                           {/exp:calendar:events}
-                                          {!--/if--}
+                                          {/if}
                                       </div>
                                   </div>
                               </div>
@@ -194,8 +157,7 @@
                       </li>
                   </ul>
             </li>
-            {!--<li class="dropdown yamm-fw{stash:nocache}{if segment_1 == "fellowships"} active{/if}{/stash:nocache}">--}
-            {stash:nocache}<li class="dropdown yamm-fw {if "{exp:stash:get name='segment_1' type='global'}" == "fellowships"}active{/if}">{/stash:nocache}
+            <li class="dropdown yamm-fw{if segment_1 == "fellowships"} active{/if}">
             	<a href="/fellowships" class="visible-xs-inline-block"><i class="visible-xs fa fa-lg fa-users"></i>Fellows</a>
             	<a href="/fellowships" class="dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">Fellows  <b class="caret"></b></a>
             	<ul class="dropdown-menu">
@@ -204,19 +166,17 @@
                         	<div class="row-fluid">
                             	<div class="col-sm-2">
                                 	<ul class="list-unstyled text-right">
-                                    {stash:nocache}
-                                    	<li {if "{exp:stash:get name='segment_1' type='global'}" == "fellowships" AND "{exp:stash:get name='segment_2' type='global'}" == ""}class="active"{/if}><a href="/fellowships"><h4>About RJI Fellowships</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "fellowships" AND "{exp:stash:get name='segment_2' type='global'}" == "matrix"}class="active"{/if}><a href="/fellowships/matrix"><h4>Comparison matrix</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "fellowships" AND "{exp:stash:get name='segment_2' type='global'}" == "faq"}class="active"{/if}><a href="/fellowships/faq"><h4>FAQ</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "fellowships" AND "{exp:stash:get name='segment_2' type='global'}" == "resources"}class="active"{/if}><a href="/fellowships/resources"><h4>Resources and links</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "fellowships" AND "{exp:stash:get name='segment_2' type='global'}" == "fellows"}class="active"{/if}><a href="/fellowships/fellows"><h4>Our fellows</h4></a></li>
-                                    {/stash:nocache}
+                                    	<li {if segment_1 == "fellowships" AND segment_2 ==""}class="active"{/if}><a href="/fellowships"><h4>About RJI Fellowships</h4></a></li>
+                                        <li {if segment_1 == "fellowships" AND segment_2 =="matrix"}class="active"{/if}><a href="/fellowships/matrix"><h4>Comparison matrix</h4></a></li>
+                                        <li {if segment_1 == "fellowships" AND segment_2 =="faq"}class="active"{/if}><a href="/fellowships/faq"><h4>FAQ</h4></a></li>
+                                        <li {if segment_1 == "fellowships" AND segment_2 =="resources"}class="active"{/if}><a href="/fellowships/resources"><h4>Resources and links</h4></a></li>
+                                        <li {if segment_1 == "fellowships" AND segment_2 =="fellows"}class="active"{/if}><a href="/fellowships/fellows"><h4>Our fellows</h4></a></li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-10">
                                 	<div class="row" id="thumbnails">
-                                    	{!--if {ress} > 767--}
-										{exp:channel:entries channel="stories" cache="yes" refresh="1500" dynamic="no" category="6" sticky="no" status="open|featured" limit="6" disable="categories|member_data|category_fields|pagination"}
+                                    	{if {ress} > 767}
+										{exp:channel:entries channel="stories" cache="yes" refresh="1500" dynamic="no" category="6" sticky="no" status="open|featured" limit="6" disable="categories|member_data|category_fields|pagination" show_future_entries="yes"}
                                         <div class="col-sm-4 col-md-3 col-xl-2 hidden-xs {if count >= 4}hidden-sm{/if} {if count >= 5}hidden-md hidden-lg{/if}">
                                             <div class="thumbnail card">
 
@@ -243,7 +203,7 @@
                                             </div>
                                           </div>
                                         {/exp:channel:entries}
-										{!--/if--}
+										{/if}
                                     </div>
                                 </div>
                             </div>
@@ -251,9 +211,8 @@
                     </li>
                 </ul>
             </li>
-            {!--<li class="dropdown yamm-fw{stash:nocache}{if segment_1 == "research"} active{/if}{/stash:nocache}">--}
-            {stash:nocache}<li class="dropdown yamm-fw {if "{exp:stash:get name='segment_1' type='global'}" == "research"}active{/if}">{/stash:nocache}
-            	<a href="/research" class="visible-xs-inline-block {stash:nocache}{if segment_1 == 'research'}active{/if}{/stash:nocache}"><i class="visible-xs fa fa-flask fa-lg"></i>Research</a>
+            <li class="dropdown yamm-fw{if segment_1 == "research"} active{/if}">
+            	<a href="/research" class="visible-xs-inline-block {if segment_1 == 'research'}active{/if}"><i class="visible-xs fa fa-flask fa-lg"></i>Research</a>
             	<a href="/research" class="dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">Research  <b class="caret"></b></a>
             	<ul class="dropdown-menu">
                 	<li>
@@ -261,17 +220,15 @@
                         	<div class="row-fluid">
                             	<div class="col-sm-2">
                                 	<ul class="list-unstyled text-right">
-                                    {stash:nocache}
-                                    	<li {if "{exp:stash:get name='segment_1' type='global'}" == "research" AND "{exp:stash:get name='segment_2' type='global'}" == ""}class="active"{/if}><a href="/research"><h4>All research</h4></a></li>
-                                      	<li {if "{exp:stash:get name='segment_1' type='global'}" == "research" AND "{exp:stash:get name='segment_2' type='global'}" == "scholars"}class="active"{/if}><a href="/research/scholars"><h4>Our scholars</h4></a></li>
-                                      	<li {if "{exp:stash:get name='segment_1' type='global'}" == "research" AND "{exp:stash:get name='segment_2' type='global'}" == "categories"}class="active"{/if}><a href="/research/categories"><h4>Categories</h4></a></li>
-                                    {/stash:nocache}
+                                    	<li {if segment_1 == "research" AND segment_2 ==""}class="active"{/if}><a href="/research"><h4>All research</h4></a></li>
+                                      <li {if segment_1 == "research" AND segment_2 == "scholars"}class="active"{/if}><a href="/research/scholars"><h4>Our scholars</h4></a></li>
+                                      <li {if segment_1 == "research" AND segment_2 =="categories"}class="active"{/if}><a href="/research/categories"><h4>Categories</h4></a></li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-10">
                                 	<div class="row" id="thumbnails">
-                                    	{!--if {ress} > 767--}
-										{exp:channel:entries channel="research" cache="yes" refresh="1500" dynamic="no" sticky="no" status="open|featured" limit="6" disable="categories|member_data|category_fields|pagination"}
+                                    	{if {ress} > 767}
+										{exp:channel:entries channel="research" cache="yes" refresh="1500" dynamic="no" sticky="no" status="open|featured" limit="6" disable="categories|member_data|category_fields|pagination" show_future_entries="yes"}
                                     	<div class="col-sm-4 col-md-3 col-xl-2 hidden-xs {if count >= 4}hidden-sm{/if} {if count >= 5}hidden-md hidden-lg{/if}">
                                             <div class="thumbnail card">
 
@@ -281,7 +238,7 @@
                                                   {if proj_preview_image}
                                                       {proj_preview_image}
                                                               {!-- we use this custom template code to ensure we grab the square cut of the image that is done automatically when an image is uploaded --}
-                                                              "{path}_rect/{filename}.{extension}"
+                                                              "{path}/_rect/{filename}.{extension}"
                                                       {/proj_preview_image}
                                                    {if:else}
                                                               "{site_url}/images/posts/_rect/rji-post.jpg"
@@ -298,7 +255,7 @@
                                             </div>
                                           </div>
                                         {/exp:channel:entries}
-										{!--/if--}
+										{/if}
                                     </div>
                                 </div>
                             </div>
@@ -306,8 +263,7 @@
                     </li>
                 </ul>
             </li>
-            {!--<li class="dropdown yamm-fw{stash:nocache}{if segment_1 == "projects"} active{/if}{/stash:nocache}">--}
-            {stash:nocache}<li class="dropdown yamm-fw {if "{exp:stash:get name='segment_1' type='global'}" == "projects"}active{/if}">{/stash:nocache}
+            <li class="dropdown yamm-fw{if segment_1 == "projects"} active{/if}">
             	<a href="/projects" class="visible-xs-inline-block"><i class="fa fa-lg fa-clipboard visible-xs"></i>Projects</a>
             	<a href="/projects" class="dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">Projects  <b class="caret"></b></a>
             	<ul class="dropdown-menu">
@@ -316,16 +272,14 @@
                         	<div class="row-fluid">
                             	<div class="col-sm-2">
                                 	<ul class="list-unstyled text-right">
-                                    {stash:nocache}
-                                    	<li {if "{exp:stash:get name='segment_1' type='global'}" == "projects" AND "{exp:stash:get name='segment_2' type='global'}" == ""}class="active"{/if}><a href="/projects"><h4>All projects</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "projects" AND "{exp:stash:get name='segment_2' type='global'}" == "categories"}class="active"{/if}><a href="/projects/categories"><h4>Categories</h4></a></li>
-                                    {/stash:nocache}
+                                    	<li {if segment_1 == "projects" AND segment_2 ==""}class="active"{/if}><a href="/projects"><h4>All projects</h4></a></li>
+                                        <li {if segment_1 == "projects" AND segment_2 =="categories"}class="active"{/if}><a href="/projects/categories"><h4>Categories</h4></a></li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-10">
                                 	<div class="row" id="thumbnails">
-                                    	{!--if {ress} > 767--}
-										{exp:channel:entries channel="projects|research" cache="yes" refresh="1500" dynamic="no" sticky="no" status="open|featured" limit="6" disable="categories|member_data|category_fields|pagination"}
+                                    	{if {ress} > 767}
+										{exp:channel:entries channel="projects|research" cache="yes" refresh="1500" dynamic="no" sticky="no" status="open|featured" limit="6" disable="categories|member_data|category_fields|pagination" show_future_entries="yes"}
                                     	<div class="col-sm-4 col-md-3 col-xl-2 hidden-xs {if count >= 4}hidden-sm{/if} {if count >= 5}hidden-md hidden-lg{/if}">
                                             <div class="thumbnail card">
 
@@ -335,7 +289,7 @@
                                                   {if proj_preview_image}
                                                       {proj_preview_image}
                                                               {!-- we use this custom template code to ensure we grab the square cut of the image that is done automatically when an image is uploaded --}
-                                                              "{path}_rect/{filename}.{extension}"
+                                                              "{path}/_rect/{filename}.{extension}"
                                                       {/proj_preview_image}
                                                    {if:else}
                                                               "{site_url}/images/posts/_rect/rji-post.jpg"
@@ -352,7 +306,7 @@
                                             </div>
                                           </div>
                                         {/exp:channel:entries}
-										{!--/if--}
+										{/if}
                                     </div>
                                 </div>
                             </div>
@@ -360,27 +314,24 @@
                     </li>
                 </ul>
             </li>
-            {!--<li class="dropdown yamm-fw{stash:nocache}{if segment_1 == "downloads"} active{/if}{/stash:nocache}">--}
-            {stash:nocache}<li id="resources-menu" class="dropdown yamm-fw {if "{exp:stash:get name='segment_1' type='global'}" == "downloads"}active{/if}">{/stash:nocache}
-            	<a href="/downloads" class="visible-xs-inline-block {stash:nocache}{if segment_1 == 'downloads'}active{/if}{/stash:nocache}"><i class="visible-xs fa fa-lg fa-file-text"></i>Downloads</a>
-            	<a href="/downloads" class="dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">Downloads  <b class="caret"></b></a>
+            <li class="dropdown yamm-fw{if segment_1 == "downloads"} active{/if}">
+            	<a href="/downloads" class="visible-xs-inline-block {if segment_1 == 'downloads'}active{/if}"><i class="visible-xs fa fa-lg fa-file-text"></i>DownloadsTEST01</a>
+            	<a href="/downloads" class="dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">DownloadsTEST02  <b class="caret"></b></a>
             	<ul class="dropdown-menu">
                 	<li>
                     	<div class="yamm-content">
                         	<div class="row-fluid">
                             	<div class="col-sm-2">
                                 	<ul class="list-unstyled text-right">
-                                    {stash:nocache}
-                                    	<li {if "{exp:stash:get name='segment_1' type='global'}" == "downloads" AND "{exp:stash:get name='segment_2' type='global'}" == ""}class="active"{/if}><a href="/downloads"><h4>All downloads</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "downloads" AND "{exp:stash:get name='segment_2' type='global'}" == "newsbooks"}class="active"{/if}><a href="/downloads/newsbooks"><h4>Newsbooks</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "downloads" AND "{exp:stash:get name='segment_2' type='global'}" == "tipsheets"}class="active"{/if}><a href="/downloads/tipsheets"><h4>Tipsheets</h4></a></li>
-                                        {!--<li {if "{exp:stash:get name='segment_1' type='global'}" "downloads" AND "{exp:stash:get name='segment_2' type='global'}""references"}class="active"{/if}><a href="/downloads/references"><h4>References</h4></a></li>--}
-                                    {/stash:nocache}
+                                    	<li {if segment_1 == "downloads" AND segment_2 ==""}class="active"{/if}><a href="/downloads"><h4>All downloads</h4></a></li>
+                                        <li {if segment_1 == "downloads" AND segment_2 =="newsbooks"}class="active"{/if}><a href="/downloads/newsbooks"><h4>Newsbooks</h4></a></li>
+                                        <li {if segment_1 == "downloads" AND segment_2 =="tipsheets"}class="active"{/if}><a href="/downloads/tipsheets"><h4>Tipsheets</h4></a></li>
+                                        {!--<li {if segment_1 == "downloads" AND segment_2 =="references"}class="active"{/if}><a href="/downloads/references"><h4>References</h4></a></li>--}
                                     </ul>
                                 </div>
                                 <div class="col-sm-10">
                                 	<div class="row" id="thumbnails">
-                                    {!--if {ress} > 767--}
+                                    {if {ress} > 767}
                                     	{!--exp:store:search channel="downloads" dynamic="no" orderby="date" sort="desc" limit="6"--}
                                         {!-- put this in the JS snippet <script type="text/javascript">
                                         window.ExpressoStore=window.ExpressoStore||{};ExpressoStore.products=ExpressoStore.products||{};ExpressoStore.products[2077]={"entry_id":"2077","price":"0.0000","weight":null,"length":null,"width":null,"height":null,"handling":null,"free_shipping":"0","tax_exempt":"0","modifiers":[],"stock":[{"id":"65","entry_id":"2077","sku":"","stock_level":null,"min_order_qty":null,"track_stock":"0","opt_values":[]}],"regular_price":"0.0000","sale_price":"0.0000"};(function(){ExpressoStore.config={"store_currency_symbol":"$","store_currency_decimals":2,"store_currency_thousands_sep":",","store_currency_dec_point":".","store_currency_suffix":""};if(!ExpressoStore.scriptElement){var script=ExpressoStore.scriptElement=document.createElement("script");script.type="text/javascript";script.defer=true;script.src="https://www.rjionline.net/themes/third_party/store/store.js?v=2.5.1";document.getElementsByTagName("body")[0].appendChild(script);}})();
@@ -395,7 +346,7 @@
                                                   {!-- If there is a news image, use that, else maybe it's an event so if there is an event image use that, else there is no given image, use default image --}
                                                   <img src={if doc_image}
                                                       {doc_image}
-                                                          "{path}_rect/{filename}.{extension}"
+                                                          "{path}/_rect/{filename}.{extension}"
                                                       {/doc_image}
                                                    {if:else}
                                                           "{site_url}/images/posts/_rect/rji-post.jpg"
@@ -422,7 +373,7 @@
                                         {!--/exp:store:product--}
                                         {!--/exp:store:search--}
                                         {/exp:channel:entries}
-                                      {!--/if--}
+                                      {/if}
                                     </div>
                                 </div>
                             </div>
@@ -430,33 +381,54 @@
                     </li>
                 </ul>
             </li>
-				{!--<li class="dropdown yamm-fw{stash:nocache}{if segment_1 == "resources"} active{/if}{/stash:nocache}">--}
-            {stash:nocache}<li class="dropdown yamm-fw {if "{exp:stash:get name='segment_1' type='global'}" == "resources"}active{/if}">{/stash:nocache}
-            	<a href="/resources" class="visible-xs-inline-block {stash:nocache}{if segment_1 == 'resources'}active{/if}{/stash:nocache}"><i class="visible-xs fa fa-lg fa-file-text"></i>Resources</a>
+            <li class="dropdown yamm-fw{if segment_1 == "resources"} active{/if}">
+            	<a href="/resources" class="visible-xs-inline-block {if segment_1 == 'resources'}active{/if}"><i class="visible-xs fa fa-lg fa-file-text"></i>Resources</a>
             	<a href="/resources" class="dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">Resources  <b class="caret"></b></a>
-            	<ul class="dropdown-menu" id="resources-menu">
+            	<ul class="dropdown-menu">
                 	<li>
                     	<div class="yamm-content">
                         	<div class="row-fluid">
-                            	<div class="col-sm-12">
-                                	<ul class="list-unstyled text-left" style="margin-top: 1em;">
-                                    {stash:nocache}
-                                    	<li><a href="https://accountablejournalism.org/">Accountable Journalism</a></li>
-                                        <li><a href="/facilities">Conference and event facilities</a></li>
-                                        <li><a href="/frank-lee-martin-journalism-library">Frank Lee Martin Journalism Library</a></li>
-													 <li><a href="/futures-lab">Futures Lab</a></li>
-													 <li><a href="http://herstory.rjionline.org/">Herstory</a></li>
-													 <li><a href="https://ilab.rjionline.org/">iLab 3-D database</a></li>
-													 <li><a href="/microsoft-lab">Microsoft Application Development Lab</a></li>
-													 <li><a href="">MobileVideoDIY</a></li>
-													 <li><a href="/stories/powerful-tools-for-smart-pricing-decisions">Pricing Optimizer</li>
-													 <li><a href="http://reportingonclimateadaptation.org/">Reporting on Climate Adaptation</a></li>
-													 <li><a href="http://reportinghiddenstories.org/">Reporting Stories Hidden in Plain Sight</a></li>
-													 <li><a href="/stories/do-you-really-know-where-to-invest-cut">Resource Allocator</a></li>
-													 <li><a href="https://trustingnews.org/">Trusting News</a></li>
-													 <li><a href="https://potter.rjionline.org/">Walter B. Potter Sr. Conferences</a></li>
-                                    {/stash:nocache}
+                            	<div class="col-sm-2">
+                                	<ul class="list-unstyled text-right">
+                                    	<li {if segment_1 == "resources" AND segment_2 ==""}class="active"{/if}><a href="/resources"><h4>All downloads</h4></a></li>
+                                        <li {if segment_1 == "resources" AND segment_2 =="newsbooks"}class="active"{/if}><a href="/downloads/newsbooks"><h4>Newsbooks</h4></a></li>
+                                        <li {if segment_1 == "resources" AND segment_2 =="tipsheets"}class="active"{/if}><a href="/downloads/tipsheets"><h4>Tipsheets</h4></a></li>
                                     </ul>
+                                </div>
+                                <div class="col-sm-10">
+                                	<div class="row" id="thumbnails">
+                                    {if {ress} > 767}
+                                        {exp:channel:entries channel="resources" orderby="date" sort="desc" limit="6" disable="categories|category_field|member_data|pagination" dynamic="no"}
+					  					{if esc_cache:no_results}Couldn't find any downloads!{/if}
+                      						<div class="col-sm-4 col-md-3 col-xl-2 hidden-xs {if count >= 4}hidden-sm{/if} {if count >= 5}hidden-md hidden-lg{/if}">
+                                            <div class="thumbnail card">
+
+                                                <a href="{post_path}">
+                                                  {!-- If there is a news image, use that, else maybe it's an event so if there is an event image use that, else there is no given image, use default image --}
+                                                  <img src={if doc_image}
+                                                      {doc_image}
+                                                          "{path}/_rect/{filename}.{extension}"
+                                                      {/doc_image}
+                                                   {if:else}
+                                                          "{site_url}/images/posts/_rect/rji-post.jpg"
+                                                  {/if} alt="{title}" title="{title}" class="img-responsive"/>
+                                                </a>
+
+                                                <div class="caption">
+                                                      <h5 style="max-width: 240px;">
+                                                      	{if doc_file}
+                                                        <a href="{post_path}" class="media-heading">{title}</a>
+                                                        {if:else}
+                                                        <a href="{doc_link}" class="media-heading" target="_blank">{title}</a>
+                                                        {/if}
+                                                      </h5>
+                                                </div>
+
+                                            </div>
+                                          </div>
+                                        {/exp:channel:entries}
+                                      {/if}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -464,12 +436,10 @@
                 </ul>
             </li>
             {!--<li class="visible-xs-inline-block {if segment_3 == 'codes-of-ethics'}active{/if}"><a href="/documents/references/codes-of-ethics"><i class="visible-xs fa fa-balance-scale fa-lg"></i>Ethics</a></li>--}
-            {stash:nocache}
-            <li class="visible-xs-inline-block {if "{exp:stash:get name='segment_1' type='global'}" == 'galleries'}active{/if}"><a href="{path='galleries/index'}"><i class="visible-xs fa fa-picture-o fa-lg" ></i>Galleries</a></li>
-            <li class="visible-xs-inline-block {if "{exp:stash:get name='segment_1' type='global'}" == 'research' && "{exp:stash:get name='segment_2' type='global'}" == 'scholars'}active{/if}"><a href="/research/scholars"><i class="visible-xs fa fa-graduation-cap fa-lg" ></i>Scholars</a></li>
-            <li class="visible-xs-inline-block {if "{exp:stash:get name='segment_1' type='global'}" == 'rji-links-live'}active{/if}"><a href="/rji-links-live"><i class="visible-xs fa fa-external-link-square fa-lg" ></i>RJI Links</a></li>
-            <li class="visible-xs-inline-block {if "{exp:stash:get name='segment_1' type='global'}" == 'live'}active{/if}"><a href="/live"><i class="visible-xs fa fa-video-camera fa-lg" ></i>Live</a></li>
- 			{/stash:nocache}
+            <li class="visible-xs-inline-block {if segment_1 == 'galleries'}active{/if}"><a href="{path='galleries/index'}"><i class="visible-xs fa fa-picture-o fa-lg" ></i>Galleries</a></li>
+            <li class="visible-xs-inline-block {if segment_1 == 'research' && segment_2 == 'scholars'}active{/if}"><a href="/research/scholars"><i class="visible-xs fa fa-graduation-cap fa-lg" ></i>Scholars</a></li>
+            <li class="visible-xs-inline-block {if segment_1 == 'rji-links-live'}active{/if}"><a href="/rji-links-live"><i class="visible-xs fa fa-external-link-square fa-lg" ></i>RJI Links</a></li>
+            <li class="visible-xs-inline-block {if segment_1 == 'live'}active{/if}"><a href="/live"><i class="visible-xs fa fa-video-camera fa-lg" ></i>Live</a></li>
 
             {!-- This dropdown list is only visible on tablet to save space on navbar so right and left lists don't overlap. Uses Bootstrap:
                  ====================
@@ -495,18 +465,16 @@
                         	<div class="row-fluid">
                             	<div class="col-sm-2">
                                 	<ul class="list-unstyled text-right">
-                                    {stash:nocache}
-                                    	<li class="{if "{exp:stash:get name='segment_1' type='global'}" == 'fellowships'}active{/if}"><a href="{path='fellowships/index'}"><h4>Fellows</h4></a></li>
-                                        <li class="{if "{exp:stash:get name='segment_1' type='global'}" == 'research'}active{/if}"><a href="{path='research/index'}"><h4>Research</h4></a></li>
-                                        <li class="{if "{exp:stash:get name='segment_1' type='global'}" == 'projects'}active{/if}"><a href="{path='projects/index'}"><h4>Projects</h4></a></li>
-                                        <li class="{if "{exp:stash:get name='segment_2' type='global'}" == 'downloads'}active{/if}"><a href="{path='downloads/index'}"><h4>Downloads</h4></a></li>
-                                    {/stash:nocache}
+                                    	<li class="{if segment_1 == 'fellowships'}active{/if}"><a href="{path='fellowships/index'}"><h4>Fellows</h4></a></li>
+                                        <li class="{if segment_1 == 'research'}active{/if}"><a href="{path='research/index'}"><h4>Research</h4></a></li>
+                                        <li class="{if segment_1 == 'projects'}active{/if}"><a href="{path='projects/index'}"><h4>Projects</h4></a></li>
+                                        <li class="{if segment_2 == 'downloads'}active{/if}"><a href="{path='downloads/index'}"><h4>Downloads</h4></a></li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-10">
                                 	<div class="row" id="thumbnails">
-                                    	{!--if {ress} > 767--}
-										{exp:channel:entries channel="research|projects" cache="yes" refresh="1500" dynamic="no" sticky="no" status="open|featured" limit="6" disable="categories|member_data|category_fields|pagination"}
+                                    	{if {ress} > 767}
+										{exp:channel:entries channel="research|projects" cache="yes" refresh="1500" dynamic="no" sticky="no" status="open|featured" limit="6" disable="categories|member_data|category_fields|pagination" show_future_entries="yes"}
                                     	<div class="col-sm-4 col-md-3 col-xl-2 hidden-xs {if count >= 4}hidden-sm{/if} {if count >= 5}hidden-md hidden-lg{/if}">
                                             <div class="thumbnail card">
 
@@ -516,7 +484,7 @@
                                                   {if proj_preview_image}
                                                       {proj_preview_image}
                                                               {!-- we use this custom template code to ensure we grab the square cut of the image that is done automatically when an image is uploaded --}
-                                                              "{path}_rect/{filename}.{extension}"
+                                                              "{path}/_rect/{filename}.{extension}"
                                                       {/proj_preview_image}
                                                    {if:else}
                                                               "{site_url}/images/posts/_rect/rji-post.jpg"
@@ -533,7 +501,7 @@
                                             </div>
                                           </div>
                                         {/exp:channel:entries}
-										{!--/if--}
+										{/if}
                                     </div>
                                 </div>
                             </div>
@@ -545,8 +513,7 @@
 
          {!-- Bootstrap uses .navbar-right to make sure these list items are right aligned on the navbar. --}
           <ul class="nav navbar-nav navbar-right">
-            {!--<li class="dropdown yamm-fw{stash:nocache}{if segment_1 == "about"} active{/if}{/stash:nocache}">--}
-            {stash:nocache}<li class="dropdown yamm-fw {if "{exp:stash:get name='segment_1' type='global'}" == "about"}active{/if}">{/stash:nocache}
+            <li class="dropdown yamm-fw{if segment_1 == "about"} active{/if}">
             	<a href="/about" class="visible-xs-inline-block"><i class="visible-xs fa fa-lg fa-info-circle"></i>About</a>
             	<a href="/about" class="dropdown-toggle hidden-xs" data-toggle="dropdown">About  <b class="caret"></b></a>
             	<ul class="dropdown-menu">
@@ -555,21 +522,19 @@
                         	<div class="row-fluid">
                             	<div class="col-sm-2">
                                 	<ul class="list-unstyled text-right">
-                                    {stash:nocache}
-                                    	<li {if "{exp:stash:get name='segment_1' type='global'}" == "about" AND "{exp:stash:get name='segment_2' type='global'}" == ""}class="active"{/if}><a href="/about"><h4>About RJI</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "stories" AND "{exp:stash:get name='segment_2' type='global'}" == "stories" AND "{exp:stash:get name='segment_3' type='global'}" =="rji_in_the_news"}class="active"{/if}><a href="/stories/series/rji-in-the-news"><h4>RJI in the news</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "about" AND "{exp:stash:get name='segment_2' type='global'}" == "staff"}class="active"{/if}><a href="/about/staff"><h4>Staff</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "newsletters"}class="active"{/if}><a href="/newsletters"><h4>Newsletters</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "facilities"}class="active"{/if}><a href="/facilities"><h4>Facilities</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "about" AND "{exp:stash:get name='segment_2' type='global'}" == "partners"}class="active"{/if}><a href="/about/partners"><h4>Partners</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "about" AND "{exp:stash:get name='segment_2' type='global'}" == "associates"}class="active"{/if}><a href="/about/associates"><h4>Associates</h4></a></li>
-                                        <li {if "{exp:stash:get name='segment_1' type='global'}" == "about" AND "{exp:stash:get name='segment_2' type='global'}" == "resources"}class="active"{/if}><a href="/about/resources"><h4>Resources</h4></a></li>
-                                  	{/stash:nocache}
-                                  	</ul>
+                                    	<li {if segment_1 == "about" AND segment_2 ==""}class="active"{/if}><a href="/about"><h4>About RJI</h4></a></li>
+                                        <li {if segment_1 == "stories" AND segment_2 =="stories" AND segment_3 =="rji_in_the_news"}class="active"{/if}><a href="/stories/series/rji-in-the-news"><h4>RJI in the news</h4></a></li>
+                                        <li {if segment_1 == "about" AND segment_2 =="staff"}class="active"{/if}><a href="/about/staff"><h4>Staff</h4></a></li>
+                                        <li {if segment_1 == "about" AND segment_2 =="partners"}class="active"{/if}><a href="/about/partners"><h4>Partners</h4></a></li>
+                                        <li {if segment_1 == "about" AND segment_2 =="associates"}class="active"{/if}><a href="/about/associates"><h4>Associates</h4></a></li>
+                                        <li {if segment_1 == "about" AND segment_2 =="resources"}class="active"{/if}><a href="/about/resources"><h4>Resources</h4></a></li>
+                                        <li {if segment_1 == "facilities"}class="active"{/if}><a href="/facilities"><h4>Facilities</h4></a></li>
+                                        <li {if segment_1 == "newsletters"}class="active"{/if}><a href="/newsletters"><h4>Newsletters</h4></a></li>
+                                  </ul>
                                 </div>
                                 <div class="col-sm-10">
                                 	<div class="row" id="thumbnails">
-                                    	{!--if {ress} > 767--}
+                                    	{if {ress} > 767}
 										{!-- using series instead of topic -- exp:channel:entries channel="stories" cache="yes" refresh="1500" dynamic="no" category="36" sticky="no" status="open|featured" limit="6" disable="categories|member_data|category_fields|pagination" show_future_entries="yes" --}
                                     	{exp:channel:entries channel="stories" dynamic="no" search:post_series="RJI" limit="6" cache="yes" refresh="1500" dynamic="no" sticky="no" status="open|featured" disable="categories|member_data|category_fields|pagination"}
                                         <div class="col-sm-4 col-md-3 col-xl-2 hidden-xs {if count >= 4}hidden-sm{/if} {if count >= 5}hidden-md hidden-lg{/if}">
@@ -581,7 +546,7 @@
                                                   {if news_image}
                                                       {news_image}
                                                               {!-- we use this custom template code to ensure we grab the square cut of the image that is done automatically when an image is uploaded --}
-                                                              "{path}_rect/{filename}.{extension}"
+                                                              "{path}/_rect/{filename}.{extension}"
                                                       {/news_image}
                                                    {if:else}
                                                               "{site_url}/images/posts/_rect/rji-post.jpg"
@@ -598,7 +563,7 @@
                                             </div>
                                           </div>
                                         {/exp:channel:entries}
-										{!--/if--}
+										{/if}
                                     </div>
                                 </div>
                             </div>
@@ -606,11 +571,10 @@
                     </li>
                 </ul>
             </li>
-            {stash:nocache}
-            <li class="hidden-md hidden-lg hidden-xl {if "{exp:stash:get name='segment_1' type='global'}" == "search"}active{/if}"><a href="{path='search/index'}"><i class="fa fa-lg fa-search visible-xs"></i>Search</a></li>
+            <li class="hidden-md hidden-lg hidden-xl {if segment_1 == "search"}active{/if}"><a href="{path='search/index'}"><i class="fa fa-lg fa-search visible-xs"></i>Search</a></li>
            {!-- This is were login/logout is located if not mobile --}
-            {!--stash:nocache--}
-            {if logged_in}<li {if "{exp:stash:get name='segment_2' type='global'}" == "profile" AND segment_3 == ""}class="active"{/if}><a href="{site_url}account/profile"><span class="visible-xs"><i class="fa fa-lg fa-user"></i><br></span>Profile</a></li>{/if}
+            {stash:nocache}
+            {if logged_in}<li {if segment_2 == "profile" AND segment_3 == ""}class="active"{/if}><a href="{site_url}account/profile"><span class="visible-xs"><i class="fa fa-lg fa-user"></i><br></span>Profile</a></li>{/if}
             <li style="padding-left: 5px;">{if logged_out}<div><a id="login-link" href="{path='account/login'}" class="btn navbar-btn btn-default hidden-xs" data-toggle="modal" data-target="#loginModal">LOGIN</a></div>{/if} {if logged_in}<span class="hidden-xs" id="fix"><a class="btn navbar-btn btn-danger" href="{exp:freemember:logout_url}">LOGOUT</a></span>{/if}
             </li>
             {/stash:nocache}
@@ -620,4 +584,3 @@
     </div>
     </div>
     {embed="main/_member_modal"}
-{/exp:stash:set}

@@ -1,0 +1,15 @@
+<form action="/search/results" method="get">
+  <div class="container-fluid">
+	<div class="row">
+	  <div class="col-xs-10" style="padding-left: 0;">
+		<div class="form-group">
+		  <input type="text" pattern="^[a-z A-Z 0-9~%&.:_\\-]{3,}$" title="Have at least 3 characters.
+		  Allowed characters: a-z A-Z 0-9 ~ % & . : _ \ -" name="q" id="keywords" value="" placeholder="Search RJI" class="form-control" required>
+		</div>
+	  </div>
+	  <div class="col-xs-1">
+		<button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
+	  </div>
+	</div>
+  </div>
+</form>

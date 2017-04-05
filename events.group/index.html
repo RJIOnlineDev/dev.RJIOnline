@@ -8,7 +8,6 @@
 {html_head}
 
 	<title>Events | RJI</title>
-
 	{head_content}
 {html_head_end}
 <body>
@@ -187,6 +186,7 @@
 			var story_obj = JSON.parse($('script[type="application/ld+json"]').text());
 			var story_id_parts = story_obj.mainEntityOfPage["@id"].split('/');
 			var story_id = story_id_parts.length ? story_id_parts[story_id_parts.length - 1] : '';
+
 			return {
 				name: story_id,
 				title: jQuery('meta[property="og:title"]').attr('content').replace(' | RJI', ''),
@@ -194,10 +194,12 @@
 				categories: $('#categories > a').map(function(i,e) { return $(e).text(); }).get()
 			};
 		}
+
 		function youneeq_display(response, tags) {
 			if (response && response.suggest && response.suggest.node) {
 				var stories = response.suggest.node, story_num = stories.length,
 					$box = jQuery(this.box), $row = jQuery('.row', this.box);
+
 				for (var i = 0; i < story_num; i++) {
 					if (i && !(i % 3)) {
 						var new_row = jQuery('<div class="row"></div>');
@@ -212,6 +214,7 @@
 						'date': stories[i].date ? youneeq_date_format(stories[i].date) : '',
 						'cat': stories[i].categories && stories[i].categories.length ? stories[i].categories[0] : '',
 					};
+
 					$row.append(
 						'<div id="yq-article-' + s.id + '" class="yq-article col-sm-4 col-xs-12" data-yq-id="' + s.id +
 						'" data-yq-title="' + s.title + '" data-yq-url="' + s.url + '"><div class="thumbnail card"><a href="' +
@@ -223,10 +226,12 @@
 				}
 			}
 		}
+
 		function youneeq_date_format(iso_string) {
 			var months = ['January', 'February', 'March', 'April', 'May', 'June',
 						  'July', 'August', 'September', 'October', 'November', 'December'],
 				d = new Date(iso_string);
+
 			return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
 		}
 	</script>
@@ -550,7 +555,7 @@
 			</div>
 			<div id="youneeq" class="card-bg container-fluid" data-yq-suggest-count="3"
 				data-yq-display-function="youneeq_display" data-yq-suggest-date-start="2011-01-01T00:00:00.000Z" data-yq-suggest-panel-custom="id|title|url|image|categories|date">
-				<a href="#" class="recommended-modal"><img src="http://api.youneeq.ca/Content/images/powered-by-y.gif" /></a>
+				<a href="#" class="recommended-modal"><img src="https://api.youneeq.ca/Content/images/powered-by-y.gif" /></a>
 				<div class="row"></div>
 			</div>
 

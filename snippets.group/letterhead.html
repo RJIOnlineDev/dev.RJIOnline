@@ -1,0 +1,84 @@
+{!-- #header not visible on tablets and above. Has social media, RJI full logo and name and search bar on laptop and up --}
+<div id="header" class="hidden-xs">
+
+    <div class="container-fluid">
+    {!-- <div class="row">
+    <div class="col-sm-10 col-sm-offset-1"> --}
+       {!-- Top row has links to MU MU Journalism and social media icons --}
+        <div id="member-info" class="row">
+        	<div class="col-sm-7">
+            <a href="/"><img id="logo-img" width="515" height="95" src="{site_url}images/uploads/RJI-logo-horz.png" class="img-responsive" style="max-width: 901px; max-height: 158px;"></a>
+           	{!--<img id="logo-img" width="515" height="95" src="{site_url}images/uploads/RJI-logo-horz.png" usemap="#logo-map" class="img-responsive" style="max-width: 901px; max-height: 158px;">
+            <map name="logo-map">
+            	<area shape="rect" coords="0,0,515,69" href="{site_url}" alt="home">
+                <area shape="rect" coords="200,70,380,95" href="https://journalism.missouri.edu" target="_blank" alt="journalism">
+                <area shape="rect" coords="380,70,515,95" href="http://missouri.edu" target="_blank" alt="mizzou">
+            </map>--}
+            </div>
+            <div class="col-sm-5">
+            	<div class="row">
+               {!-- should be important to note that social media list items use CSS background-image property to display icons --}
+            	<ul id="socialMedia">
+                    {!--<a class="pull-right" target="_blank" href="https://plus.google.com/111709737662107424167/stories"><li id="GooglePlus"></li></a>
+                    <a class="pull-right" target="_blank" href="http://twitter.com/rji"><li id="Twitter"></li></a>
+                    <a class="pull-right" target="_blank" href="http://www.facebook.com/pages/Reynolds-Journalism-Institute/31750273164"><li id="Facebook"></li></a>
+                    <a class="pull-right" target="_blank" href="http://www.youtube.com/user/reynoldsjournalism"><li id="YouTube"></li></a>
+                    <a class="pull-right" target="_blank" href="http://www.linkedin.com/company/1300742"><li id="LinkedIn"></li></a>--}
+                </ul>
+                <ul id="socialMedia">
+                	    <li class="pull-right"><a target="_blank" href="https://twitter.com/rji"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x fa-inverse"></i><i class="fa fa-twitter fa-stack-1x"></i></span></a></li>
+                        <li class="pull-right"><a target="_blank" href="https://www.facebook.com/pages/Reynolds-Journalism-Institute/31750273164"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x fa-inverse"></i><i class="fa fa-facebook fa-stack-1x"></i></span></a></li>
+                        <li class="pull-right"><a target="_blank" href="https://www.youtube.com/user/reynoldsjournalism"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x fa-inverse"></i><i class="fa fa-youtube fa-stack-1x"></i></span></a></li>
+                        <li class="pull-right"><a target="_blank" href="https://www.linkedin.com/company/1300742"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x fa-inverse"></i><i class="fa fa-linkedin fa-stack-1x"></i></span></a></li>
+                        <li class="pull-right"><a href="/newsletters"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x fa-inverse"></i><i class="fa fa-envelope-o fa-stack-1x"></i></span></a></li>
+
+                </ul>
+                </div>
+                <div class="row">
+                <div id="search" class="hidden-sm hidden-xs pull-right">{!--google_search_box--}
+                {!-- exp:search:simple_form
+                	channel="stories|research|events|pages|series"
+                    results_page="search/results"
+                    search_in="everywhere"
+                    no_result_page="search/no-results"
+                    form_class="form-inline"
+                    status="open|featured|feedless"
+                    where="word"
+                    results="10"
+                --}
+                {stash:nocache}
+                {!--exp:low_search:form
+					result_page="https://www.rjionline.org/search/results"
+                    form_class="form-inline"
+				--}
+                <form action="/search/results" method="get" class="form-inline">
+                	<div class="form-group">
+
+                        <input type="text" pattern="^[a-z A-Z 0-9~%&.:_\\-]{3,}$" title="Have at least 3 characters
+                        Allowed characters: a-z A-Z 0-9            ~ % & . : _ \ -" name="q" id="keywords" value="" placeholder="Search RJI" class="form-control" required>
+
+                        <!--input id="keywords" type="text" maxlength="100" name="keywords" placeholder="Search RJI" class="form-control" required-->
+                    </div>
+                    <button type="submit" class="btn btn-info"><span class="fa fa-search"></span></button>
+                 </form>
+                 {!--/exp:low_search:form--}
+                 {/stash:nocache}
+                {!-- /exp:search:simple_form --}
+                </div>
+                </div>
+            </div>
+        </div>
+
+       {!-- Second row has RJI logo/full name and search bar (on laptop and larger)
+        <div id="rji-search" class="row">
+        	<div class="col-sm-12 col-md-9">
+
+            </div>
+
+        </div>--}
+
+    {!-- </div>
+    </div> --}
+	</div>
+
+</div> {!-- ends #header --}

@@ -1,7 +1,7 @@
 @charset "UTF-8";
-/* CSS Document ================================================== 
+/* CSS Document ==================================================
 	RJI Online - Styling - Nick Cappo / Lamar Henderson / Kean Mattingly
-	Update: 160405 lah
+	Update: 170223 lah
 
 	Sections:
 	0. General
@@ -117,7 +117,7 @@ em.required {
 
 
 /*  1.) Header ===================================================
-	Header displayed above the nav bar. 
+	Header displayed above the nav bar.
 	Is not visible on mobile.
     --------------------------------------------------------------
 */
@@ -186,7 +186,7 @@ div.gsc-selected-option-container { padding-right: 5.5em; }
 
 
 
-/* Header > Social Media 
+/* Header > Social Media
    ---------------------------------------------------------------
  */
 #socialMedia {
@@ -215,7 +215,7 @@ div.gsc-selected-option-container { padding-right: 5.5em; }
 
 
 
-/* 2.) Navbar ==================================================== 
+/* 2.) Navbar ====================================================
 	Responsive navbar that collapses at xs.
 	Includes login modal.
     --------------------------------------------------------------
@@ -233,7 +233,7 @@ div.gsc-selected-option-container { padding-right: 5.5em; }
 	z-index: 100;
 }
 .xs-top{
-	margin-top: 30px;	
+	margin-top: 30px;
 }
 .shadow {
 	box-shadow: 0 4px 4px -2px #232323;
@@ -287,7 +287,7 @@ div.gsc-selected-option-container { padding-right: 5.5em; }
 	background-color: #006983;
 }
 #loginModal > .modal-dialog > .modal-content > .modal-header > .modal-title > .nav-pills > li:not(.active) > a {
-	color: #006983;	
+	color: #006983;
 }
 #nav-wrapper{
 	height: 50px;
@@ -306,13 +306,17 @@ div.gsc-selected-option-container { padding-right: 5.5em; }
 	background: url('/images/uploads/rjiicon01.png') bottom;
 	text-indent: -99999px;
 	margin-top: 5px;
-	margin-left: 13px; /*This should only have an effect on mobile, 
-						this is to help balance it out asthetically, 
-						on non-mobile, bootstrap should kick in 
+	margin-left: 13px; /*This should only have an effect on mobile,
+						this is to help balance it out asthetically,
+						on non-mobile, bootstrap should kick in
 						(which has also been altered to balance things aesthetically) */
 }
 .rjiicon01:hover {
 	background-position: 0 0;
+}
+
+.list-unstyled {
+	padding-left: 1em;
 }
 @media (max-width: 767px){
   .navbar-collapse > ul.navbar-nav > li {
@@ -348,15 +352,15 @@ li.yamm-fw.open > a.dropdown-toggle {
 .yamm-content > .row-fluid > .col-sm-10 { background-color: #fff; padding-top: 10px; padding-bottom: 1em; }
 .yamm-fw > .dropdown-menu { background-color: /*#CCE1E6*/#E0EDF0; }
 
-   
-/* Gives the navbar the simple pulse effect when a tab is active */ 
+
+/* Gives the navbar the simple pulse effect when a tab is active */
 
 .dropdown-toggle:focus {
 	border-radius: 0;
 	animation: navbar_pulse 4s linear infinite;
 	-webkit-animation: navbar_pulse 4s linear infinite;
 }
- 
+
 @keyframes navbar_pulse {
     0% {
         color: #1f8599;
@@ -381,13 +385,16 @@ li.yamm-fw.open > a.dropdown-toggle {
     }
 }
 
+.open> #resources-menu.dropdown-menu {
+	display: inline-block;
+	position: relative;
+}
 
 
 
 
 
-
-/* 3. Main Section =============================================== 
+/* 3. Main Section ===============================================
 	Main section (left of sidebar) that holds the majority of content.
 	Makes use of media queries for mobile and desktop.
     --------------------------------------------------------------
@@ -406,10 +413,10 @@ li.yamm-fw.open > a.dropdown-toggle {
 	}
 }
 #page-header-img {
-	padding-bottom: 20%; 
-	width: 100%; 
-	margin-bottom: 2em; 
-	background-size: cover; 
+	padding-bottom: 20%;
+	width: 100%;
+	margin-bottom: 2em;
+	background-size: cover;
 	background-position: 0px 0px;
 }
 #comment_button {
@@ -439,7 +446,7 @@ ul.pagination > li {
 #recent-posts > .pager {
 	margin-bottom: 0;
 }
-figure { 
+figure {
 	/*padding: 0 0 20px 0; */
 	max-width: 100%;
 }
@@ -451,12 +458,12 @@ figure {
 	margin-right: 10px;
 	margin-left: 0px;
 }
-/*#news_listing > figure > img { 
-	max-width: 100%; 
+/*#news_listing > figure > img {
+	max-width: 100%;
 }*/
 figcaption,
-.user-info { 
-	color: #777; 
+.user-info {
+	color: #777;
 }
 div#carousel > ol.carousel-indicators {
 	bottom: 0;
@@ -618,7 +625,7 @@ figcaption{
 #signature {
 	border-radius: 0;
 	padding: 0;
-	margin-top: 1em; 
+	margin-top: 1em;
 	/*max-height: 100px;*/
 	/*background-color: rgba(0, 39, 59, 0.05);*/
 }
@@ -646,13 +653,30 @@ figcaption{
 	margin-top: -15px;
 }
 
+/* Facebook Live responsive embed
+*/
+
+.facebook-responsive {
+    overflow:hidden;
+    padding-bottom:56.25%;
+    position:relative;
+    height:0;
+}
+
+.facebook-responsive iframe {
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+}
 
 /* Main Section > Non-phone view
    ---------------------------------------------------------------
    ---------------------------------------------------------------
  */
 @media (min-width : 767px){
-	/* Main Section > Non-phone view > Featured 
+	/* Main Section > Non-phone view > Featured
 	   (Featured posts on homepage)
 	   ---------------------------------------------------------------
 	*/
@@ -682,7 +706,7 @@ figcaption{
 		border: none;
 	}
 	/*#thumbnails > div > .thumbnail > .caption*/
-	
+
 	#thumbnails .thumbnail .caption {
 		/*position: relative;
 		background-color: white;
@@ -702,7 +726,7 @@ figcaption{
 		margin-top: 10px;
 	}*/
 	.content {
-		display: inline-block;	
+		display: inline-block;
 	}
 	#carousel {
 		margin-bottom: 2em;
@@ -756,12 +780,12 @@ figcaption{
 
 
 
-/* Main Section > Phone view 
-   (make card style) 
+/* Main Section > Phone view
+   (make card style)
    ---------------------------------------------------------------
 */
 @media (max-width : 767px){
-	.card-bg { 
+	.card-bg {
 		background: #d5d5d5;
 		margin: 0 -15px 0 -15px;
 		padding-top: 1.5rem;
@@ -818,7 +842,7 @@ figcaption{
 		padding-right: 1rem;
 		margin-top: 0;
 	}
-	ul.pager > li > a { 
+	ul.pager > li > a {
 		/*box-shadow: 0px 1px 2px #aaa;
 		-moz-box-shadow: 0px 1px 2px #aaa;
 		-webkit-box-shadow: 0px 1px 2px #aaa;*/
@@ -868,7 +892,7 @@ figcaption{
 
 
 
-/* 4. Events ===================================================== 
+/* 4. Events =====================================================
 	Events page padding
     --------------------------------------------------------------
 */
@@ -907,7 +931,7 @@ figcaption{
 
 
 
-/* 5. Comments =================================================== 
+/* 5. Comments ===================================================
 	Small changes to media lists for comments.
 	Keep avatar image at descent size.
     --------------------------------------------------------------
@@ -919,7 +943,7 @@ figcaption{
 	max-width: 45px;
 }
 h4.media-heading > small{
-	line-height:200%;	
+	line-height:200%;
 }
 #disqus_thread { margin-top: 1em; }
 
@@ -932,7 +956,7 @@ h4.media-heading > small{
 
 
 
-/* 6. Footer ===================================================== 
+/* 6. Footer =====================================================
 	Footer at bottom of each page.
 	#footer is the top footer with links and contact info.
 	>Only contact info is visible on mobile.
@@ -943,10 +967,11 @@ h4.media-heading > small{
 	background-color: #006983;
 }
 #footer > .container {
-	padding: 3em 0em 1em;	
+	padding: 3em 0em 1em;
 }
 #footer2{
 	background-color: #006983;
+	padding-bottom: 1em;
 }
 .footer-menu > li > a{
 	color: #ffffff;
@@ -961,8 +986,9 @@ h4.media-heading > small{
 	font-size: 13px;
 	letter-spacing: 1px;
 	font-weight: 800;
+	padding-bottom: 0.5em;
 }
-#footer-message{
+#footer-message, #sponsors{
 	color: white;
 	font-size: 0.857em;
 	line-height: 1em;
@@ -971,10 +997,10 @@ h4.media-heading > small{
 	color: #a1d2de
 }
 #footer-message > p > a{
-	color: white;	
+	color: white;
 }
-#contact > p, #contact > address{
-	color: #a1d2de;	
+#contact > p, #contact > address {
+	color: #a1d2de;
 }
 /*#contact {
 	background-image: url("{site_url}/images/uploads/background-rji-footer-block.png");
@@ -982,10 +1008,10 @@ h4.media-heading > small{
 	background-position: 2em top;
 }*/
 /*#contact > address {
-	padding-top: 13.5em;	
+	padding-top: 13.5em;
 }*/
 #contact > address > a {
-	color: white;	
+	color: white;
 }
 #contact > h1 {
 	color: white;
@@ -1000,8 +1026,52 @@ h4.media-heading > small{
 }
 }
 #footer > .container > .row-fluid {
-	max-width: 100%;	
+	max-width: 100%;
 }
+
+#sponsors {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+#sponsors-inner {
+	border-bottom: 2px solid #00a9e0;
+	display: inline-block;
+	margin: 0 1em;
+}
+
+.sponsors-left {
+	display: block;
+	float: left;
+	padding: 1em 1em 1em 0;
+	max-width: 50%;
+}
+
+.sponsors-right {
+	display: block;
+	float: left;
+	padding: 1em 0 1em 1em;
+	max-width: 50%;
+}
+
+.sponsors-left img,
+.sponsors-right img {
+	max-width: 75%;
+	margin: 0px auto 0px auto;
+}
+
+#j-school {
+	display: inline-block;
+	margin: 0 1em;
+	padding: 1em 0px 0px 0px;
+	width: 100%;
+}
+
+#j-school div img {
+	margin: 0px auto 0px auto;
+	max-width: 50%;
+}
+
 /*@media (max-width : 767px){
 #footer > .container > .row > #contact > address{
 	padding-left: 10em;
@@ -1052,7 +1122,7 @@ h4.media-heading > small{
 #sidebar > ul.nav > li:hover > a{
 	color: #000;
 }
-/* !---- Keep space around sidebar ----! 
+/* !---- Keep space around sidebar ----!
 #main-section > .row > #sidebar {
 	padding-left: 0;
 	padding-right: 0;
@@ -1126,9 +1196,9 @@ div#tags > a:last-child {
    ---------------------------------------------------------------
 */
 @media (min-width : 767px){
-/*.vid-embed > iframe { 
-	max-width: 100%; 
-	max-height: 500px; 
+/*.vid-embed > iframe {
+	max-width: 100%;
+	max-height: 500px;
 }*/
 .focus { background-size: 100% auto; }
 }
@@ -1136,7 +1206,7 @@ div#tags > a:last-child {
 	margin: 0 -15px 2em -15px;
 	display: block;
 }
-.about-block-text{ 
+.about-block-text{
 	padding-left: 15px;
 	padding-right: 15px;
 }
@@ -1161,9 +1231,9 @@ div#tags > a:last-child {
    ---------------------------------------------------------------
 */
 @media (max-width: 767px){
-/*.vid-embed > iframe { 
-	max-width: 100%; 
-	max-height: 300px; 
+/*.vid-embed > iframe {
+	max-width: 100%;
+	max-height: 300px;
 }*/
 .focus { background-size: auto 100%; }
 }
@@ -1179,12 +1249,12 @@ div#tags > a:last-child {
 	background-image: url(https://www.rjionline.org/sites/default/files/images/buildingfront.jpg);
 }
 
-dt:before { 
-  display: block; 
-  content: " "; 
-  margin-top: -55px; 
-  height: 55px; 
-  visibility: hidden; 
+dt:before {
+  display: block;
+  content: " ";
+  margin-top: -55px;
+  height: 55px;
+  visibility: hidden;
 }
 #recent-posts:before {
 	display: block;
@@ -1255,10 +1325,10 @@ dt:before {
 	padding: 0;
 }
 #user-banner {
-	padding-bottom: 300px; 
-	width: 100%; 
-	margin-bottom: 2em; 
-	background-size: cover; 
+	padding-bottom: 300px;
+	width: 100%;
+	margin-bottom: 2em;
+	background-size: cover;
 	background-position: 50% 0px;
 }
 @media (max-width: 768px){
@@ -1358,4 +1428,47 @@ dt:before {
 }
 .gallery-caption {
 	background-color: rgba(200,200,200,.3);
+}
+
+
+
+/* 12. Resources Landing Page ================================================
+	Landing page for resources created for mobile view
+    --------------------------------------------------------------
+*/
+
+/*pushes wrapper to the bottom of the page*/
+#footer-wrapper {
+	/*margin-top: 100%;*/
+	position: absolute;
+	top: 100%;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+#resources-list {
+    position: relative;
+		height: 100%;
+		width: 100%;
+    left: 15px;
+		margin-top: 20px;
+		margin-bottom: 20px;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+body {
+    overflow-x: hidden;
+		overflow-y: scroll;
+    margin: 0;
+    position: absolute;
+    min-height: 100%;
+    height: auto;
+		width: 100%;
 }

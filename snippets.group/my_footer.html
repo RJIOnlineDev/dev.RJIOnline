@@ -1,0 +1,99 @@
+{!-- Footer as found on bottom of every page --}
+
+{exp:calendar:events calendar_id="100" event_limit="5" date_range_start="today" show_months="12" pad_short_weeks="n" sticky="no" dynamic="off" enable="custom_fields" cache="yes" refresh="1500"}
+{!-- if it is a live event and going on right now, then create a bottom banner to announce --}
+{if (is_live_streamed == "Yes") AND ({event_start_date format='%U'} < {current_time format="%U"}-18000) AND ({event_end_date format="%U"} > {current_time format="%U"}-18000)}
+<div>Event Start Date: {event_start_date format='%U'}</div>
+<div>Event End Date: {event_end_date format='%U'}</div>
+<div>Current Time: {current_time format='%U'}</div>
+<div class="alert alert-info text-center" style="position:fixed; bottom:0; width:100%; margin: 0;padding: 10px 50px;z-index: 100;">
+  <strong>{title}</strong> is live streaming now!
+  {if event_schedule}<br><a class="btn btn-default" href="{post_path}#schedule">View Schedule</a>{/if}
+  <a class="btn btn-default" href="{path='live/index'}">Watch Stream</a>
+</div>
+
+{/if}
+{/exp:calendar:events}
+
+{!-- #footer is the top of the two footers that displays RJI info and contact information
+           Breaks up each section into 4 columns using Bootstrap components the final column, contact information being the only one visible on mobile --}
+<div id="footer" class="nocontent">
+	<div class="container">
+        <div class="row-fluid"> {!-- more on .row and .container in main/index template --}
+		{!--if {ress} > 767--}
+  		<div id="programs" class="footer-menu col-sm-3 hidden-xs">
+       	  <a href="{site_url}about/associates"><p class="list-group-item-heading">Associates</p></a>
+            <ul class="footer-menu list-unstyled"> {!-- .list-unstyled so there aren't any ul dots --}
+				<li class="hanging-indent"><a href="/asne-reynolds-high-school-journalism-institute" title="ASNE Reynolds High School Journalism Institute">ASNE Reynolds High School Journalism Institute</a></li>
+				{!--<li><a href="http://cdig.missouri.edu/" title="Go to the Center for the Digital Globe">Center for the Digital Globe</a></li>--}
+				<li class="hanging-indent"><a href="http://www.columbiamissourian.com/" title="">Columbia Missourian</a></li>
+				{!--<li><a href="/ccj" title="Go to the Committee of Concerned Journalists">Committee of Concerned Journalists</a></li>--}
+				{!--<li><a href="/digital-publishing-alliance" title="Go to the Digital Publishing Alliance">Digital Publishing Alliance</a></li>--}
+				{!--<li><a href="/global-journalist" title="Go to the Global Journalist">Global Journalist</a></li>--}
+				<li class="hanging-indent"><a href="/jdna" title="">Journalism Digital News Archive</a></li>
+				{!--<li><a href="http://www.kbia.org/" title="KBIA-FM">KBIA-FM</a></li>--}
+			  	{!--<li><a href="http://www.komu.com/home/" title="KOMU-TV">KOMU-TV</a></li>--}
+				{!--<li><a href="/institute-for-advertising-ethics" title="Go to the Institute for Advertising Ethics">Institute for Advertising Ethics</a></li>--}
+				<li class="hanging-indent"><a href="https://journalism.missouri.edu/department/endowed-chairs/" title="">University of Missouri School of Journalism Endowed Chairs</a></li>
+				<li class="hanging-indent"><a href="http://www.nfoic.org/" title="Go to the National Freedom of Information Coalition">National Freedom of Information Coalition</a></li>
+				<li class="hanging-indent"><a href="http://www.poyi.org/" title="Go to Pictures of the Year International">Pictures of the Year International</a></li>
+			</ul>
+        </div>
+		<div id="resources" class="footer-menu col-sm-3 hidden-xs">
+   		  <a href="{site_url}about/resources"><p class="list-group-item-heading">Resources</p></a>
+   		  <ul class="footer-menu list-unstyled">
+			  <li class="hanging-indent"><a href="http://accountablejournalism.org">Accountable Journalism</a></li>
+			  <li class="hanging-indent"><a href="/facilities" title="Go to the Conference &amp; Event Facilities">Conference &amp; Event Facilities</a></li>
+			  <li class="hanging-indent"><a href="/frank-lee-martin-journalism-library" title="The Frank Lee Martin Journalism Library">Frank Lee Martin Journalism Library</a></li>
+			  <li class="hanging-indent"><a href="/futures-lab" title="Futures Lab">Futures Lab</a></li>
+			  <li class="hanging-indent"><a href="https://ilab.rjionline.org">iLab 3-D database</a></li>
+			  {!--<li><a href="/documents/references/codes-of-ethics" title="International Codes of Ethics">International Codes of Ethics</a></li>--}
+			  <li class="hanging-indent"><a href="/microsoft-lab" title="Microsoft Application Development Lab">Microsoft Application Development Lab</a></li>
+			  {!--<li><a href="/documents/references/press-councils" title="Press Counciles">Press Councils</a></li>--}
+			  <li class="hanging-indent"><a href="/stories/powerful-tools-for-smart-pricing-decisions" title="Pricing Optimizer">Pricing Optimizer</a></li>
+			  <li class="hanging-indent"><a href="http://reportingonclimateadaptation.org/">Reporting on Climate Adaptation</a></li>
+			  <li class="hanging-indent"><a href="/stories/do-you-really-know-where-to-invest-cut" title="Resource Allocator">Resource Allocator</a><li>
+			  <li class="hanging-indent"><a href="/fellowships" title="">Reynolds Fellowships</a></li>
+			  <li class="hanging-indent"><a href="https://potter.rjionline.org/">Walter B. Potter Sr. Conferences</a></li>
+			</ul>
+       	</div>
+		<div id="partners" class="footer-menu col-sm-3 hidden-xs">
+   		  <a href="{site_url}about/partners"><p class="list-group-item-heading">Partners</p></a>
+   		  <ul class="footer-menu list-unstyled">
+			  <li><a href="http://www.adobe.com/" title="Go to Adobe" target="_blank">Adobe</a></li>
+			  <li><a href="http://www.apple.com/about/" title="Go to Apple" target="_blank">Apple</a></li>
+			  <li><a href="https://www.att.com/" title="Go to AT&amp;T" target="_blank">AT&amp;T</a></li>
+			  <li><a href="https://www.google.com/about/" title="Go to Google" target="_blank">Google</a></li>
+			  <li><a href="http://www.hearst.com/" title="Go to the Hearst Corporation" target="_blank">Hearst Corporation</a></li>
+			  <li><a href="http://mediashift.org/" title="Go to Mediashift" target="_blank">Mediashift</a></li>
+			  <li><a href="http://www.morris.com/" title="Go to Morris Communications" target="_blank">Morris Communications</a></li>
+			  <li><a href="http://www.washingtonpost.com/" title="Go to Washington Post" target="_blank">Washington Post</a></li>
+			  <li></li>
+			  <li><a href="{path='about/partners'}" title="">See all...</a></li>
+			</ul>
+    	</div>
+		{!--/if--}
+        <div id="contact" class="col-sm-3 col-xs-12">
+				<img class="img-responsive" src="{site_url}images/uploads/RJI-stacked-white-with-MU.png" style="max-width: 300px;">
+				<address>Donald W. Reynolds<br>
+					Journalism Institute<br>
+					Administrative Offices, Suite 300<br>
+					Columbia, MO 65211<br>
+					Phone: <a href="tel:+1-573-884-9121">573-884-9121</a><br>
+					Fax: 573-884-3824<br>
+					<a href="mailto:rji@rjionline.org">rji@rjionline.org</a>
+                </address>
+  		</div>
+   		</div>
+	</div>
+</div>
+
+{!-- #footer2 has copyright and disclaimer rights below #footer --}
+<div id="footer2" class="">
+	<div class="container">
+		<div id="footer-message">
+			<p>Copyright © 2017 - Curators of the <a href="http://missouri.edu/">University of Missouri</a>. All rights reserved.</p>
+			<p><a href="http://missouri.edu/dmca/">DMCA</a> and other <a href="http://missouri.edu/copyright.php">copyright information</a>. An <a href="http://missouri.edu/eeo-aa.php">equal opportunity/affirmative action</a> institution. <a href="/privacy-policy">Privacy Policy</a>. <a href="/terms-service">Terms of Service</a>.</p>
+		</div>
+	</div>
+</div>

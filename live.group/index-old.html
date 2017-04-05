@@ -1,0 +1,181 @@
+{!--- Live Stream
+	The event live stream is now a template so that we can use the custome tracking software
+	*See template main/index for more template details; only details on this specific template will be documented --}
+
+{html_head}
+	<title>
+	RJI Live Stream
+	</title>
+	{head_content}
+
+	<script type="application/ld+json">
+	{
+	  "@context": "http://schema.org",
+	  "@type": "BreadcrumbList",
+	  "itemListElement": [{
+			"@type": "ListItem",
+			"position": 1,
+			"item": {
+			  "@id": "{site_url}",
+			  "name": "Home"
+			}
+		  },{
+			"@type": "ListItem",
+			"position": 2,
+			"item": {
+			  "@id": "{path='live_test/index'}",
+			  "name": "Live"
+			}
+		  }]
+	}
+	</script>
+{html_head_end}
+<body>
+{embed="main/_navbar"}
+
+<ol class="breadcrumb">
+	<li><a href="{site_url}">Home</a></li>
+	<li class="active">Live</li>
+</ol>
+
+<div id="main-section" class="container">
+<div class="row">
+
+	<div class="col-md-8 col-sm-12">
+
+	<h1>RJI live</h1>
+
+
+		{if logged_in}
+
+			{!--
+				Custome RJI module that tracks people who specifically are viewing the live stream.
+				Use the control panel to see the tracked information.
+
+				[NOTE] Ways around this include: bookmarking the mobile view link, going directly to https://www.rjionline.org/stream/streamtest-1.swf
+				[NOTE] If we switch to YouTube live streaming, this would only track views from the website, not the YouTube page.
+			--}
+			{exp:live_stream_viewers:track group_id="5|6"}
+
+
+			{!--
+				JS used to run the live stream
+				Creates a flash player that streams through a file on the server
+			--}
+			<script type="text/javascript">
+				if (screen.width <= 699) {
+				  document.location = "http://128.206.14.199/hls-live/livepkgr/_definst_/liveevent/livestream.m3u8";
+				}
+			</script>
+
+			<script type="text/javascript">
+			AC_FL_RunContent = 0;
+			</script>
+
+			<script src="{site_url}global_embeds/AC_RunActiveContent.js"></script>
+
+			<p>The RJI Live video viewer will be available when an event is streaming.</p>
+
+			<script type="text/javascript">
+			  if (AC_FL_RunContent == 0) {
+				alert("This page requires AC_RunActiveContent.js.");
+			  } else {
+				AC_FL_RunContent(
+				  'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0',
+				  'width', '640',
+				  'height', '360',
+				  'src', '{site_url}stream/streamtest-1',
+				  'quality', 'high',
+				  'pluginspage', 'https://www.macromedia.com/go/getflashplayer',
+				  'align', 'middle',
+				  'play', 'true',
+				  'loop', 'true',
+				  'scale', 'showall',
+				  'wmode', 'window',
+				  'devicefont', 'false',
+				  'id', 'streamtest-1',
+				  'bgcolor', '#ffffff',
+				  'name', 'streamtest-1',
+				  'menu', 'true',
+				  'allowFullScreen', 'false',
+				  'allowScriptAccess','sameDomain',
+				  'movie', '{site_url}stream/streamtest-1',
+				  'salign', ''
+				); //end AC code
+			  }
+			</script>
+
+			<noscript>
+				<object align="middle" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="https://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" height="360" id="streamtest-1" width="640">
+				  <param name="allowScriptAccess" value="sameDomain" />
+				  <param name="allowFullScreen" value="false" />
+				  <param name="movie" value="https://www.rjionline.org/stream/streamtest-1.swf" />
+				  <param name="quality" value="high" />
+				  <param name="bgcolor" value="#ffffff" />
+				  <embed align="middle" allowfullscreen="false" allowscriptaccess="sameDomain" bgcolor="#ffffff" height="360" name="streamtest-1" pluginspage="https://www.macromedia.com/go/getflashplayer" quality="high" src="{site_url}stream/streamtest-1.swf" type="application/x-shockwave-flash" width="640" />
+				</object>
+			</noscript>
+
+			{!--<a href="http://128.206.14.199/hls-live/livepkgr/_definst_/liveevent/livestream.m3u8" class="btn btn-default btn-lg">Tap here to view live video on your Apple iOS or Android OS mobile device</a>--}
+
+         {!--<h3>2016 RJI Tech Showcase</h3>
+
+         <p>Join the conversation using #rjitech on Twitter or the chatbox on this page.</p> 
+
+         <h4>Schedule</h4>
+
+         <p>The event is 9 a.m. to 4:30 p.m. CDT on Tuesday, May 3. <a href="/events/rjitech16#schedule">See the full schedule here.</a></p>--}
+
+         <!--
+         <p>Join the conversation using <a href="https://twitter.com/hashtag/RJIcollab">#RJICollab</a> on Twitter or post in the chat box to the right of the livestream window.</p>
+
+         <h4><span style="width: 6em; display: inline-block; float: left; margin-bottom: 0.5em;">8:00 a.m.</span><span>Immersive Storytelling</span></h4>
+
+         <p style="clear: left; padding-left: 7.25em;">Nicholas Whitaker, media outreach manager, The News Lab at Google</p>
+
+-->
+        {if:else}
+
+			<div class="alert alert-danger">
+				<h4 class="panel-title">Login Required</h4>
+				<p>Viewing the live stream now requires you to have an activated account on RJI Online.</p>
+
+				<script>
+					// Opens the member modal and shows the login form
+					function open_sign_in(){
+						$('#loginModal').modal('show');
+						$('a[href=#login]').tab('show');
+					}
+
+					// Opens the member modal and shows the register form
+					function open_register(){
+						$('#loginModal').modal('show');
+						$('a[href=#register]').tab('show');
+					}
+				</script>
+
+				{!-- Will either open the member modal as described in the scripts above, or will go to the login/register account temeplates --}
+				<p>Need to create an account? <a href="{path='account/register'}" onClick="open_register();return false;" class="alert-link" title="Register">Register</a>.</p>
+				<p>Already have an account? <a href="{path='account/login'}" onClick="open_sign_in();return false;" class="alert-link" title="Login">Login</a>.</p>
+				<p>Having problems logging in or registering an account? Contact the <a href="mailto:hendersonl@rjionline.org" class="alert-link">website administrator</a>.</p>
+			</div>
+
+    	{/if}
+
+    </div>
+
+    <div id="sidebar" class="col-md-4 hidden-sm hidden-xs">
+    <!-- Insert Scribblelive code here -->
+    {!--<div class="scrbbl-embed" data-src="/event/2046731"></div>
+<script>(function(d, s, id) {var js,ijs=d.getElementsByTagName(s)[0];if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="//embed.scribblelive.com/widgets/embed.js";ijs.parentNode.insertBefore(js, ijs);}(document, 'script', 'scrbbl-js'));</script>
+    <p>Click the word balloon icon above to comment directly in the comment box, or use the Twitter hashtag below.</p>
+    <h2><a href="https://twitter.com/hashtag/rjitech" target="_blank">#rjitech</a></h2>--}
+
+{embed="main/_sidebar" recent="YES" events="YES" related="NO" categories="YES" tags="YES" section="stories"}
+
+    </div>
+
+</div>
+</div>
+
+{page_end}
