@@ -361,7 +361,7 @@
                 </ul>
             </li>
             {!--<li class="dropdown yamm-fw{stash:nocache}{if segment_1 == "downloads"} active{/if}{/stash:nocache}">--}
-            {stash:nocache}<li id="resources-menu" class="dropdown yamm-fw {if "{exp:stash:get name='segment_1' type='global'}" == "downloads"}active{/if}">{/stash:nocache}
+            {stash:nocache}<li class="dropdown yamm-fw {if "{exp:stash:get name='segment_1' type='global'}" == "downloads"}active{/if}">{/stash:nocache}
             	<a href="/downloads" class="visible-xs-inline-block {stash:nocache}{if segment_1 == 'downloads'}active{/if}{/stash:nocache}"><i class="visible-xs fa fa-lg fa-file-text"></i>Downloads</a>
             	<a href="/downloads" class="dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">Downloads  <b class="caret"></b></a>
             	<ul class="dropdown-menu">
@@ -497,9 +497,10 @@
                                 	<ul class="list-unstyled text-right">
                                     {stash:nocache}
                                     	<li class="{if "{exp:stash:get name='segment_1' type='global'}" == 'fellowships'}active{/if}"><a href="{path='fellowships/index'}"><h4>Fellows</h4></a></li>
-                                        <li class="{if "{exp:stash:get name='segment_1' type='global'}" == 'research'}active{/if}"><a href="{path='research/index'}"><h4>Research</h4></a></li>
-                                        <li class="{if "{exp:stash:get name='segment_1' type='global'}" == 'projects'}active{/if}"><a href="{path='projects/index'}"><h4>Projects</h4></a></li>
-                                        <li class="{if "{exp:stash:get name='segment_2' type='global'}" == 'downloads'}active{/if}"><a href="{path='downloads/index'}"><h4>Downloads</h4></a></li>
+                                      <li class="{if "{exp:stash:get name='segment_1' type='global'}" == 'research'}active{/if}"><a href="{path='research/index'}"><h4>Research</h4></a></li>
+                                      <li class="{if "{exp:stash:get name='segment_1' type='global'}" == 'projects'}active{/if}"><a href="{path='projects/index'}"><h4>Projects</h4></a></li>
+                                      <li class="{if "{exp:stash:get name='segment_1' type='global'}" == 'downloads'}active{/if}"><a href="{path='downloads/index'}"><h4>Downloads</h4></a></li>
+																			<li class="{if "{exp:stash:get name='segment_1' type='global'}" == 'resources'}active{/if}"><a href="{path='resources/index'}"><h4>Resources</h4></a></li>
                                     {/stash:nocache}
                                     </ul>
                                 </div>
